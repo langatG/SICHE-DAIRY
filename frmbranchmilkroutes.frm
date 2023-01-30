@@ -1,0 +1,1187 @@
+VERSION 5.00
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
+Begin VB.Form frmbranchmilkroutes 
+   Caption         =   "Route Milk Balancing "
+   ClientHeight    =   6495
+   ClientLeft      =   120
+   ClientTop       =   465
+   ClientWidth     =   8415
+   LinkTopic       =   "Form1"
+   ScaleHeight     =   6495
+   ScaleWidth      =   8415
+   StartUpPosition =   3  'Windows Default
+   Begin VB.CommandButton cmddetail 
+      Caption         =   "Detail Report"
+      Height          =   495
+      Left            =   3720
+      TabIndex        =   30
+      Top             =   2760
+      Width           =   1335
+   End
+   Begin VB.CommandButton cmdallreport 
+      Caption         =   "Combine Report"
+      Height          =   495
+      Left            =   5160
+      TabIndex        =   29
+      Top             =   2760
+      Width           =   1575
+   End
+   Begin VB.CommandButton cmdreports 
+      Caption         =   "Morning/Evenning Report"
+      Height          =   495
+      Left            =   1440
+      TabIndex        =   28
+      Top             =   2760
+      Width           =   2175
+   End
+   Begin VB.ComboBox cbolocation 
+      Height          =   315
+      ItemData        =   "frmbranchmilkroutes.frx":0000
+      Left            =   4800
+      List            =   "frmbranchmilkroutes.frx":0002
+      TabIndex        =   15
+      Top             =   360
+      Width           =   1815
+   End
+   Begin VB.CheckBox chprint 
+      Caption         =   "Use LPT1 Printer"
+      BeginProperty Font 
+         Name            =   "Sylfaen"
+         Size            =   11.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   405
+      Left            =   4920
+      TabIndex        =   14
+      Top             =   1680
+      Width           =   3255
+   End
+   Begin VB.CheckBox chkPrint 
+      Appearance      =   0  'Flat
+      BackColor       =   &H00FFFFC0&
+      Caption         =   "Print Receipt"
+      ForeColor       =   &H80000008&
+      Height          =   405
+      Left            =   0
+      TabIndex        =   13
+      Top             =   1800
+      Width           =   2295
+   End
+   Begin VB.TextBox txtQnty 
+      Appearance      =   0  'Flat
+      BeginProperty Font 
+         Name            =   "Sylfaen"
+         Size            =   12
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   450
+      Left            =   2400
+      TabIndex        =   12
+      Top             =   600
+      Width           =   1095
+   End
+   Begin VB.CommandButton cmdReceive 
+      Appearance      =   0  'Flat
+      Caption         =   "Receive"
+      Default         =   -1  'True
+      Height          =   525
+      Left            =   240
+      TabIndex        =   11
+      ToolTipText     =   "Click to receive the milk"
+      Top             =   2760
+      Width           =   1095
+   End
+   Begin VB.ComboBox ports 
+      BeginProperty Font 
+         Name            =   "Sylfaen"
+         Size            =   11.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   405
+      ItemData        =   "frmbranchmilkroutes.frx":0004
+      Left            =   4440
+      List            =   "frmbranchmilkroutes.frx":0014
+      TabIndex        =   10
+      Text            =   "\\127.0.0.1\E-PoS 80mm Thermal Printer "
+      Top             =   2160
+      Width           =   3735
+   End
+   Begin VB.CommandButton cmdclose 
+      Caption         =   "Close"
+      Height          =   495
+      Left            =   7560
+      TabIndex        =   9
+      Top             =   2760
+      Width           =   735
+   End
+   Begin VB.CommandButton cmdreport 
+      Caption         =   "Branch Report"
+      Height          =   495
+      Left            =   11400
+      TabIndex        =   8
+      Top             =   720
+      Visible         =   0   'False
+      Width           =   1215
+   End
+   Begin VB.CommandButton cmdnewbra 
+      Caption         =   "New Branch"
+      Height          =   495
+      Left            =   9240
+      TabIndex        =   5
+      Top             =   2760
+      Visible         =   0   'False
+      Width           =   1215
+   End
+   Begin VB.ComboBox cbovb 
+      Height          =   315
+      Left            =   4440
+      TabIndex        =   4
+      Top             =   1200
+      Width           =   1935
+   End
+   Begin VB.CommandButton cmdvhreport 
+      Caption         =   "Vehicle Report"
+      Height          =   495
+      Left            =   10320
+      TabIndex        =   3
+      Top             =   2160
+      Visible         =   0   'False
+      Width           =   1335
+   End
+   Begin VB.ComboBox cbointaketype 
+      Height          =   315
+      ItemData        =   "frmbranchmilkroutes.frx":0030
+      Left            =   6480
+      List            =   "frmbranchmilkroutes.frx":003A
+      TabIndex        =   2
+      Top             =   1200
+      Width           =   1695
+   End
+   Begin VB.CommandButton cmdmorneve 
+      Caption         =   "Morning/Evening Reports"
+      Height          =   495
+      Left            =   12720
+      TabIndex        =   1
+      Top             =   720
+      Visible         =   0   'False
+      Width           =   1455
+   End
+   Begin VB.CommandButton cmdbeveningmor 
+      Caption         =   "All Branch Report"
+      Height          =   495
+      Left            =   9600
+      TabIndex        =   0
+      Top             =   2160
+      Visible         =   0   'False
+      Width           =   1455
+   End
+   Begin MSComctlLib.ListView ListView3 
+      Height          =   2535
+      Left            =   120
+      TabIndex        =   6
+      Top             =   3600
+      Width           =   8175
+      _ExtentX        =   14420
+      _ExtentY        =   4471
+      View            =   3
+      MultiSelect     =   -1  'True
+      LabelWrap       =   -1  'True
+      HideSelection   =   -1  'True
+      AllowReorder    =   -1  'True
+      Checkboxes      =   -1  'True
+      FullRowSelect   =   -1  'True
+      GridLines       =   -1  'True
+      HotTracking     =   -1  'True
+      HoverSelection  =   -1  'True
+      _Version        =   393217
+      ForeColor       =   -2147483640
+      BackColor       =   65280
+      BorderStyle     =   1
+      Appearance      =   1
+      NumItems        =   5
+      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         Text            =   "Branch"
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   1
+         Text            =   "Quantity"
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   2
+         Text            =   "Actual"
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   3
+         Text            =   "Varriance"
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   4
+         Text            =   "Collector"
+         Object.Width           =   2540
+      EndProperty
+   End
+   Begin MSComctlLib.StatusBar StatusBar1 
+      Align           =   2  'Align Bottom
+      Height          =   255
+      Left            =   0
+      TabIndex        =   16
+      Top             =   6240
+      Width           =   8415
+      _ExtentX        =   14843
+      _ExtentY        =   450
+      _Version        =   393216
+      BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
+         NumPanels       =   5
+         BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Bevel           =   2
+            Object.Width           =   7937
+            MinWidth        =   7937
+            Text            =   "USER : Birgen Gideon K."
+            TextSave        =   "USER : Birgen Gideon K."
+            Object.ToolTipText     =   "EASYMA User"
+         EndProperty
+         BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Object.Width           =   5292
+            MinWidth        =   5292
+            Picture         =   "frmbranchmilkroutes.frx":0050
+            Text            =   "DATE : 07/12/2009"
+            TextSave        =   "DATE : 07/12/2009"
+            Object.ToolTipText     =   "Today's Date"
+         EndProperty
+         BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Style           =   5
+            Object.Width           =   1764
+            MinWidth        =   1764
+            TextSave        =   "09:55 PM"
+         EndProperty
+         BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Style           =   1
+            Enabled         =   0   'False
+            Object.Width           =   1764
+            MinWidth        =   1764
+            TextSave        =   "CAPS"
+         EndProperty
+         BeginProperty Panel5 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Style           =   2
+            Enabled         =   0   'False
+            TextSave        =   "NUM"
+         EndProperty
+      EndProperty
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+   End
+   Begin MSComDlg.CommonDialog cdgPrint 
+      Left            =   5160
+      Top             =   1680
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _Version        =   393216
+      FileName        =   "c:\receipt.txt"
+   End
+   Begin MSComCtl2.DTPicker DTPMilkDate 
+      Height          =   375
+      Left            =   6720
+      TabIndex        =   17
+      Top             =   360
+      Width           =   1455
+      _ExtentX        =   2566
+      _ExtentY        =   661
+      _Version        =   393216
+      MouseIcon       =   "frmbranchmilkroutes.frx":01E4
+      CalendarBackColor=   8454016
+      Format          =   121634817
+      CurrentDate     =   40095
+   End
+   Begin VB.Frame Frame2 
+      BackColor       =   &H00FFFFC0&
+      Caption         =   "Today's collection"
+      Height          =   2895
+      Left            =   0
+      TabIndex        =   7
+      Top             =   3360
+      Width           =   8415
+   End
+   Begin VB.Label lblDTotalb 
+      AutoSize        =   -1  'True
+      BackColor       =   &H00004040&
+      Caption         =   "0"
+      BeginProperty DataFormat 
+         Type            =   1
+         Format          =   "#,##0.00;(#,##0.00)"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   1033
+         SubFormatType   =   1
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   21.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   525
+      Left            =   2400
+      TabIndex        =   27
+      Top             =   0
+      Width           =   375
+   End
+   Begin VB.Label Label1 
+      BackColor       =   &H00FFFFC0&
+      Caption         =   "Branch Intake(kgs)"
+      BeginProperty Font 
+         Name            =   "Sylfaen"
+         Size            =   14.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Index           =   0
+      Left            =   0
+      TabIndex        =   26
+      Top             =   0
+      Width           =   2295
+   End
+   Begin VB.Label Label2 
+      BackColor       =   &H00FFFFC0&
+      Caption         =   "Actual (Kgs)"
+      BeginProperty Font 
+         Name            =   "Sylfaen"
+         Size            =   14.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   495
+      Left            =   0
+      TabIndex        =   25
+      Top             =   600
+      Width           =   2295
+   End
+   Begin VB.Label Label4 
+      BackColor       =   &H00FFFFC0&
+      Caption         =   "Milk Date:"
+      BeginProperty Font 
+         Name            =   "Sylfaen"
+         Size            =   14.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   6720
+      TabIndex        =   24
+      Top             =   0
+      Width           =   1455
+   End
+   Begin VB.Label Label5 
+      BackColor       =   &H00FFFFC0&
+      Caption         =   "Today's Total (Kgs)"
+      BeginProperty Font 
+         Name            =   "Sylfaen"
+         Size            =   14.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   495
+      Left            =   0
+      TabIndex        =   23
+      Top             =   1200
+      Width           =   2415
+   End
+   Begin VB.Label lblDTotal 
+      AutoSize        =   -1  'True
+      BackColor       =   &H00004040&
+      Caption         =   "0"
+      BeginProperty DataFormat 
+         Type            =   1
+         Format          =   "#,##0.00;(#,##0.00)"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   1033
+         SubFormatType   =   1
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   21.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   525
+      Left            =   2400
+      TabIndex        =   22
+      Top             =   1080
+      Width           =   270
+   End
+   Begin VB.Label Label1 
+      BackColor       =   &H00FFFFC0&
+      Caption         =   "Branch Name:"
+      BeginProperty Font 
+         Name            =   "Sylfaen"
+         Size            =   14.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Index           =   1
+      Left            =   4800
+      TabIndex        =   21
+      Top             =   0
+      Width           =   1815
+   End
+   Begin VB.Label Label1 
+      BackColor       =   &H00FFFFC0&
+      Caption         =   "Collector:"
+      BeginProperty Font 
+         Name            =   "Sylfaen"
+         Size            =   14.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Index           =   2
+      Left            =   4560
+      TabIndex        =   20
+      Top             =   840
+      Width           =   1815
+   End
+   Begin VB.Label Label1 
+      BackColor       =   &H00FFFFC0&
+      Caption         =   "Intake Type:"
+      BeginProperty Font 
+         Name            =   "Sylfaen"
+         Size            =   14.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Index           =   3
+      Left            =   6480
+      TabIndex        =   19
+      Top             =   840
+      Width           =   1575
+   End
+   Begin VB.Label Label3 
+      AutoSize        =   -1  'True
+      BackColor       =   &H00FFC0FF&
+      Caption         =   "0"
+      BeginProperty DataFormat 
+         Type            =   1
+         Format          =   "#,##0.00;(#,##0.00)"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   1033
+         SubFormatType   =   1
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   18
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   435
+      Left            =   3720
+      TabIndex        =   18
+      Top             =   0
+      Width           =   225
+   End
+End
+Attribute VB_Name = "frmbranchmilkroutes"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Explicit
+Dim Rs1 As New ADODB.Recordset, rs2 As New ADODB.Recordset, rs3 As New ADODB.Recordset
+Dim rs4 As New ADODB.Recordset, CummulKgs As Double, TRANSPORTER As String
+Dim Transport As Currency, agrovet As Currency, AI As Currency, TMShares As Currency, FSA As Currency, HShares As Currency, Advance As Currency, Others As Currency
+
+Private Sub cbointaketype_Change()
+lblDTotalb = 0
+cbolocation_Change
+DTPMilkDate_Change
+End Sub
+Private Sub cbointaketype_Click()
+cbolocation_Change
+DTPMilkDate_Change
+End Sub
+
+Private Sub cbolocation_Change()
+
+If cbointaketype = "" Then
+ MsgBox "Please select if its for morning or evening", vbInformation
+ cbointaketype.SetFocus
+Exit Sub
+End If
+
+'If cbovb = "" Then
+' MsgBox "Please select the Collector Name", vbInformation
+' cbovb.SetFocus
+'Exit Sub
+'End If
+
+Dim chec As Integer
+ If cbointaketype = "Morning" Then
+  chec = 1
+ Else
+  chec = 0
+ End If
+    lblDTotalb = 0
+    sql = "d_sp_DailyTotal44 '" & DTPMilkDate & "','" & cbolocation & "','" & chec & "','" & cbovb & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If Not rs.EOF Then
+    If Not IsNull(rs.Fields(0)) Then lblDTotalb.Caption = rs.Fields(0)
+    Else
+    lblDTotalb.Caption = "0"
+    End If
+    
+    Label3 = "0"
+    sql = "d_sp_DailyTotal3 '" & DTPMilkDate & "','" & cbolocation & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If Not rs.EOF Then
+    If Not IsNull(rs.Fields(0)) Then Label3.Caption = rs.Fields(0)
+    Else
+    Label3.Caption = "0"
+    End If
+
+End Sub
+
+Private Sub cbolocation_Click()
+If cbointaketype = "" Then
+ MsgBox "Please select if its for morning or evening", vbInformation
+ cbointaketype.SetFocus
+Exit Sub
+End If
+
+If cbovb = "" Then
+ MsgBox "Please select the Collector Name", vbInformation
+ cbovb.SetFocus
+Exit Sub
+End If
+
+Dim chec As Integer
+ If cbointaketype = "Morning" Then
+  chec = 1
+ Else
+  chec = 0
+ End If
+    lblDTotalb = 0
+    sql = "d_sp_DailyTotal44 '" & DTPMilkDate & "','" & cbolocation & "','" & chec & "','" & cbovb & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If Not rs.EOF Then
+    If Not IsNull(rs.Fields(0)) Then lblDTotalb.Caption = rs.Fields(0)
+    Else
+    lblDTotalb.Caption = "0"
+    End If
+    
+    Label3 = 0
+    sql = "d_sp_DailyTotal3 '" & DTPMilkDate & "','" & cbolocation & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If Not rs.EOF Then
+    If Not IsNull(rs.Fields(0)) Then Label3.Caption = rs.Fields(0)
+    Else
+    Label3.Caption = "0"
+    End If
+'    lblDTotalb = 0
+'    sql = "d_sp_DailyTotal3 '" & DTPMilkDate & "','" & cbolocation & "'"
+'    Set rs = oSaccoMaster.GetRecordset(sql)
+'    If Not rs.EOF Then
+'    If Not IsNull(rs.Fields(0)) Then lblDTotalb.Caption = rs.Fields(0)
+'    Else
+'    lblDTotalb.Caption = "0"
+'    End If
+End Sub
+Private Sub Text1_GotFocus()
+
+End Sub
+
+Private Sub cbovb_Change()
+lblDTotalb = 0
+loadMilk
+End Sub
+Private Sub cbovb_Click()
+lblDTotalb = 0
+loadMilk
+End Sub
+
+Private Sub chprint_Click()
+ports.Clear
+ports = ""
+'//If the drivers are installed it won't matter whether the Port is indicated
+' or not it will just work.
+
+If chprint.value = vbChecked Then
+ports.AddItem "LPT1"
+ports = "LPT1"
+ports.AddItem "LPT2"
+ports.AddItem "LPT3"
+ports.AddItem "LPT4"
+ports.AddItem "LPT5"
+Else
+'Share the printer first the use of 127.0.0.1 which is
+'standard IP address for a loopback network connection
+'instead of getting the computer name or IP Address
+'
+Dim prnPrinter As Printer
+Dim pr As String
+ports.Clear
+
+For Each prnPrinter In Printers
+   If InStr(prnPrinter.DeviceName, "\\") Then
+    ports.AddItem prnPrinter.DeviceName
+    If InStr(prnPrinter.DeviceName, "G") Then
+    ports.Text = prnPrinter.DeviceName
+    End If
+    Else
+    ports.AddItem "\\127.0.0.1\" & prnPrinter.DeviceName
+    If InStr(prnPrinter.DeviceName, "G") Then
+    ports.Text = "\\127.0.0.1\" & prnPrinter.DeviceName
+    End If
+    End If
+   
+   
+Next
+End If
+End Sub
+
+Private Sub cmdallreport_Click()
+reportname = "Route Collectors combine.rpt"
+Show_Sales_Crystal_Report "", reportname, ""
+End Sub
+
+Private Sub cmdbeveningmor_Click()
+Dim ans As String
+ans = MsgBox("Do you Want a combine Morning Report?", vbYesNo)
+If ans = vbYes Then
+ reportname = "d_BranchInvoice5.rpt"
+Else
+reportname = "d_BranchInvoice6.rpt"
+End If
+Show_Sales_Crystal_Report "", reportname, ""
+End Sub
+
+Private Sub cmdclose_Click()
+Unload Me
+End Sub
+
+Private Sub cmddetail_Click()
+reportname = "Route detail Collectors combine.rpt"
+Show_Sales_Crystal_Report "", reportname, ""
+End Sub
+
+Private Sub cmdmorneve_Click()
+Dim ans As String
+ans = MsgBox("Do you Want a Morning Report?", vbYesNo)
+If ans = vbYes Then
+ reportname = "d_BranchInvoice3.rpt"
+Else
+reportname = "d_BranchInvoice4.rpt"
+End If
+Show_Sales_Crystal_Report "", reportname, ""
+End Sub
+
+Private Sub cmdnewbra_Click()
+frmBranch.Show vbModal
+End Sub
+
+Private Sub cmdReceive_Click()
+On Error GoTo ErrorHandler
+Dim Price As Currency
+Dim Startdate, CummulKgs, TRANSPORTER As String
+Dim transdate As Date, anss As String
+'check the user
+ sql = "SELECT     UserLoginIDs, UserGroup, SUPERUSER,status From UserAccounts where UserLoginIDs='" & User & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If Not rs.EOF Then
+    If rs!SuperUser <> 1 Then
+    MsgBox "You are not allowed to make complaint", vbInformation
+     
+    Exit Sub
+   End If
+     End If
+
+If cbovb = "" Then
+   MsgBox "PLEASE SELECT THE VEHICLE."
+    cbovb.SetFocus
+   Exit Sub
+ End If
+
+
+If Trim(cbolocation) = "" Then
+    MsgBox "PLEASE SELECT THE STATION."
+        cbolocation.SetFocus
+    Exit Sub
+End If
+If Trim(txtQnty) = "" Then
+    MsgBox "Please enter the quantity supplied From the Branch."
+    txtQnty.SetFocus
+Exit Sub
+End If
+
+If Not IsNumeric(txtQnty) Then
+MsgBox "Please enter a number. " & txtQnty & " is not a number", vbExclamation
+txtQnty.SetFocus
+Exit Sub
+End If
+
+
+If Trim(cbointaketype) = "" Then
+    MsgBox "PLEASE SELECT IF MORNING OR EVENING INTAKE."
+        cbointaketype.SetFocus
+    Exit Sub
+End If
+
+Dim chec As Integer
+ If cbointaketype = "Morning" Then
+  chec = 1
+ Else
+  chec = 0
+ End If
+Startdate = DateSerial(Year(DTPMilkDate), month(DTPMilkDate), 1)
+Enddate = DateSerial(Year(DTPMilkDate), month(DTPMilkDate) + 1, 1 - 1)
+If cbointaketype = "Morning" Then
+    sql = ""
+    sql = "set dateformat dmy SELECT * From d_MilkBranchRouteCollectors where Branch ='" & cbolocation & "' and Date ='" & DTPMilkDate & "' and RouteCol='" & cbovb & "' and Morning='" & chec & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If rs.EOF Then
+    sql = ""
+    sql = "set dateformat dmy INSERT INTO d_MilkBranchRouteCollectors"
+    sql = sql & " (Branch, Quantity, Date, Actual, Variance,auditdatetime,RouteCol,Morning)"
+    sql = sql & " VALUES ('" & cbolocation & "','" & lblDTotalb & "','" & DTPMilkDate & "'," & txtQnty & ",'" & txtQnty.Text - lblDTotalb & "','" & Now & "','" & cbovb & "','" & chec & "')"
+    oSaccoMaster.Execute (sql)
+    Else
+    sql = ""
+    sql = "SET dateformat DMY Update  d_MilkBranchRouteCollectors SET Quantity='" & lblDTotalb & "', Actual='" & rs.Fields(3) + txtQnty & "',Variance='" & (rs.Fields(3) + txtQnty) - lblDTotalb & "' WHERE Branch ='" & cbolocation & "' AND Date ='" & DTPMilkDate & "'and RouteCol='" & cbovb & "' and Morning='" & chec & "'"
+    oSaccoMaster.Execute (sql)
+    End If
+Else
+    sql = ""
+    sql = "set dateformat dmy SELECT * From d_MilkBranchRouteCollectors where Branch ='" & cbolocation & "' and Date ='" & DTPMilkDate & "' and RouteCol='" & cbovb & "' and Morning='" & chec & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If rs.EOF Then
+    sql = ""
+    sql = "set dateformat dmy INSERT INTO d_MilkBranchRouteCollectors"
+    sql = sql & " (Branch, Quantity, Date, Actual, Variance,auditdatetime,RouteCol,Morning)"
+    sql = sql & " VALUES ('" & cbolocation & "','" & lblDTotalb & "','" & DTPMilkDate & "'," & txtQnty & ",'" & txtQnty.Text - lblDTotalb & "','" & Now & "','" & cbovb & "','" & chec & "')"
+    oSaccoMaster.Execute (sql)
+    Else
+    sql = ""
+    sql = "SET dateformat DMY Update  d_MilkBranchRouteCollectors SET Quantity='" & lblDTotalb & "', Actual='" & rs.Fields(3) + txtQnty & "',Variance='" & (rs.Fields(3) + txtQnty) - lblDTotalb & "' WHERE Branch ='" & cbolocation & "' AND Date ='" & DTPMilkDate & "'and RouteCol='" & cbovb & "' and Morning='" & chec & "'"
+    oSaccoMaster.Execute (sql)
+    End If
+End If
+
+listmilk
+
+'//Print Receipt
+    If chkPrint = vbChecked Then
+    
+'/*Print out
+ Dim fso, chkPrinter, txtFile
+    Dim ttt
+     Dim escFeedAndCut As String
+     Dim escNewLine As String
+     Dim escUnerLineON As String
+     Dim escUnerLineOnX2 As String
+     Dim escUnerLineOff As String
+     Dim escBoldOn As String
+     Dim escBoldOff As String
+     Dim escNegativeOn As String
+     Dim escNegativeOff As String
+     Dim esc8CpiOn As String
+     Dim esc8CPiOff As String
+     Dim esc16Cpi As String
+     Dim esc20Cpi As String
+     Dim escAlignLeft As String
+     Dim escAlignCenter As String
+     Dim escAlignRight As String
+    
+     
+        escNewLine = Chr(10) '//New Line (LF Line Feed)
+        escUnerLineON = Chr(27) + Chr(45) + Chr(1) '//Unerline on
+        escUnerLineOnX2 = Chr(27) + Chr(45) + Chr(1) '//Unerline on X2
+        escUnerLineOff = Chr(27) + Chr(45) + Chr(0) '//unerline off
+        escBoldOn = Chr(27) + Chr(69) + Chr(1) '//Bold on
+        escBoldOff = Chr(27) + Chr(69) + Chr(0) '//Bold off
+        escNegativeOn = Chr(29) + Chr(66) + Chr(1) '//White on Black on
+        escNegativeOff = Chr(29) + Chr(66) + Chr(0) '//white on
+        esc8CpiOn = Chr(29) + Chr(33) + Chr(16) '//Font Size X2 on
+        esc8CPiOff = Chr(29) + Chr(33) + Chr(0) '//Font size X2 off
+        esc16Cpi = Chr(27) + Chr(77) + Chr(48) '//Font A - Normal Size
+        esc20Cpi = Chr(27) + Chr(77) + Chr(49) '//Font B - Small Font
+        escAlignLeft = Chr(27) + Chr(97) + Chr(48) '//Align text to the left
+        escAlignCenter = Chr(27) + Chr(97) + Chr(49) '//Align text to the center
+        escAlignRight = Chr(27) + Chr(97) + Chr(50) '//Align text to the right
+        escFeedAndCut = Chr(29) + Chr(86) + Chr(65) '//Partial cut and feed
+       'cdgPrint.Filter = "*.csv|*.txt"
+        'cdgPrint.ShowSave
+        ttt = "\\127.0.0.1\E-PoS 80mm Thermal Printer" 'LPT1
+        'ttt = "D:\PROJECTS\FOSA\DAILY" & Date & ""
+        Set fso = CreateObject("Scripting.FileSystemObject")
+        'Set chkPrinter = fso.GetFile(ttt)
+       
+        
+        Set txtFile = fso.CreateTextFile(ttt, True)
+    txtFile.WriteLine "      " & cname & ""
+    txtFile.WriteLine "             Milk Receipt for the Branch"
+    txtFile.WriteLine "---------------------------------------"
+        
+    Set rs2 = New ADODB.Recordset
+    sql = "d_sp_ReceiptNumber"
+    Set rs2 = oSaccoMaster.GetRecordset(sql)
+    
+    Dim RNumber As String
+    'RNumber = rs2.Fields(0)
+    If Not IsNull(rs2.Fields(0)) Then RNumber = rs2.Fields(0)
+    'Else
+    'RNumber = "0"
+    'End If
+    
+    'txtFile.WriteLine "SNo :" & txtSNo
+    txtFile.WriteLine "Name :" & cbolocation
+    txtFile.WriteLine "Quantity Supplied :" & txtQnty & " Kgs"
+    'txtFile.WriteLine "Price" & Price & " Per Kgs"
+    Set rs = New ADODB.Recordset
+    sql = "d_sp_TotalMonth " & cbolocation & ",'" & Startdate & "','" & DTPMilkDate & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If Not rs.EOF Then
+    If Not IsNull(rs.Fields(0)) Then CummulKgs = rs.Fields(0)
+    Else
+    CummulKgs = "0.00"
+    End If
+    txtFile.WriteLine "Cummulative This Month : " & Format(CummulKgs, "#,##0.00" & " Kgs")
+
+    txtFile.WriteLine "---------------------------------------"
+    txtFile.WriteLine "Receipt Number :" & RNumber
+  '  txtFile.WriteLine "TRANSPORTER :" & TRANSPORTER
+    txtFile.WriteLine "Received by :" & username
+    txtFile.WriteLine "---------------------------------------"
+    txtFile.WriteLine "  Date :" & Format(DTPMilkDate, "dd/mm/yyyy") & " ,Time : " & Format(Time, "hh:mm:ss AM/PM")
+    txtFile.WriteLine "       " & motto & ""
+    txtFile.WriteLine "---------------------------------------"
+'    If chkComment.value = vbChecked Then
+'        txtFile.WriteLine txtComment
+'        txtFile.WriteLine "---------------------------------------"
+'    End If
+    txtFile.WriteLine escFeedAndCut
+    
+ txtFile.Close
+ Reset
+End If
+
+
+loadMilk
+
+'txtSNo = ""
+txtQnty = ""
+'cbovb = ""
+'txtSNo_Validate True
+txtQnty.SetFocus
+Exit Sub
+ErrorHandler:
+
+MsgBox err.description
+
+End Sub
+Public Sub listmilk()
+'/// to list view//////////
+sql = ""
+sql = "set dateformat dmy SELECT Branch, Quantity,Actual, Variance,RouteCol From d_MilkBranchRouteCollectors where Date ='" & DTPMilkDate & "'"
+'sql = "set dateformat dmy SELECT d.DCode, d.DName, m.DispQnty,m.DispDate FROM  d_Debtors AS d INNER JOIN d_MilkControl AS m ON d.DCode = m.dcode WHERE     (DispDate = '" & DTPDispatchDate & "') and status=0"
+Set rs = oSaccoMaster.GetRecordset(sql)
+If rs.EOF Then
+Exit Sub
+End If
+ListView3.ListItems.Clear
+While Not rs.EOF
+If Not IsNull(rs.Fields(0)) Then
+Set li = ListView3.ListItems.Add(, , rs.Fields(0))
+End If
+                    If Not IsNull(rs.Fields(1)) Then li.SubItems(1) = rs.Fields(1) & ""
+                    If Not IsNull(rs.Fields(2)) Then li.SubItems(2) = rs.Fields(2) & ""
+                    If Not IsNull(rs.Fields(3)) Then li.SubItems(3) = rs.Fields(3) & ""
+                    If Not IsNull(rs.Fields(4)) Then li.SubItems(4) = rs.Fields(4) & ""
+'                    If Not IsNull(rs.Fields(5)) Then li.SubItems(5) = rs.Fields(5) & ""
+rs.MoveNext
+
+Wend
+
+'////// end of view
+End Sub
+
+Public Sub loadMilk()
+
+    lblDTotal.Caption = "0"
+'   lbltoday.Caption = "0"
+    Set rs = New ADODB.Recordset
+    sql = "d_sp_DailyTotal '" & DTPMilkDate & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If Not rs.EOF Then
+    If Not IsNull(rs.Fields(0)) Then lblDTotal.Caption = rs.Fields(0)
+    Else
+    lblDTotal.Caption = "0"
+'    lbltoday.Caption = "0"
+    End If
+    
+    Dim chec As Integer
+    If cbointaketype = "Morning" Then
+     chec = 1
+    Else
+     chec = 0
+    End If
+    Set rs = New ADODB.Recordset
+    sql = "d_sp_DailyTotal44 '" & DTPMilkDate & "','" & cbolocation & "','" & chec & "','" & cbovb & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If Not rs.EOF Then
+    If Not IsNull(rs.Fields(0)) Then lblDTotalb.Caption = rs.Fields(0)
+    Else
+    lblDTotalb.Caption = "0"
+    End If
+    
+    Label3 = 0
+    sql = "d_sp_DailyTotal3 '" & DTPMilkDate & "','" & cbolocation & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
+    If Not rs.EOF Then
+    If Not IsNull(rs.Fields(0)) Then Label3.Caption = rs.Fields(0)
+    Else
+    Label3.Caption = "0"
+    End If
+   
+   
+    rs.Close
+    
+    Set rs = Nothing
+    '/// to list view//////////
+    ListView3.ListItems.Clear
+sql = ""
+sql = "set dateformat dmy SELECT Branch, Quantity,Actual, Variance,RouteCol From d_MilkBranchRouteCollectors where Date ='" & DTPMilkDate & "'"
+'sql = "set dateformat dmy SELECT d.DCode, d.DName, m.DispQnty,m.DispDate FROM  d_Debtors AS d INNER JOIN d_MilkControl AS m ON d.DCode = m.dcode WHERE     (DispDate = '" & DTPDispatchDate & "') and status=0"
+Set rs = oSaccoMaster.GetRecordset(sql)
+If rs.EOF Then
+Exit Sub
+End If
+
+While Not rs.EOF
+If Not IsNull(rs.Fields(0)) Then
+Set li = ListView3.ListItems.Add(, , rs.Fields(0))
+End If
+                    If Not IsNull(rs.Fields(1)) Then li.SubItems(1) = rs.Fields(1) & ""
+                    If Not IsNull(rs.Fields(2)) Then li.SubItems(2) = rs.Fields(2) & ""
+                    If Not IsNull(rs.Fields(3)) Then li.SubItems(3) = rs.Fields(3) & ""
+                    If Not IsNull(rs.Fields(4)) Then li.SubItems(4) = rs.Fields(4) & ""
+rs.MoveNext
+
+Wend
+
+'////// end of view
+    
+
+End Sub
+
+Private Sub cmdreport_Click()
+Dim ans As String
+ans = MsgBox("Do you Want Report per Branch ?", vbYesNo)
+If ans = vbYes Then
+ reportname = "d_BranchInvoice.rpt"
+Else
+reportname = "d_BranchInvoice2.rpt"
+End If
+Show_Sales_Crystal_Report "", reportname, ""
+End Sub
+
+Private Sub cmdreports_Click()
+Dim ans As String
+ans = MsgBox("Do you Want a Morning Report?", vbYesNo)
+If ans = vbYes Then
+ reportname = "Route Collectors.rpt"
+Else
+reportname = "Route Collectors1.rpt"
+End If
+Show_Sales_Crystal_Report "", reportname, ""
+End Sub
+
+Private Sub cmdvhreport_Click()
+reportname = "monthlyvehc.rpt"
+Show_Sales_Crystal_Report "", reportname, ""
+End Sub
+
+Private Sub DTPMilkDate_Change()
+lblDTotalb = 0
+loadMilk
+'listmilk
+NAMES3
+End Sub
+
+Private Sub DTPMilkDate_Click()
+lblDTotalb = 0
+loadMilk
+NAMES3
+End Sub
+
+Private Sub Form_Load()
+
+DTPMilkDate = Format(Get_Server_Date, "dd/mm/yyyy")
+DTPMilkDate.MaxDate = Format(Get_Server_Date, "dd/mm/yyyy")
+'DTPcomplaintperiod1 = DTPMilkDate
+With StatusBar1.Panels
+    .Item(1).Text = "USER : " & username
+    .Item(2).Text = "DATE : " & Format(Get_Server_Date, "dd/mm/yyyy")
+
+End With
+    NAMES3
+    
+    Set rst = New Recordset
+    Dim cn As Connection
+    Set cn = New ADODB.Connection
+    Provider = "MAZIWA"
+    'Provider = cnn
+    cn.Open Provider, "atm", "atm"
+    Set rst = New Recordset
+    
+    sql = "Select Bname from   d_Branch"
+    rst.Open sql, cn, adOpenKeyset, adLockOptimistic
+    While Not rst.EOF
+    cbolocation.AddItem rst.Fields(0)
+    rst.MoveNext
+    Wend
+brnch
+loadMilk
+End Sub
+Private Sub brnch()
+    Set rst = New Recordset
+    Dim cn As Connection
+    Set cn = New ADODB.Connection
+    Provider = "MAZIWA"
+    'Provider = cnn
+    cn.Open Provider, "atm", "atm"
+    Set rst = New Recordset
+    sql = "SET DATEFORMAT DMY Select Branch,Actual,RouteCol from d_MilkBranchRouteCollectors where Date='" & DTPMilkDate & "'"
+    rst.Open sql, cn, adOpenKeyset, adLockOptimistic
+    While Not rst.EOF
+    
+    Dim chec As Integer
+    If cbointaketype <> "" Then
+        If cbointaketype = "Morning" Then
+         chec = 1
+        Else
+         chec = 0
+        End If
+        
+        sql = "d_sp_DailyTotal44 '" & DTPMilkDate & "','" & cbolocation & "','" & chec & "','" & cbovb & "'"
+        Set rs = oSaccoMaster.GetRecordset(sql)
+        If Not rs.EOF Then
+        If Not IsNull(rs.Fields(0)) Then lblDTotalb.Caption = rs.Fields(0)
+        Else
+        lblDTotalb.Caption = "0"
+        End If
+        
+        Label3 = 0
+        sql = "d_sp_DailyTotal3 '" & DTPMilkDate & "','" & cbolocation & "'"
+        Set rs = oSaccoMaster.GetRecordset(sql)
+        If Not rs.EOF Then
+        If Not IsNull(rs.Fields(0)) Then Label3.Caption = rs.Fields(0)
+        Else
+        Label3.Caption = "0"
+        End If
+         
+    sql = ""
+    sql = "SET dateformat DMY Update  d_MilkBranchRouteCollectors SET Quantity='" & lblDTotalb & "',Variance='" & (rst.Fields(1)) - lblDTotalb & "' WHERE Branch ='" & rst.Fields(0) & "' AND Date ='" & DTPMilkDate & "'and RouteCol='" & rst.Fields(2) & "'"
+    oSaccoMaster.Execute (sql)
+ End If
+  rst.MoveNext
+   Wend
+End Sub
+Private Sub NAMES3()
+'Private Sub SSTab1_DblClick()
+    cbovb.Clear
+    Set rst = New Recordset
+    Dim cn As Connection
+    Set cn = New ADODB.Connection
+    Provider = "MAZIWA"
+    'Provider = cnn
+    cn.Open Provider, "atm", "atm"
+    Set rst = New Recordset
+    sql = "Select distinct(RouteCol) from d_Milkintake where RouteCol<>'NULL' order by RouteCol"
+    'sql = "Select distinct(Locations) from   d_Debtors order by Locations"
+    'Select distinct(Locations) from   d_Debtors
+    rst.Open sql, cn, adOpenKeyset, adLockOptimistic
+    While Not rst.EOF
+    cbovb.AddItem rst.Fields(0)
+    rst.MoveNext
+    Wend
+End Sub
+
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+Startdate = DateSerial(Year(DTPMilkDate), month(DTPMilkDate), 1)
+Enddate = DateSerial(Year(DTPMilkDate), month(DTPMilkDate) + 1, 1 - 1)
+MainForm.Caption = "EasyMa "
+End Sub
+
+Private Sub ListView2_BeforeLabelEdit(Cancel As Integer)
+
+End Sub
+
+
+Private Sub txtQnty_Validate(Cancel As Boolean)
+txtQnty = Format(txtQnty, "####0.00")
+End Sub
+
