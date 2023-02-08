@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmJournals 
@@ -26,10 +26,10 @@ Begin VB.Form frmJournals
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
    Begin VB.Frame Frame1 
-      Height          =   1695
+      Height          =   1575
       Left            =   720
       TabIndex        =   42
-      Top             =   1680
+      Top             =   1800
       Width           =   7095
       Begin VB.ComboBox cboJournalType 
          Height          =   330
@@ -76,7 +76,7 @@ Begin VB.Form frmJournals
       Height          =   2730
       Left            =   120
       TabIndex        =   35
-      Top             =   4785
+      Top             =   4665
       Visible         =   0   'False
       Width           =   9255
       _ExtentX        =   16325
@@ -127,6 +127,7 @@ Begin VB.Form frmJournals
       Left            =   180
       TabIndex        =   33
       Top             =   3795
+      Visible         =   0   'False
       Width           =   1770
    End
    Begin RichTextLib.RichTextBox rtpNarration 
@@ -138,7 +139,6 @@ Begin VB.Form frmJournals
       _ExtentX        =   7170
       _ExtentY        =   1535
       _Version        =   393217
-      Enabled         =   -1  'True
       TextRTF         =   $"frmjournals.frx":030A
    End
    Begin VB.ComboBox cboLoanno 
@@ -232,6 +232,7 @@ Begin VB.Form frmJournals
       Left            =   1320
       TabIndex        =   19
       Top             =   7425
+      Visible         =   0   'False
       Width           =   1425
    End
    Begin VB.TextBox txtTotalCr 
@@ -247,7 +248,7 @@ Begin VB.Form frmJournals
          Strikethrough   =   0   'False
       EndProperty
       Height          =   285
-      Left            =   8220
+      Left            =   8280
       TabIndex        =   18
       Text            =   "0"
       Top             =   3525
@@ -460,7 +461,7 @@ Begin VB.Form frmJournals
          Strikethrough   =   0   'False
       EndProperty
       CustomFormat    =   "  dd-MM-yyyy"
-      Format          =   94830593
+      Format          =   122814465
       CurrentDate     =   40336
    End
    Begin VB.Frame Frame5 
@@ -698,12 +699,12 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Dim totalamount As Currency
+Dim Totalamount As Currency
 Dim pushed As Currency
 Dim objLabelEdit As LabelEdit
 Dim interestAcc As String, LoanAcc As String
 Dim k As Integer
-Dim shareBal As Double, Balance As Double
+Dim shareBal As Double, balance As Double
 Dim sharesCode As String, VoucherNo As String
 Dim isMember As Boolean
 Dim memberid As String
@@ -712,9 +713,9 @@ Dim TotalCr As Double, TotalDr As Double
 Dim DRAcc As String, CRAcc As String, ContraAcc As String, paymentno As String
 
 Private Sub cboAccno_Change()
-    Dim AccNo As String
-    AccNo = cboAccno.Text
-    sql = "select GLACCNAME,TYPE,SUBTYPE from glsetup where accno='" & AccNo & "'"
+    Dim ACCNO As String
+    ACCNO = cboAccno.Text
+    sql = "select GLACCNAME,TYPE,SUBTYPE from glsetup where accno='" & ACCNO & "'"
     Set rs = oSaccoMaster.GetRecordset(sql)
     If Not rs.EOF Then
         txtAccNames.Text = rs(0)
@@ -811,7 +812,7 @@ Private Sub cboShareType_Change()
     End If
     Exit Sub
 Capture:
-    ShowErrorMessage err.description
+    ShowErrorMessage err.Description
 End Sub
 
 Private Sub cboShareType_Click()
@@ -839,7 +840,7 @@ Private Sub cmdAcctsSearch_Click()
     End If
 End Sub
 
-Private Sub cmdadd_Click()
+Private Sub cmdAdd_Click()
     On Error GoTo SysError
     If cboAccno.Text = "" Then
         Exit Sub
@@ -858,7 +859,7 @@ Private Sub cmdadd_Click()
 
     Exit Sub
 SysError:
-    MsgBox err.description, vbInformation, Me.Caption
+    MsgBox err.Description, vbInformation, Me.Caption
 End Sub
 
 
@@ -868,7 +869,7 @@ Private Sub cmdbookedreceipts_Click()
     Show_Sales_Crystal_Report STRFORMULA, reportname, title
 End Sub
 
-Private Sub cmdClose_Click()
+Private Sub cmdclose_Click()
     Unload Me
 End Sub
 
@@ -881,7 +882,7 @@ Private Sub cmdNewJournal_Click()
     Form_Load
 End Sub
 
-Private Sub cmdPrint_Click()
+Private Sub cmdprint_Click()
     reportname = "JV2.rpt"
     STRFORMULA = "{journals.vno}='" & txtJournaNo.Text & "'"
     Show_Sales_Crystal_Report STRFORMULA, reportname, CompanyName
@@ -897,7 +898,7 @@ Private Sub cmdRemove_Click()
             " From the list?", vbQuestion + vbYesNo, Me.Caption) = vbNo Then
                 Exit Sub
             End If
-            .ListItems.Remove (.SelectedItem.index)
+            .ListItems.Remove (.SelectedItem.Index)
             Recalculate
 
         End If
@@ -905,7 +906,7 @@ Private Sub cmdRemove_Click()
 
     Exit Sub
 SysError:
-    MsgBox err.description, vbInformation, Me.Caption
+    MsgBox err.Description, vbInformation, Me.Caption
 End Sub
 
 
@@ -939,7 +940,7 @@ Private Sub cmdRemoveu_Click()
     End With
     Exit Sub
 Capture:
-    MsgBox IIf(ErrorMessage = "", err.description, ErrorMessage)
+    MsgBox IIf(ErrorMessage = "", err.Description, ErrorMessage)
 End Sub
 
 Private Sub cmdProcessJournal_Click()
@@ -1026,7 +1027,7 @@ SysError:
             .RollbackTrans
         'End If
         End With
-    MsgBox err.description, vbInformation, Me.Caption
+    MsgBox err.Description, vbInformation, Me.Caption
 End Sub
 Private Function JVnumber()
 Dim jvid
@@ -1074,20 +1075,20 @@ Public Sub getrefno(memberno As String)
         End With
 
 End Sub
-Private Function saveReceipt(ReceiptNo As String, mMemberNo As String, ccode As String, name As String, transdate As Date, amount As Double, chequeno As String, ptype As String) As Boolean
+Private Function saveReceipt(ReceiptNo As String, mMemberNo As String, ccode As String, Name As String, transdate As Date, amount As Double, chequeno As String, ptype As String) As Boolean
     On Error GoTo Capture
             ErrorMessage = ""
             sql = ""
             sql = "set dateformat dmy INSERT INTO ReceiptBooking (ReceiptNo,MemberNo,Ccode,Name,Transdate," _
             & "Amount, Chequeno, ptype, auditid,datedeposited) VALUES ('" & ReceiptNo & "','" & _
-            mMemberNo & "','" & ccode & "','" & name & "','" & transdate & "'," & amount & ",'" & _
+            mMemberNo & "','" & ccode & "','" & Name & "','" & transdate & "'," & amount & ",'" & _
             chequeno & "','" & ptype & "','" & User & "','" & Get_Server_Date & "')"
             oSaccoMaster.ExecuteThis (sql)
             saveReceipt = True
     Exit Function
 Capture:
     saveReceipt = False
-    ErrorMessage = err.description
+    ErrorMessage = err.Description
 End Function
 
 
@@ -1108,14 +1109,14 @@ Private Sub Command3_Click()
     With lvwTrans
         If .ListItems.Count > 0 Then
            pushed = pushed - .SelectedItem.ListSubItems(2)
-            .ListItems.Remove (.SelectedItem.index)
+            .ListItems.Remove (.SelectedItem.Index)
         End If
     End With
 End Sub
 
 Private Sub cmdPostJournal_Click()
     On Error GoTo SysError
-    Dim debitJournal As Boolean, creditJournal As Boolean, index As Integer
+    Dim debitJournal As Boolean, creditJournal As Boolean, Index As Integer
     Dim NormalBal As String, Effect As String, Source() As String
     Dim jvSubAmount As Double
     Dim mValue As Double
@@ -1127,8 +1128,8 @@ Private Sub cmdPostJournal_Click()
 
     Set rst = oSaccoMaster.GetRecordset("select vno from journals where vno='" & txtJournaNo.Text & "'")
     If rst.EOF Then
-        MsgBox "The Above Journal has not been processed", vbCritical
-        Exit Sub
+'        MsgBox "The Above Journal has not been processed", vbCritical
+'        Exit Sub
     End If
 
 '    If currentUser.idno = memberId <> "" And mem Then
@@ -1191,6 +1192,7 @@ moveOn:
     NewTransaction transactionTotal, dtpReceiptDate, "Journal Posting"
 
         With lvwTrans
+        ''ReDim Source(lvwTrans.ListItems.Count)
             If lvwTrans.ListItems.Count > 0 Then
                 ReDim Source(lvwTrans.ListItems.Count)
             End If
@@ -1207,7 +1209,7 @@ moveOn:
                     DRAcc = .ListItems(I).Text
                     jvSubAmount = .ListItems(I).ListSubItems(2)
                     mValue = jvSubAmount
-                    Set rst = oSaccoMaster.GetRecordset("SELECT NORMALBAL,TYPE FROM GLSETUP WHERE ACCNO='" & DRAcc & "'")
+                    Set rst = oSaccoMaster.GetRecordse("SELECT NORMALBAL,TYPE FROM GLSETUP WHERE ACCNO='" & DRAcc & "'")
                     If Not success Then
                         GoTo SysError
                     End If
@@ -1302,13 +1304,13 @@ SysError:
         End If
         saveToGl = True
         End With
-    MsgBox IIf(ErrorMessage = "", err.description, ErrorMessage), vbInformation, Me.Caption
+    MsgBox IIf(ErrorMessage = "", err.Description, ErrorMessage), vbInformation, Me.Caption
 End Sub
-Private Function effectOnMember(mMemberNo As String, AccNo As String, Source As String, Loanno As String, amount As Double, sharesCode As String, Effect As String, Optional transactionNo As String, Optional Remarks As String) As Boolean
+Private Function effectOnMember(mMemberNo As String, ACCNO As String, Source As String, Loanno As String, amount As Double, sharesCode As String, Effect As String, Optional transactionNo As String, Optional Remarks As String) As Boolean
     On Error GoTo Capture
     Dim SomethingDone As Boolean
     SomethingDone = False
-    sql = "SELECT AccNo, GlAccName, NormalBal,subType FROM GLSETUP WHERE (Type = 'MEMBER') and accno ='" & AccNo & "'"
+    sql = "SELECT AccNo, GlAccName, NormalBal,subType FROM GLSETUP WHERE (Type = 'MEMBER') and accno ='" & ACCNO & "'"
     Set rst = oSaccoMaster.GetRecordset(sql)
     With rst
         If Not .EOF Then
@@ -1414,6 +1416,7 @@ End Function
 Private Sub CmdUnpostedJV_Click()
     On Error Resume Next
     lvwUnpostedjvs.ListItems.Clear
+    sql = ""
     sql = "select vno,transdate,naration,(sum(amount)/2)Amount from journals where posted =0 group by vno,transdate,naration"
     Set rst = oSaccoMaster.GetRecordset(sql)
     With rst
@@ -1446,7 +1449,7 @@ Private Sub Form_Load()
 '        rst.MoveNext
 '    Wend
     'initialization
-    totalamount = 0
+    Totalamount = 0
     pushed = 0
     txtJournaNo.Text = JVnumber
 
@@ -1526,8 +1529,8 @@ Private Sub lvwUnpostedjvs_DblClick()
                 With lvwTrans
                     .ListItems.Clear
                     While Not rst.EOF
-                        Set li = .ListItems.Add(, , rst!AccNo)
-                        li.ListSubItems.Add , , rst!name
+                        Set li = .ListItems.Add(, , rst!ACCNO)
+                        li.ListSubItems.Add , , rst!Name
                         li.ListSubItems.Add , , IIf(Trim(rst!transtype) = "DR", rst!amount, 0)
                         li.ListSubItems.Add , , IIf(Trim(rst!transtype) = "CR", rst!amount, 0)
                         li.ListSubItems.Add , , rst!memberno
@@ -1730,7 +1733,7 @@ Private Sub txtMemberNo_Change()
     mysql = "select surname,othernames,HomeAddr,companycode,idno  from members  where memberno ='" & txtMemberNo & "'"
     Set rs = oSaccoMaster.GetRecordset(mysql)
     If Not rs.EOF Then
-        lblfullnames = rs!surname & "  " & rs!othernames
+        lblfullnames = rs!surname & "  " & rs!OtherNames
         memberid = rs!idno
         cmdAdd.Enabled = True
     Else

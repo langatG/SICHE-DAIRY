@@ -25,6 +25,29 @@ Begin VB.Form frmJournals
    ScaleWidth      =   9615
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
+   Begin VB.Frame Frame1 
+      Height          =   1695
+      Left            =   600
+      TabIndex        =   0
+      Top             =   1200
+      Width           =   7095
+      Begin VB.ComboBox cboJournalType 
+         Height          =   330
+         Left            =   1920
+         TabIndex        =   1
+         Text            =   "Combo1"
+         Top             =   240
+         Width           =   4695
+      End
+      Begin VB.Label Label6 
+         Caption         =   "Journal Type"
+         Height          =   255
+         Left            =   360
+         TabIndex        =   2
+         Top             =   240
+         Width           =   1095
+      End
+   End
    Begin VB.Frame Frame5 
       BorderStyle     =   0  'None
       Height          =   495
@@ -197,7 +220,6 @@ Begin VB.Form frmJournals
       Left            =   1200
       TabIndex        =   17
       Top             =   7275
-      Visible         =   0   'False
       Width           =   1425
    End
    Begin VB.CommandButton cmdClear 
@@ -259,7 +281,7 @@ Begin VB.Form frmJournals
       Height          =   300
       Left            =   3120
       TabIndex        =   13
-      Top             =   2820
+      Top             =   2580
       Width           =   345
    End
    Begin VB.ComboBox cboShareType 
@@ -282,7 +304,7 @@ Begin VB.Form frmJournals
       Height          =   330
       Left            =   1650
       TabIndex        =   10
-      Top             =   2850
+      Top             =   2490
       Width           =   1485
    End
    Begin VB.CommandButton CmdUnpostedJV 
@@ -325,30 +347,6 @@ Begin VB.Form frmJournals
       TabIndex        =   3
       Top             =   4170
       Width           =   1590
-   End
-   Begin VB.Frame Frame1 
-      Height          =   1695
-      Left            =   600
-      TabIndex        =   0
-      Top             =   1650
-      Visible         =   0   'False
-      Width           =   7095
-      Begin VB.ComboBox cboJournalType 
-         Height          =   330
-         Left            =   1920
-         TabIndex        =   1
-         Text            =   "Combo1"
-         Top             =   240
-         Width           =   4695
-      End
-      Begin VB.Label Label6 
-         Caption         =   "Journal Type"
-         Height          =   255
-         Left            =   360
-         TabIndex        =   2
-         Top             =   240
-         Width           =   1095
-      End
    End
    Begin MSComDlg.CommonDialog dlg9 
       Left            =   10455
@@ -399,13 +397,13 @@ Begin VB.Form frmJournals
       EndProperty
    End
    Begin RichTextLib.RichTextBox rtpNarration 
-      Height          =   870
+      Height          =   750
       Left            =   3525
       TabIndex        =   9
-      Top             =   3195
+      Top             =   3315
       Width           =   4065
       _ExtentX        =   7170
-      _ExtentY        =   1535
+      _ExtentY        =   1323
       _Version        =   393217
       Enabled         =   -1  'True
       TextRTF         =   $"frmJournals.frx":040C
@@ -488,7 +486,7 @@ Begin VB.Form frmJournals
          Strikethrough   =   0   'False
       EndProperty
       CustomFormat    =   "  dd-MM-yyyy"
-      Format          =   121307137
+      Format          =   122159105
       CurrentDate     =   40336
    End
    Begin VB.Label Label1 
@@ -574,7 +572,7 @@ Begin VB.Form frmJournals
       Height          =   315
       Left            =   3450
       TabIndex        =   40
-      Top             =   2820
+      Top             =   2580
       Width           =   4110
    End
    Begin VB.Label Loanno 
@@ -592,7 +590,7 @@ Begin VB.Form frmJournals
       Height          =   210
       Left            =   660
       TabIndex        =   39
-      Top             =   2850
+      Top             =   2730
       Width           =   915
    End
    Begin VB.Label lblShareType 
@@ -641,9 +639,9 @@ Begin VB.Form frmJournals
    Begin VB.Label Label4 
       Caption         =   "Journal Narration"
       Height          =   285
-      Left            =   2235
+      Left            =   2115
       TabIndex        =   35
-      Top             =   3225
+      Top             =   3585
       Width           =   1305
    End
    Begin VB.Label Label7 
@@ -1128,11 +1126,11 @@ Private Sub cmdPostJournal_Click()
     Loanno = ""
     sharesCode = ""
 
-    Set rst = oSaccoMaster.GetRecordset("select vno from journals where vno='" & txtJournaNo.Text & "'")
-    If rst.EOF Then
-        MsgBox "The Above Journal has not been processed", vbCritical
-        Exit Sub
-    End If
+'    Set rst = oSaccoMaster.GetRecordset("select vno from journals where vno='" & txtJournaNo.Text & "'")
+'    If rst.EOF Then
+'        MsgBox "The Above Journal has not been processed", vbCritical
+'        Exit Sub
+'    End If
 
 '    If currentUser.idno = memberId <> "" And mem Then
 '        MsgBox "You Can't Operate your own account", vbCritical

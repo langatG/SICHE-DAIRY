@@ -71,7 +71,7 @@ Public Function ConnectDatabase() As Boolean
     ConnectDatabase = True
     Exit Function
 ErrTrap:
-    MsgBox err.description, vbOKOnly, "Error Connecting to database"
+    MsgBox err.Description, vbOKOnly, "Error Connecting to database"
     ConnectDatabase = False
 End Function
 
@@ -89,7 +89,7 @@ Public Function GetRecordset(strSQL As String) As Recordset
     Set GetRecordset = rsRecordset
     Exit Function
 ErrTrap:
-    MsgBox err.description, vbOKOnly, "Connection error"
+    MsgBox err.Description, vbOKOnly, "Connection error"
 End Function
 
 Public Sub ExecuteThis(strSQL As String)
@@ -104,9 +104,27 @@ End With
 Exit Sub
 ErrTrap:
   ErrorMessage = ""
-  MsgBox err.description, vbOKOnly, "Connection error"
-  ErrorMessage = err.description
+  MsgBox err.Description, vbOKOnly, "Connection error"
+  ErrorMessage = err.Description
 End Sub
+Public Function GetRecordse(strSQL As String) As Recordset
+    On Error GoTo ErrTrap
+    Dim rsRecordset As New Recordset
+    'Class_Initialize
+    With rsRecordset
+        .ActiveConnection = goConn
+        .CursorLocation = adUseClient
+        .CursorType = adOpenDynamic
+        .LockType = adLockOptimistic
+        success = True
+        .Open strSQL
+    End With
+    Set GetRecordse = rsRecordset
+    Exit Function
+ErrTrap:
+    success = False
+    MsgBox err.Description, vbOKOnly, "Connection error"
+End Function
 Public Function Execute(strSQL As String) As Boolean
  On Error GoTo ErrTrap
     ErrorMessage = ""
@@ -121,7 +139,7 @@ Public Function Execute(strSQL As String) As Boolean
     Exit Function
 ErrTrap:
     Execute = False
-    ErrorMessage = err.description
+    ErrorMessage = err.Description
 'On Error GoTo ErrTrap
 'Dim cmdCommand As New Command
 'With cmdCommand

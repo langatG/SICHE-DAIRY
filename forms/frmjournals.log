@@ -1,1 +1,5 @@
-Line 6: The Form or MDIForm name frmJournals is already in use; cannot load this form.
+Line 75: Class MSComctlLib.ListView of control lvwUnpostedjvs was not a loaded control class.
+Line 132: Class RichTextLib.RichTextBox of control rtpNarration was not a loaded control class.
+Line 361: Class MSComctlLib.ListView of control lvwTrans was not a loaded control class.
+Line 420: Class MSComDlg.CommonDialog of control dlg9 was not a loaded control class.
+Line 444: Class MSComCtl2.DTPicker of control dtpReceiptDate was not a loaded control class.
