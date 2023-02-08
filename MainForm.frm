@@ -291,7 +291,7 @@ Begin VB.MDIForm MainForm
                Style           =   5
                Object.Width           =   1764
                MinWidth        =   1764
-               TextSave        =   "09:55 PM"
+               TextSave        =   "11:53 AM"
             EndProperty
             BeginProperty Panel7 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
                Style           =   1
@@ -413,7 +413,7 @@ Begin VB.MDIForm MainForm
          _ExtentX        =   2566
          _ExtentY        =   661
          _Version        =   393216
-         Format          =   130940929
+         Format          =   121372673
          UpDown          =   -1  'True
          CurrentDate     =   40095
       End
@@ -1332,19 +1332,19 @@ mnuReports.Enabled = True
 
 'End If
 details
-DTPPeriod = Format(Get_Server_Date, "mmm/yyyy")
+dtpPeriod = Format(Get_Server_Date, "mmm/yyyy")
 Frame1.Visible = False
 'details
 End Sub
 Public Sub details()
 MainForm.Caption = "EasyMa " & "--(Milk Intake Form)"
-DTPPeriod = Date
-Startdate = DateSerial(Year(DTPPeriod), month(DTPPeriod), 1)
-Enddate = DateSerial(Year(DTPPeriod), month(DTPPeriod) + 1, 1 - 1)
+dtpPeriod = Date
+Startdate = DateSerial(Year(dtpPeriod), month(dtpPeriod), 1)
+Enddate = DateSerial(Year(dtpPeriod), month(dtpPeriod) + 1, 1 - 1)
 Dim rsst, rss, rst, rsg, rs, rsh As Recordset
 '''''todays no of suppliers
 sql = ""
-sql = "set dateformat DMY select count(distinct(SNo)) from  d_Milkintake where TransDate='" & DTPPeriod & "' "
+sql = "set dateformat DMY select count(distinct(SNo)) from  d_Milkintake where TransDate='" & dtpPeriod & "' "
 Set rsst = New ADODB.Recordset
 Set rsst = oSaccoMaster.GetRecordset(sql)
 If Not rsst.EOF Then
@@ -1364,7 +1364,7 @@ End If
  End If
  '''''todays kgs
 sql = ""
-sql = "set dateformat DMY select isnull(sum(QSupplied),0) from  d_Milkintake where TransDate='" & DTPPeriod & "' "
+sql = "set dateformat DMY select isnull(sum(QSupplied),0) from  d_Milkintake where TransDate='" & dtpPeriod & "' "
 Set rst = New ADODB.Recordset
 Set rst = oSaccoMaster.GetRecordset(sql)
 If Not rst.EOF Then
@@ -1817,7 +1817,7 @@ reportname = "Incomestatement.rpt"
 Show_Sales_Crystal_Report STRFORMULA, reportname, ""
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub mnudebsta_Click()
@@ -3651,7 +3651,7 @@ Timer2.Interval = "50000"
       sql = "set dateformat dmy SELECT Quant, Paid, Description  FROM d_OutletSales  WHERE PCode ='" & mtn!p_code & "' AND Date ='" & mtn!Date_Entered & "'"
       Set rr = oSaccoMaster.GetRecordset(sql)
       If Not rr.EOF Then
-        If rr!description = "Retail sales" Then
+        If rr!Description = "Retail sales" Then
            Price = mtn!Rprice
         Else
            Price = mtn!Wprice

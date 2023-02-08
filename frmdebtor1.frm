@@ -75,7 +75,7 @@ Begin VB.Form frmdebtor1
       _ExtentX        =   2778
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   122159105
+      Format          =   132710401
       CurrentDate     =   38814
    End
    Begin TabDlg.SSTab SSTab1 
@@ -104,15 +104,10 @@ Begin VB.Form frmdebtor1
       TabPicture(0)   =   "frmdebtor1.frx":0000
       Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "Frame1"
-      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "cmdNew"
-      Tab(0).Control(1).Enabled=   0   'False
       Tab(0).Control(2)=   "cmdEdit"
-      Tab(0).Control(2).Enabled=   0   'False
       Tab(0).Control(3)=   "cmdSave"
-      Tab(0).Control(3).Enabled=   0   'False
       Tab(0).Control(4)=   "cmdnewvehicle"
-      Tab(0).Control(4).Enabled=   0   'False
       Tab(0).ControlCount=   5
       TabCaption(1)   =   "POINT OF SALES "
       TabPicture(1)   =   "frmdebtor1.frx":001C
@@ -1924,7 +1919,7 @@ End Sub
 Private Sub cmdedit_Click()
 newa = 0
 txtVehicle.Locked = False
-txtEmail.Locked = False
+txtEMail.Locked = False
 txtId.Locked = False
 txtNames.Locked = False
 txtPAddress.Locked = False
@@ -1935,12 +1930,12 @@ txtTown.Locked = False
 'cboBBranch.Locked = False
 'cboBName.Locked = False
 'cbolocation.Locked = False
-cmdSave.Enabled = True
+cmdsave.Enabled = True
 End Sub
 Private Sub cmdNew_Click()
 newa = 1
 txtVehicle = ""
-txtEmail = ""
+txtEMail = ""
 txtId = ""
 txtNames = ""
 txtPAddress = ""
@@ -1952,10 +1947,10 @@ txtDrAccNo = ""
 txtCrAccNo = ""
 lblDrAccName = ""
 'cbobranch.Text = ""
-txtPrice = "0.00"
+txtprice = "0.00"
 
 txtVehicle.Locked = False
-txtEmail.Locked = False
+txtEMail.Locked = False
 txtId.Locked = False
 txtNames.Locked = False
 txtPAddress.Locked = False
@@ -1968,17 +1963,17 @@ txtTown.Locked = False
 'cbolocation.Locked = False
 cmdEdit.Enabled = False
 'cmdSave.Enabled = False
-cmdSave.Enabled = True
+cmdsave.Enabled = True
 End Sub
 Private Sub cmdnew3_Click()
     txtDispatch.Locked = False
     txtIntake.Locked = True
     txtDispatch = ""
     cboNames = ""
-    txtremarks = "CASH"
+    txtRemarks = "CASH"
     'cboVehicle = ""
     txtamountp = ""
-    txtamount = ""
+    txtAmount = ""
 '    lbltotal.Visible = False
 '    lbltotalkg.Visible = False
 '    Label34.Visible = False
@@ -2273,16 +2268,16 @@ End If
  If newa = 1 Then
     Set cn = New ADODB.Connection
     sql = ""
-    sql = "d_sp_Debtors '" & txtTCode & "','" & txtNames & "','" & txtId & "','" & txtVehicle & "','" & txtdateenterered & "','" & txtEmail & "','" & txtPhone & "','" & txtTown & "','" & txtPAddress & "'," & CCur(txtPrice) & "," & CCur(txtsubsidy) & ",'" & Txtaccno & "','" & cboBName & "'," & Active & ",'" & cboBBranch & "','" & cbobranch & "','" & User & "','" & txtDrAccNo & "','" & txtCrAccNo & "','" & txtcessrate & "','" & txtcessdebit & "','" & txtsta & "','" & cessapp & "'"
+    sql = "d_sp_Debtors '" & txtTCode & "','" & txtNames & "','" & txtId & "','" & txtVehicle & "','" & txtdateenterered & "','" & txtEMail & "','" & txtPhone & "','" & txtTown & "','" & txtPAddress & "'," & CCur(txtprice) & "," & CCur(txtSubsidy) & ",'" & txtAccno & "','" & cboBName & "'," & Active & ",'" & cboBBranch & "','" & cbobranch & "','" & User & "','" & txtDrAccNo & "','" & txtCrAccNo & "','" & txtcessrate & "','" & txtcessdebit & "','" & txtsta & "','" & cessapp & "'"
     oSaccoMaster.ExecuteThis (sql)
    Else
     Set cn = New ADODB.Connection
     sql = ""
-    sql = "SET dateformat DMY Update  d_Debtors SET DName= '" & txtNames & "',CertNo='" & txtId & "',Locations='" & txtVehicle & "',TregDate='" & txtdateenterered & "',email='" & txtEmail & "',Phoneno='" & txtPhone & "',Town='" & txtTown & "',Address='" & txtPAddress & "',price=" & CCur(txtPrice) & ",Active=" & Active & ",AccDr='" & txtDrAccNo & "',AccCr='" & txtCrAccNo & "',crcess='" & txtsta & "' where DCode='" & txtTCode & "'"
+    sql = "SET dateformat DMY Update  d_Debtors SET DName= '" & txtNames & "',CertNo='" & txtId & "',Locations='" & txtVehicle & "',TregDate='" & txtdateenterered & "',email='" & txtEMail & "',Phoneno='" & txtPhone & "',Town='" & txtTown & "',Address='" & txtPAddress & "',price=" & CCur(txtprice) & ",Active=" & Active & ",AccDr='" & txtDrAccNo & "',AccCr='" & txtCrAccNo & "',crcess='" & txtsta & "' where DCode='" & txtTCode & "'"
     oSaccoMaster.ExecuteThis (sql)
  End If
 cmdNew_Click
-cmdSave.Enabled = False
+cmdsave.Enabled = False
 MsgBox "Records successively updated."
 loadReg
 Exit Sub
@@ -2303,10 +2298,10 @@ If chkoutletre.value = 0 Then
   Exit Sub
   End If
 
-  If txtamount > 0 Then
-   If txtremarks = "" Then
+  If txtAmount > 0 Then
+   If txtRemarks = "" Then
      MsgBox "Please enter the Remarks if Cash or Paybill."
-     txtremarks.SetFocus
+     txtRemarks.SetFocus
     Exit Sub
    End If
   End If
@@ -2373,12 +2368,12 @@ If chkoutletre.value = 0 Then
             End If
     End If
     '''' behind the scene
-    sql = "SET dateformat dmy SELECT AVG(distinct PPU) AS AveragePrice FROM d_Milkintake where TransDate>='" & Startdate & "' and TransDate<='" & txtdateenterered & "'"
+    sql = "SET dateformat dmy SELECT AVG(distinct PPU) AS AveragePrice FROM d_Milkintake where TransDate='" & txtdateenterered & "'"
     Set rsg = oSaccoMaster.GetRecordset(sql)
     sql = "select * from GLSetDefaultGls Where Affect='Join'"
     Set rst = oSaccoMaster.GetRecordset(sql)
     
-    If Not Save_GLTRANSACTION(Format(txtdateenterered, "dd/mm/yyyy"), (CCur(rsg!AveragePrice) * CCur(txtDispatch)), " & rst!dr & ", " & rst!cr & ", Y, txtRefNo, User, ErrorMessage, "Milk Sales", 1, 1, txtRefNo, transactionNo, "", "", 0) Then
+    If Not Save_GLTRANSACTION(Format(txtdateenterered, "dd/mm/yyyy"), (CCur(rsg!AveragePrice) * CCur(txtDispatch)), rst!dr, rst!cr, Y, txtRefNo, User, ErrorMessage, "Milk Sales", 1, 1, txtRefNo, transactionNo, "", "", 0) Then
             If ErrorMessage <> "" Then
                 MsgBox ErrorMessage, vbInformation, Me.Caption
                 ErrorMessage = ""
@@ -2401,12 +2396,12 @@ If chkoutletre.value = 0 Then
     End If
     
         '''' behind the scene
-    sql = "SET dateformat dmy SELECT AVG(distinct PPU) AS AveragePrice FROM d_Milkintake where TransDate>='" & Startdate & "' and TransDate<='" & txtdateenterered & "'"
+    sql = "SET dateformat dmy SELECT AVG(distinct PPU) AS AveragePrice FROM d_Milkintake where TransDate='" & txtdateenterered & "'"
     Set rsg = oSaccoMaster.GetRecordset(sql)
     sql = "select * from GLSetDefaultGls Where Affect='Join'"
     Set rst = oSaccoMaster.GetRecordset(sql)
     
-    If Not Save_GLTRANSACTION(Format(txtdateenterered, "dd/mm/yyyy"), (CCur(rsg!AveragePrice) * CCur(txtDispatch)), " & rst!cr & ", " & rst!dr & ", Y, txtRefNo, User, ErrorMessage, "Milk Sales Remove", 1, 1, txtRefNo, transactionNo, "", "", 0) Then
+    If Not Save_GLTRANSACTION(Format(txtdateenterered, "dd/mm/yyyy"), (CCur(rsg!AveragePrice) * CCur(txtDispatch)), rst!cr, rst!dr, Y, txtRefNo, User, ErrorMessage, "Milk Sales Remove", 1, 1, txtRefNo, transactionNo, "", "", 0) Then
             If ErrorMessage <> "" Then
                 MsgBox ErrorMessage, vbInformation, Me.Caption
                 ErrorMessage = ""
@@ -2445,11 +2440,11 @@ If chkdelete = 0 Then
 '         sql = "d_sp_MilkControl  '" & txtdateenterered & "'," & txtDispatch & ",'0'," & txtIntake & ",'0'," & Price & ",'" & txtRefNo & "','" & Credit & "','" & Debit & "','" & User & "','" & txtdcode & "','" & cboVehicle & "','" & txtamountp & "','" & txtamount & "'"
 '         oSaccoMaster.ExecuteThis (sql)
         sql = ""
-        sql = "set dateformat dmy insert into  d_MilkControl(DispDate, DispQnty, DipQnty, InQnty, Variance, Price, RefNo, DebitAcc, CreditAcc, AuditId, Auditdatetime, DCode, vehicleno, Amount, PaidAmount,Transfer) values('" & txtdateenterered & "'," & txtDispatch & ",'0'," & txtIntake & ",'0'," & Price & ",'" & txtRefNo & "','" & Credit & "','" & Debit & "','" & User & "','" & Now & "','" & txtdcode & "','" & cboVehicle & "','" & txtamountp & "','" & txtamount & "','" & transfer & "')"
+        sql = "set dateformat dmy insert into  d_MilkControl(DispDate, DispQnty, DipQnty, InQnty, Variance, Price, RefNo, DebitAcc, CreditAcc, AuditId, Auditdatetime, DCode, vehicleno, Amount, PaidAmount,Transfer) values('" & txtdateenterered & "'," & txtDispatch & ",'0'," & txtIntake & ",'0'," & Price & ",'" & txtRefNo & "','" & Credit & "','" & Debit & "','" & User & "','" & Now & "','" & txtdcode & "','" & cboVehicle & "','" & txtamountp & "','" & txtAmount & "','" & transfer & "')"
         oSaccoMaster.ExecuteThis (sql)
        Else
          sql = ""
-         sql = "set dateformat DMY update d_MilkControl set PaidAmount=" & rs.Fields("PaidAmount") + txtamount & " where DCode ='" & txtdcode & "' and DispDate='" & txtdateenterered.value & "' "
+         sql = "set dateformat DMY update d_MilkControl set PaidAmount=" & rs.Fields("PaidAmount") + txtAmount & " where DCode ='" & txtdcode & "' and DispDate='" & txtdateenterered.value & "' "
          oSaccoMaster.ExecuteThis (sql)
        End If
      'Else
@@ -2458,22 +2453,22 @@ If chkdelete = 0 Then
     '''..................end of debtor...........................................................
 '******************* *********insert to gl
 'txtamount = 0
-  If txtamount > 0 Then
-   If txtremarks = "" Then
+  If txtAmount > 0 Then
+   If txtRemarks = "" Then
      MsgBox "Please enter the Remarks if Cash or Paybill."
-     txtremarks.SetFocus
+     txtRemarks.SetFocus
     Exit Sub
    End If
   Dim E As String
-   E = txtremarks
+   E = txtRemarks
     sql = ""
-    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) values('" & txtdateenterered & "'," & txtamount & ",'" & lbldracc & "','" & lblcracc & "','" & cboNames & "','' ,'" & E & "-MILK PAYMENTS','" & Now & "','" & User & "',0,0)"
+    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) values('" & txtdateenterered & "'," & txtAmount & ",'" & lbldracc & "','" & lblcracc & "','" & cboNames & "','' ,'" & E & "-MILK PAYMENTS','" & Now & "','" & User & "',0,0)"
     oSaccoMaster.ExecuteThis (sql)
   Else
    'Exit Sub
-   If txtamount < 0 Then
+   If txtAmount < 0 Then
     Dim mat As Integer
-    mat = txtamount * -1
+    mat = txtAmount * -1
     sql = ""
     sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) values('" & txtdateenterered & "'," & mat & ",'" & lblcracc & "','" & lbldracc & "','" & cboNames & "','' ,'Reversal-MILK PAYMENTS','" & Now & "','" & User & "',0,0)"
     oSaccoMaster.ExecuteThis (sql)
@@ -2487,7 +2482,7 @@ Else
     oSaccoMaster.ExecuteThis (sql)
     
     sql = ""
-    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) values('" & txtdateenterered & "'," & txtamount & ",'" & lblcracc & "','" & lbldracc & "','" & cboNames & "','' ,'" & E & "-MILK PAYMENTS Remove','" & Now & "','" & User & "',0,0)"
+    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) values('" & txtdateenterered & "'," & txtAmount & ",'" & lblcracc & "','" & lbldracc & "','" & cboNames & "','' ,'" & E & "-MILK PAYMENTS Remove','" & Now & "','" & User & "',0,0)"
     oSaccoMaster.ExecuteThis (sql)
    
    sql = "set dateformat dmy select Vehicle, Date, Kgs, Customer from d_OutletVehicle where Vehicle ='" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
@@ -2700,10 +2695,10 @@ loadBranchesTypes
 txtdcode = ""
 txtDispatch = ""
 'txtIntake = ""
-txtamount = ""
+txtAmount = ""
 txtRefNo = ""
 txtamountp = ""
-txtremarks = ""
+txtRemarks = ""
 txtdracc = ""
 txtcracc = ""
 lbldracc = ""
@@ -2797,7 +2792,7 @@ cboNames = ListView1.SelectedItem.SubItems(1)
 loadb
 txtDispatch = ListView1.SelectedItem.SubItems(3)
 txtamountp = ListView1.SelectedItem.SubItems(4)
-txtamount = ListView1.SelectedItem.SubItems(5)
+txtAmount = ListView1.SelectedItem.SubItems(5)
 End Sub
 'Private Sub cboNames_Validate(Cancel As Boolean)
 'Dim a As Boolean, b As Integer
@@ -3054,7 +3049,7 @@ txtdateenterered.MaxDate = Format(Get_Server_Date, "dd/mm/yyyy")
 'DTPcomplaintperiod = DTPMilkDate
 txtDispatch = 0
 txtsta = 0
-txtamount = 0
+txtAmount = 0
 cmdreport.Enabled = True
 lbltotal.Visible = False
 lbltotalkg.Visible = False
@@ -3159,8 +3154,8 @@ Private Sub txtPhone_Change()
 End Sub
 
 Private Sub txtprice_Change()
-If Trim(txtPrice) = "0.00" Then
-txtPrice = ""
+If Trim(txtprice) = "0.00" Then
+txtprice = ""
 End If
 'txtVehicle.SetFocus
 End Sub
@@ -3175,7 +3170,7 @@ If Not IsNull(rs.Fields(0)) Then txtNames = rs.Fields(0)
 If Not IsNull(rs.Fields(1)) Then txtId = rs.Fields(1)
 'If Not IsNull(rs.Fields(2)) Then cbolocation = rs.Fields(2)
 If Not IsNull(rs.Fields(3)) Then txtdateenterered = rs.Fields(3)
-If Not IsNull(rs.Fields(4)) Then txtEmail = rs.Fields(4)
+If Not IsNull(rs.Fields(4)) Then txtEMail = rs.Fields(4)
 If Not IsNull(rs.Fields(5)) Then txtPhone = rs.Fields(5)
 If Not IsNull(rs.Fields(6)) Then txtTown = rs.Fields(6)
 If Not IsNull(rs.Fields(7)) Then txtPAddress = rs.Fields(7)
@@ -3185,7 +3180,7 @@ If Not IsNull(rs.Fields(9)) Then txtVehicle = rs.Fields(2)
 'If Not IsNull(rs.Fields(11)) Then cboBBranch = rs.Fields(11)
 If Not IsNull(rs.Fields(12)) Then a = rs.Fields(12)
 'If Not IsNull(rs.Fields(13)) Then cboBranch = rs.Fields(13)
-If Not IsNull(rs.Fields(14)) Then txtPrice = Format(rs.Fields(14), "#0.00")
+If Not IsNull(rs.Fields(14)) Then txtprice = Format(rs.Fields(14), "#0.00")
 If Not IsNull(rs.Fields(15)) Then txtDrAccNo = rs.Fields(15)
 If Not IsNull(rs.Fields(16)) Then txtCrAccNo = rs.Fields(16)
 'If Not IsNull(rs.Fields(17)) Then txtcessrate = rs.Fields(17)
@@ -3198,7 +3193,7 @@ Else
 chkActive = vbUnchecked
 End If
 cmdEdit.Enabled = True
-cmdSave.Enabled = False
+cmdsave.Enabled = False
 End If
 End Sub
 
@@ -3246,8 +3241,8 @@ Private Sub Text3_Change()
 End Sub
 
 Private Sub txtAmount_Change()
-If txtamount = "" Then
- txtamount = 0
+If txtAmount = "" Then
+ txtAmount = 0
  'txtIntake.SetFocus
  Exit Sub
 End If
@@ -3370,7 +3365,7 @@ MsgBox err.Description
 End Sub
 
 Private Sub txtTown_Change()
-txtPrice.SetFocus
+txtprice.SetFocus
 End Sub
 
 Private Sub txtVehicle_Click()

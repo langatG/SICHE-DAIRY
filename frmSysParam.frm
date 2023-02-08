@@ -3,10 +3,10 @@ Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmSysParam 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Company Parameters"
-   ClientHeight    =   7380
+   ClientHeight    =   7425
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   11325
+   ClientWidth     =   11400
    BeginProperty Font 
       Name            =   "Verdana"
       Size            =   8.25
@@ -20,8 +20,8 @@ Begin VB.Form frmSysParam
    LinkTopic       =   "Form2"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   7380
-   ScaleWidth      =   11325
+   ScaleHeight     =   7425
+   ScaleWidth      =   11400
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame Frame2 
@@ -157,7 +157,7 @@ Begin VB.Form frmSysParam
          _ExtentX        =   4048
          _ExtentY        =   450
          _Version        =   393216
-         Format          =   121831426
+         Format          =   37355522
          CurrentDate     =   40624
       End
       Begin VB.TextBox txtCost 
@@ -634,7 +634,7 @@ txtCompanyName.Locked = False
 txtCountry.Locked = False
 txtDistrict.Locked = False
 txtDivision.Locked = False
-txtEmail.Locked = False
+txtEMail.Locked = False
 txtFax.Locked = False
 txtLocation.Locked = False
 txtPhone.Locked = False
@@ -643,7 +643,7 @@ txtProvince.Locked = False
 txtTown.Locked = False
 txtWebsite.Locked = False
 txtcompanymotto.Locked = False
-cmdupdate.Enabled = True
+cmdUpdate.Enabled = True
 cmdEdit.Enabled = False
 
 txtSMSNumber.Locked = False
@@ -666,7 +666,7 @@ On Error GoTo ErrorHandler
 
 Set cn = New ADODB.Connection
 sql = ""
-sql = "d_sp_UpdateCProfile'" & txtCompanyName & "','" & txtPostalAddress & "','" & txtTown & "','" & txtCountry & "','" & txtProvince & "','" & txtDistrict & "','" & txtDivision & "','" & txtLocation & "','" & txtFax & "','" & txtPhone & "','" & txtEmail & "','" & txtWebsite & "','" & User & "','" & txtcompanymotto & "','" & DTPTimeSend & "'"
+sql = "d_sp_UpdateCProfile'" & txtCompanyName & "','" & txtPostalAddress & "','" & txtTown & "','" & txtCountry & "','" & txtProvince & "','" & txtDistrict & "','" & txtDivision & "','" & txtLocation & "','" & txtFax & "','" & txtPhone & "','" & txtEMail & "','" & txtWebsite & "','" & User & "','" & txtcompanymotto & "','" & DTPTimeSend & "'"
 
 oSaccoMaster.ExecuteThis (sql)
 Form_Load
@@ -674,7 +674,7 @@ Form_Load
 MsgBox "Records successively updated."
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub Command1_Click()
@@ -685,7 +685,7 @@ sql = "update d_company set acc=1"
 oSaccoMaster.ExecuteThis (sql)
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub Form_Load()
@@ -693,7 +693,7 @@ txtCompanyName.Locked = True
 txtCountry.Locked = True
 txtDistrict.Locked = True
 txtDivision.Locked = True
-txtEmail.Locked = True
+txtEMail.Locked = True
 txtFax.Locked = True
 txtLocation.Locked = True
 txtPhone.Locked = True
@@ -705,7 +705,7 @@ txtcompanymotto.Locked = True
 txtcompanymotto.Locked = True
 cmdEdit.Enabled = True
 
-cmdupdate.Enabled = False
+cmdUpdate.Enabled = False
 
 txtSMSNumber.Locked = True
 'DTPTimeSend.Locked = True
@@ -727,7 +727,7 @@ txtCompanyName = rs![name]
 txtCountry = rs!Country
 txtDistrict = rs!District
 txtDivision = rs!Division
-txtEmail = rs!Email
+txtEMail = rs!Email
 txtFax = rs!FaxNo
 txtLocation = rs!Location
 txtPhone = rs!PhoneNo

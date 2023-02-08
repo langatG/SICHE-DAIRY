@@ -1,7 +1,7 @@
 VERSION 5.00
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomct2.ocx"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmplantmilksale 
    Caption         =   "Plant Milk sales and Boiling"
    ClientHeight    =   8835
@@ -32,14 +32,14 @@ Begin VB.Form frmplantmilksale
    End
    Begin MSComCtl2.DTPicker txtdateenterered 
       Height          =   375
-      Left            =   9000
+      Left            =   6720
       TabIndex        =   1
-      Top             =   1080
+      Top             =   720
       Width           =   1575
       _ExtentX        =   2778
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   180420609
+      Format          =   122159105
       CurrentDate     =   38814
    End
    Begin TabDlg.SSTab SSTab1 
@@ -68,36 +68,21 @@ Begin VB.Form frmplantmilksale
       TabCaption(0)   =   "Customer Registration"
       TabPicture(0)   =   "frmplantmilksale.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Label2"
-      Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "Label1"
-      Tab(0).Control(1).Enabled=   0   'False
-      Tab(0).Control(2)=   "Label3"
-      Tab(0).Control(2).Enabled=   0   'False
-      Tab(0).Control(3)=   "Label11"
-      Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).Control(4)=   "Label12"
-      Tab(0).Control(4).Enabled=   0   'False
-      Tab(0).Control(5)=   "Label14"
-      Tab(0).Control(5).Enabled=   0   'False
-      Tab(0).Control(6)=   "ListView2"
-      Tab(0).Control(6).Enabled=   0   'False
+      Tab(0).Control(0)=   "Command4"
+      Tab(0).Control(1)=   "lblDrAccName"
+      Tab(0).Control(2)=   "txtDrAccNo"
+      Tab(0).Control(3)=   "cmdSearch"
+      Tab(0).Control(4)=   "Command2"
+      Tab(0).Control(5)=   "Command1"
+      Tab(0).Control(6)=   "cboName1"
       Tab(0).Control(7)=   "txtcust"
-      Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "cboName1"
-      Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "Command1"
-      Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "Command2"
-      Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).Control(11)=   "cmdSearch"
-      Tab(0).Control(11).Enabled=   0   'False
-      Tab(0).Control(12)=   "txtDrAccNo"
-      Tab(0).Control(12).Enabled=   0   'False
-      Tab(0).Control(13)=   "lblDrAccName"
-      Tab(0).Control(13).Enabled=   0   'False
-      Tab(0).Control(14)=   "Command4"
-      Tab(0).Control(14).Enabled=   0   'False
+      Tab(0).Control(8)=   "ListView2"
+      Tab(0).Control(9)=   "Label14"
+      Tab(0).Control(10)=   "Label12"
+      Tab(0).Control(11)=   "Label11"
+      Tab(0).Control(12)=   "Label3"
+      Tab(0).Control(13)=   "Label1"
+      Tab(0).Control(14)=   "Label2"
       Tab(0).ControlCount=   15
       TabCaption(1)   =   "Point Of Sales"
       TabPicture(1)   =   "frmplantmilksale.frx":001C
@@ -126,51 +111,59 @@ Begin VB.Form frmplantmilksale
       Tab(1).Control(10).Enabled=   0   'False
       Tab(1).Control(11)=   "Label6(4)"
       Tab(1).Control(11).Enabled=   0   'False
-      Tab(1).Control(12)=   "Lvwitems"
+      Tab(1).Control(12)=   "Label15"
       Tab(1).Control(12).Enabled=   0   'False
-      Tab(1).Control(13)=   "ListView3"
+      Tab(1).Control(13)=   "Label16"
       Tab(1).Control(13).Enabled=   0   'False
-      Tab(1).Control(14)=   "fra1"
+      Tab(1).Control(14)=   "Label17"
       Tab(1).Control(14).Enabled=   0   'False
-      Tab(1).Control(15)=   "cboNamecust"
+      Tab(1).Control(15)=   "Label18"
       Tab(1).Control(15).Enabled=   0   'False
-      Tab(1).Control(16)=   "txtCustName"
+      Tab(1).Control(16)=   "Lvwitems"
       Tab(1).Control(16).Enabled=   0   'False
-      Tab(1).Control(17)=   "txtprice"
+      Tab(1).Control(17)=   "ListView3"
       Tab(1).Control(17).Enabled=   0   'False
-      Tab(1).Control(18)=   "chkBoil"
+      Tab(1).Control(18)=   "fra1"
       Tab(1).Control(18).Enabled=   0   'False
-      Tab(1).Control(19)=   "chksales"
+      Tab(1).Control(19)=   "cboNamecust"
       Tab(1).Control(19).Enabled=   0   'False
-      Tab(1).Control(20)=   "chklocal"
+      Tab(1).Control(20)=   "txtCustName"
       Tab(1).Control(20).Enabled=   0   'False
-      Tab(1).Control(21)=   "txtamount"
+      Tab(1).Control(21)=   "txtprice"
       Tab(1).Control(21).Enabled=   0   'False
-      Tab(1).Control(22)=   "cmdsave"
+      Tab(1).Control(22)=   "chkBoil"
       Tab(1).Control(22).Enabled=   0   'False
-      Tab(1).Control(23)=   "txtquantity"
+      Tab(1).Control(23)=   "chksales"
       Tab(1).Control(23).Enabled=   0   'False
-      Tab(1).Control(24)=   "Command3"
+      Tab(1).Control(24)=   "chklocal"
       Tab(1).Control(24).Enabled=   0   'False
-      Tab(1).Control(25)=   "chkRepay"
+      Tab(1).Control(25)=   "txtamount"
       Tab(1).Control(25).Enabled=   0   'False
-      Tab(1).Control(26)=   "cmdnextitem"
+      Tab(1).Control(26)=   "cmdsave"
       Tab(1).Control(26).Enabled=   0   'False
-      Tab(1).Control(27)=   "TXTTOTAL"
+      Tab(1).Control(27)=   "txtquantity"
       Tab(1).Control(27).Enabled=   0   'False
-      Tab(1).Control(28)=   "TXTCHANGE"
+      Tab(1).Control(28)=   "Command3"
       Tab(1).Control(28).Enabled=   0   'False
-      Tab(1).Control(29)=   "cmdremove"
+      Tab(1).Control(29)=   "chkRepay"
       Tab(1).Control(29).Enabled=   0   'False
-      Tab(1).Control(30)=   "cmd5"
+      Tab(1).Control(30)=   "cmdnextitem"
       Tab(1).Control(30).Enabled=   0   'False
-      Tab(1).Control(31)=   "cmddelete"
+      Tab(1).Control(31)=   "TXTTOTAL"
       Tab(1).Control(31).Enabled=   0   'False
-      Tab(1).Control(32)=   "cmdmonthly"
+      Tab(1).Control(32)=   "TXTCHANGE"
       Tab(1).Control(32).Enabled=   0   'False
-      Tab(1).Control(33)=   "cmdindi"
+      Tab(1).Control(33)=   "cmdremove"
       Tab(1).Control(33).Enabled=   0   'False
-      Tab(1).ControlCount=   34
+      Tab(1).Control(34)=   "cmd5"
+      Tab(1).Control(34).Enabled=   0   'False
+      Tab(1).Control(35)=   "cmddelete"
+      Tab(1).Control(35).Enabled=   0   'False
+      Tab(1).Control(36)=   "cmdmonthly"
+      Tab(1).Control(36).Enabled=   0   'False
+      Tab(1).Control(37)=   "cmdindi"
+      Tab(1).Control(37).Enabled=   0   'False
+      Tab(1).ControlCount=   38
       Begin VB.CommandButton cmdindi 
          Caption         =   "Individual Report"
          BeginProperty Font 
@@ -475,7 +468,7 @@ Begin VB.Form frmplantmilksale
          Left            =   2160
          TabIndex        =   14
          Top             =   1560
-         Width           =   4815
+         Width           =   5055
       End
       Begin VB.Frame fra1 
          BorderStyle     =   0  'None
@@ -715,6 +708,56 @@ Begin VB.Form frmplantmilksale
             Object.Width           =   2540
          EndProperty
       End
+      Begin VB.Label Label18 
+         BackColor       =   &H00C0FFC0&
+         Height          =   375
+         Left            =   9000
+         TabIndex        =   61
+         Top             =   1440
+         Width           =   1695
+      End
+      Begin VB.Label Label17 
+         BackColor       =   &H00C0FFC0&
+         Height          =   375
+         Left            =   9000
+         TabIndex        =   60
+         Top             =   960
+         Width           =   1695
+      End
+      Begin VB.Label Label16 
+         Caption         =   "Cr"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   8520
+         TabIndex        =   59
+         Top             =   1440
+         Width           =   375
+      End
+      Begin VB.Label Label15 
+         Caption         =   "Dr"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   8520
+         TabIndex        =   58
+         Top             =   960
+         Width           =   375
+      End
       Begin VB.Label Label6 
          Caption         =   "Bal."
          BeginProperty Font 
@@ -891,9 +934,9 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   8160
+         Left            =   6000
          TabIndex        =   29
-         Top             =   1080
+         Top             =   840
          Width           =   615
       End
       Begin VB.Label Label9 
@@ -1031,13 +1074,15 @@ Provider = "MAZIWA"
 Set cn = New ADODB.Connection
 cn.Open Provider, "atm", "atm"
 Set rst = New ADODB.Recordset
-rst.Open sql, cn
+'rst.Open sql, cn
 'If rs.EOF Then
 Set rst = oSaccoMaster.GetRecordset("select Code, Name,Accno from d_Outsales where Name ='" & cboNamecust & "'")
 If Not rst.EOF Then
 txtCustName.Text = rst.Fields("Code")
 cboproductname1 = rst.Fields("Name")
-lbldracc = rst.Fields("Accno")
+Label17 = rst.Fields("Accno")
+lblcracc = rst.Fields("Accno")
+
 'lblcracc = rst.Fields("Accno")
 'txtsel
 End If
@@ -1057,16 +1102,16 @@ If txtquantity = "" Then
 MsgBox "Please insert quantity", vbInformation
 Exit Sub
 End If
-If txtPrice = "" Then
+If txtprice = "" Then
 MsgBox "Please insert the price", vbInformation
 chkBoil = 0
 Exit Sub
 End If
-Label4 = txtquantity * txtPrice
+Label4 = txtquantity * txtprice
 Else
 End If
 a = "Boiling fee"
-lblcracc = "P012"
+Label18 = "P012"
 'txtcracc = "DANDORA 2"
 End If
 Else
@@ -1089,11 +1134,11 @@ If txtquantity = "" Then
 MsgBox "Please insert quantity", vbInformation
 Exit Sub
 End If
-If txtPrice = "" Then
+If txtprice = "" Then
 MsgBox "Please insert the price", vbInformation
 Exit Sub
 End If
-Label4 = txtquantity * txtPrice
+Label4 = txtquantity * txtprice
 Else
 End If
 a = "Local Sales"
@@ -1145,16 +1190,16 @@ If txtquantity = "" Then
 MsgBox "Please insert quantity", vbInformation
 Exit Sub
 End If
-If txtPrice = "" Then
+If txtprice = "" Then
 MsgBox "Please insert the price", vbInformation
 chksales = 0
 Exit Sub
 End If
-Label4 = txtquantity * txtPrice
+Label4 = txtquantity * txtprice
 Else
 End If
 a = "Sales from siche"
-lblcracc = "P011"
+Label18 = "P011"
 'txtcracc = ""
 End If
 Else
@@ -1247,13 +1292,13 @@ On Error GoTo ErrorHandler
        sql = "delete from d_Outsalesb where Code ='" & txtCustName.Text & "' and Name='" & cboNamecust.Text & "' and Date='" & txtdateenterered.value & "' and Description='" & a & "'"
        cn.Execute sql
        sql = ""
-       sql = "delete from gltransactions where transdate ='" & txtdateenterered.value & "' and amount=" & txtAmount & " and documentno='" & cboNamecust.Text & "'and transdescript='SALES ON-- " & a & "'"
+       sql = "delete from gltransactions where transdate ='" & txtdateenterered.value & "' and amount=" & txtamount & " and documentno='" & cboNamecust.Text & "'and transdescript='SALES ON-- " & a & "'"
        oSaccoMaster.ExecuteThis (sql)
        MsgBox "Record deleted succesfully", vbInformation
        loadoutsale
        Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub cmdindi_Click()
@@ -1276,7 +1321,7 @@ If txtquantity = "" Then
  MsgBox "Quantity needed", vbInformation
 Exit Sub
 End If
-If txtPrice = "" Then
+If txtprice = "" Then
  MsgBox "Price needed", vbInformation
 Exit Sub
 End If
@@ -1305,11 +1350,11 @@ j = 1
         Set li = Lvwitems.ListItems.Add(, , txtCustName)
                         li.SubItems(1) = cboNamecust & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtPrice & ""
-                        li.SubItems(4) = CCur(txtPrice) * CCur(txtquantity) & ""
+                        li.SubItems(3) = txtprice & ""
+                        li.SubItems(4) = CCur(txtprice) * CCur(txtquantity) & ""
                         li.SubItems(5) = a & ""
                         li.SubItems(6) = txtdracc & ""
-                        li.SubItems(7) = lblcracc & ""
+                        li.SubItems(7) = Label18 & ""
                         'Total = CCur(Total + li.SubItems(4))
                         TXTTOTAL = total
                                                 
@@ -1335,11 +1380,11 @@ j = 1
     Set li = Lvwitems.ListItems.Add(, , txtCustName)
                         li.SubItems(1) = cboNamecust & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtPrice & ""
-                        li.SubItems(4) = CCur(txtPrice) * (CCur(txtquantity)) & ""
+                        li.SubItems(3) = txtprice & ""
+                        li.SubItems(4) = CCur(txtprice) * (CCur(txtquantity)) & ""
                         li.SubItems(5) = a & ""
                         li.SubItems(6) = txtdracc & ""
-                        li.SubItems(7) = lblcracc & ""
+                        li.SubItems(7) = Label18 & ""
                         'Total = CCur(Total + li.SubItems(4))
                         TXTTOTAL = total
                         
@@ -1354,11 +1399,11 @@ j = 1
      Set li = Lvwitems.ListItems.Add(, , txtCustName)
                         li.SubItems(1) = cboNamecust & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtPrice & ""
-                        li.SubItems(4) = CCur(txtPrice) * (CCur(txtquantity)) & ""
+                        li.SubItems(3) = txtprice & ""
+                        li.SubItems(4) = CCur(txtprice) * (CCur(txtquantity)) & ""
                         li.SubItems(5) = a & ""
                         li.SubItems(6) = txtdracc & ""
-                        li.SubItems(7) = lblcracc & ""
+                        li.SubItems(7) = Label18 & ""
                         'Total = CCur(Total + li.SubItems(4))
                         TXTTOTAL = total
     End If
@@ -1381,10 +1426,10 @@ Loop
 chksales = 0
 chkBoil = 0
 txtquantity = ""
-txtPrice = ""
+txtprice = ""
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 
@@ -1402,7 +1447,7 @@ If chkRepay = 0 Then
 '   Exit Sub
 '   End If
 
-   If txtAmount = "" Then
+   If txtamount = "" Then
       MsgBox "Amount paid needed", vbInformation
    Exit Sub
    End If
@@ -1455,32 +1500,53 @@ If chkRepay = 0 Then
       End If
     End If
    '// insert into ag_products
-    If TXTCHANGE < 0 Then
-      If txtAmount = 0 Then
-        sql = ""
-        sql = "set dateformat dmy insert into  d_Outsalesb(Code,Name,Date,Quantity,Price,Amount,APaid,Description,Owner)"
-        sql = sql & "  values('" & Lvwitems.SelectedItem & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & txtdateenterered.value & "','" & Lvwitems.SelectedItem.SubItems(2) & "'," & Lvwitems.SelectedItem.SubItems(3) & "," & Lvwitems.SelectedItem.SubItems(4) & ",'0','" & Lvwitems.SelectedItem.SubItems(5) & "','" & Lvwitems.SelectedItem.SubItems(6) & "')"
-         cn.Execute sql
-'        sql = ""
-'        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
-'        oSaccoMaster.ExecuteThis (sql)
-       Else
-        sql = ""
-        sql = "set dateformat dmy insert into  d_Outsalesb(Code,Name,Date,Quantity,Price,Amount,APaid,Description,Owner)"
-        sql = sql & "  values('" & Lvwitems.SelectedItem & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & txtdateenterered.value & "','" & Lvwitems.SelectedItem.SubItems(2) & "'," & Lvwitems.SelectedItem.SubItems(3) & "," & Lvwitems.SelectedItem.SubItems(4) & "," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & Lvwitems.SelectedItem.SubItems(5) & "','" & Lvwitems.SelectedItem.SubItems(6) & "')"
-         cn.Execute sql
-        sql = ""
-        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & lbldracc & "','" & Lvwitems.SelectedItem.SubItems(7) & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
-        oSaccoMaster.ExecuteThis (sql)
-      End If
+    If TXTCHANGE < 1 Then
+          If txtamount = 0 Then
+            sql = ""
+            sql = "set dateformat dmy insert into  d_Outsalesb(Code,Name,Date,Quantity,Price,Amount,APaid,Description,Owner)"
+            sql = sql & "  values('" & Lvwitems.SelectedItem & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & txtdateenterered.value & "','" & Lvwitems.SelectedItem.SubItems(2) & "'," & Lvwitems.SelectedItem.SubItems(3) & "," & Lvwitems.SelectedItem.SubItems(4) & ",'0','" & Lvwitems.SelectedItem.SubItems(5) & "','" & Lvwitems.SelectedItem.SubItems(6) & "')"
+             cn.Execute sql
+             
+             '''CUSTOMER
+            sql = ""
+            sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'" & Label17 & "','" & Lvwitems.SelectedItem.SubItems(7) & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
+            oSaccoMaster.ExecuteThis (sql)
+    
+           Else
+           
+            sql = ""
+            sql = "set dateformat dmy insert into  d_Outsalesb(Code,Name,Date,Quantity,Price,Amount,APaid,Description,Owner)"
+            sql = sql & "  values('" & Lvwitems.SelectedItem & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & txtdateenterered.value & "','" & Lvwitems.SelectedItem.SubItems(2) & "'," & Lvwitems.SelectedItem.SubItems(3) & ",'" & Lvwitems.SelectedItem.SubItems(4) & "'," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & Lvwitems.SelectedItem.SubItems(5) & "','" & Lvwitems.SelectedItem.SubItems(6) & "')"
+            cn.Execute sql
+            
+            '''CUSTOMER
+            sql = ""
+            sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'" & Label17 & "','" & Lvwitems.SelectedItem.SubItems(7) & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
+            oSaccoMaster.ExecuteThis (sql)
+            
+            ''' GLS AFFECTING
+            sql = ""
+            sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
+            oSaccoMaster.ExecuteThis (sql)
+          End If
+         
+        
+         
+            
      Else
-       sql = ""
-       sql = "set dateformat dmy insert into  d_Outsalesb(Code,Name,Date,Quantity,Price,Amount,APaid,Description,Owner)"
-       sql = sql & "  values('" & Lvwitems.SelectedItem & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & txtdateenterered.value & "','" & Lvwitems.SelectedItem.SubItems(2) & "'," & Lvwitems.SelectedItem.SubItems(3) & "," & Lvwitems.SelectedItem.SubItems(4) & "," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & Lvwitems.SelectedItem.SubItems(5) & "','" & Lvwitems.SelectedItem.SubItems(6) & "')"
-        cn.Execute sql
-       sql = ""
-       sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & lbldracc & "','" & Lvwitems.SelectedItem.SubItems(7) & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & Lvwitems.SelectedItem.SubItems(5) & "','" & User & "','1','0')"
-       oSaccoMaster.ExecuteThis (sql)
+            sql = ""
+            sql = "set dateformat dmy insert into  d_Outsalesb(Code,Name,Date,Quantity,Price,Amount,APaid,Description,Owner)"
+            sql = sql & "  values('" & Lvwitems.SelectedItem & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & txtdateenterered.value & "','" & Lvwitems.SelectedItem.SubItems(2) & "'," & Lvwitems.SelectedItem.SubItems(3) & "," & Lvwitems.SelectedItem.SubItems(4) & "," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & Lvwitems.SelectedItem.SubItems(5) & "','" & Lvwitems.SelectedItem.SubItems(6) & "')"
+             cn.Execute sql
+               '''CUSTOMER
+            sql = ""
+            sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'" & Label17 & "','" & Lvwitems.SelectedItem.SubItems(7) & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & Lvwitems.SelectedItem.SubItems(5) & "','" & User & "','1','0')"
+            oSaccoMaster.ExecuteThis (sql)
+            
+            ''' GLS AFFECTING
+        sql = ""
+        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
+        oSaccoMaster.ExecuteThis (sql)
      End If
        
     
@@ -1494,14 +1560,21 @@ Else
           Set rs = oSaccoMaster.GetRecordset(sql)
        sql = ""
        sql = "set dateformat dmy insert into  d_Outsalesb(Code,Name,Date,Quantity,Price,Amount,APaid,Description,Owner)"
-       sql = sql & "  values('" & txtCustName.Text & "','" & cboNamecust.Text & "','" & txtdateenterered.value & "','0','0','0'," & txtAmount & ",'MILK PAYMENT','" & rs.Fields(8) & "')"
+       sql = sql & "  values('" & txtCustName.Text & "','" & cboNamecust.Text & "','" & txtdateenterered.value & "','0','0','0'," & txtamount & ",'MILK PAYMENT','" & rs.Fields(8) & "')"
         cn.Execute sql
        sql = ""
-       sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & txtAmount & ",'" & lbldracc & "','" & lblvracc & "','" & cboNamecust.Text & "','" & cboNamecust.Text & "' ,'SALES ON-- " & rs.Fields(1) & "','" & User & "','1','0')"
+       sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & txtamount & ",'" & Label17 & "','" & Label18 & "','" & cboNamecust.Text & "','" & cboNamecust.Text & "' ,'SALES ON-- " & rs.Fields(1) & "','" & User & "','1','0')"
        oSaccoMaster.ExecuteThis (sql)
+       
+          ''' GLS AFFECTING
+        sql = ""
+        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "','" & txtamount & "','" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
+        oSaccoMaster.ExecuteThis (sql)
      
 
 End If
+
+
 
 
 MsgBox "Records successively updated."
@@ -1512,8 +1585,10 @@ chklocal.value = vbUnchecked
 Label4 = ""
 lblcracc = ""
 txtcracc = ""
-txtAmount.Text = ""
-txtPrice.Text = ""
+Label17 = ""
+Label18 = ""
+txtamount.Text = ""
+txtprice.Text = ""
 txtquantity.Text = ""
 cboNamecust.Text = ""
 TXTCHANGE.Text = ""
@@ -1524,14 +1599,14 @@ loadoutsale
 
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 
 
 '********************
 
 End Sub
 
-Private Sub cmdSearch_Click()
+Private Sub cmdsearch_Click()
 frmSearchGLAccounts.Show vbModal, Me
     If Continue Then
         If SearchValue <> "" Then
@@ -1585,7 +1660,7 @@ SSTab1_DblClick
 MsgBox "Records successively updated."
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub Command3_Click()
@@ -1620,7 +1695,7 @@ Private Sub Form_Load()
     rst.MoveNext
     Wend
 
-
+lbldracc = "C002"
 
 loadBranchesTypes
 
@@ -1736,8 +1811,8 @@ Private Sub ListView3_DblClick()
 chksales = 0
 chkBoil = 0
 txtquantity = ListView3.SelectedItem.SubItems(2)
-txtPrice = ListView3.SelectedItem.SubItems(3)
-txtAmount = ListView3.SelectedItem.SubItems(4)
+txtprice = ListView3.SelectedItem.SubItems(3)
+txtamount = ListView3.SelectedItem.SubItems(4)
 If ListView3.SelectedItem.SubItems(6) = "Boiling fee" Then
  chkBoil = 1
 Else
@@ -1809,13 +1884,13 @@ Loop
 'End If
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 
 End Sub
 
 Private Sub txtAmount_Change()
 On Error Resume Next
-TXTCHANGE = txtAmount - TXTTOTAL
+TXTCHANGE = txtamount - TXTTOTAL
 End Sub
 
 Private Sub txtdateenterered_CallbackKeyDown(ByVal KeyCode As Integer, ByVal Shift As Integer, ByVal CallbackField As String, CallbackDate As Date)
@@ -1838,7 +1913,7 @@ Private Sub txtDrAccNo_Change()
     End If
     Exit Sub
 SysError:
-    MsgBox err.description, vbInformation, Me.Caption
+    MsgBox err.Description, vbInformation, Me.Caption
 End Sub
 
 Private Sub txtprice_Change()
@@ -1851,5 +1926,5 @@ End Sub
 
 Private Sub txttotal_Change()
 On Error Resume Next
-TXTCHANGE = txtAmount - TXTTOTAL
+TXTCHANGE = txtamount - TXTTOTAL
 End Sub

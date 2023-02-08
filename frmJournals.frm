@@ -197,6 +197,7 @@ Begin VB.Form frmJournals
       Left            =   1200
       TabIndex        =   17
       Top             =   7275
+      Visible         =   0   'False
       Width           =   1425
    End
    Begin VB.CommandButton cmdClear 
@@ -290,6 +291,7 @@ Begin VB.Form frmJournals
       Left            =   60
       TabIndex        =   8
       Top             =   3645
+      Visible         =   0   'False
       Width           =   1770
    End
    Begin VB.CommandButton cmdPostJournal 
@@ -329,6 +331,7 @@ Begin VB.Form frmJournals
       Left            =   600
       TabIndex        =   0
       Top             =   1650
+      Visible         =   0   'False
       Width           =   7095
       Begin VB.ComboBox cboJournalType 
          Height          =   330
@@ -404,6 +407,7 @@ Begin VB.Form frmJournals
       _ExtentX        =   7170
       _ExtentY        =   1535
       _Version        =   393217
+      Enabled         =   -1  'True
       TextRTF         =   $"frmJournals.frx":040C
    End
    Begin MSComctlLib.ListView lvwTrans 
@@ -484,7 +488,7 @@ Begin VB.Form frmJournals
          Strikethrough   =   0   'False
       EndProperty
       CustomFormat    =   "  dd-MM-yyyy"
-      Format          =   120258561
+      Format          =   121307137
       CurrentDate     =   40336
    End
    Begin VB.Label Label1 
@@ -810,7 +814,7 @@ Private Sub cboShareType_Change()
     End If
     Exit Sub
 Capture:
-    ShowErrorMessage err.description
+    ShowErrorMessage err.Description
 End Sub
 
 Private Sub cboShareType_Click()
@@ -838,7 +842,7 @@ Private Sub cmdAcctsSearch_Click()
     End If
 End Sub
 
-Private Sub cmdAdd_Click()
+Private Sub cmdadd_Click()
     On Error GoTo SysError
     If cboAccno.Text = "" Then
         Exit Sub
@@ -857,7 +861,7 @@ Private Sub cmdAdd_Click()
 
     Exit Sub
 SysError:
-    MsgBox err.description, vbInformation, Me.Caption
+    MsgBox err.Description, vbInformation, Me.Caption
 End Sub
 
 
@@ -904,7 +908,7 @@ Private Sub cmdRemove_Click()
 
     Exit Sub
 SysError:
-    MsgBox err.description, vbInformation, Me.Caption
+    MsgBox err.Description, vbInformation, Me.Caption
 End Sub
 
 
@@ -938,7 +942,7 @@ Private Sub cmdRemoveu_Click()
     End With
     Exit Sub
 Capture:
-    MsgBox IIf(ErrorMessage = "", err.description, ErrorMessage)
+    MsgBox IIf(ErrorMessage = "", err.Description, ErrorMessage)
 End Sub
 
 Private Sub cmdProcessJournal_Click()
@@ -1025,7 +1029,7 @@ SysError:
             .RollbackTrans
         'End If
         End With
-    MsgBox err.description, vbInformation, Me.Caption
+    MsgBox err.Description, vbInformation, Me.Caption
 End Sub
 Private Function JVnumber()
 Dim jvid
@@ -1086,7 +1090,7 @@ Private Function saveReceipt(ReceiptNo As String, mMemberNo As String, ccode As 
     Exit Function
 Capture:
     saveReceipt = False
-    ErrorMessage = err.description
+    ErrorMessage = err.Description
 End Function
 
 
@@ -1301,7 +1305,7 @@ SysError:
         End If
         saveToGl = True
         End With
-    MsgBox IIf(ErrorMessage = "", err.description, ErrorMessage), vbInformation, Me.Caption
+    MsgBox IIf(ErrorMessage = "", err.Description, ErrorMessage), vbInformation, Me.Caption
 End Sub
 Private Function effectOnMember(mMemberNo As String, ACCNO As String, Source As String, Loanno As String, amount As Double, sharesCode As String, Effect As String, Optional transactionNo As String, Optional Remarks As String) As Boolean
     On Error GoTo Capture
@@ -1421,8 +1425,8 @@ Private Sub CmdUnpostedJV_Click()
         While Not .EOF
             Set li = lvwUnpostedjvs.ListItems.Add(, , .Fields(0))
             li.ListSubItems.Add , , .Fields(1)
-            li.ListSubItems.Add , , .Fields(2)
             li.ListSubItems.Add , , .Fields(3)
+            li.ListSubItems.Add , , .Fields(2)
         .MoveNext
         Wend
     End With

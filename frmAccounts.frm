@@ -103,7 +103,7 @@ Begin VB.Form frmAccounts
          Strikethrough   =   0   'False
       EndProperty
       CustomFormat    =   " dd-MM-yyyy"
-      Format          =   138543107
+      Format          =   37355523
       CurrentDate     =   39705
    End
    Begin MSComCtl2.DTPicker dtpStartDate 
@@ -125,7 +125,7 @@ Begin VB.Form frmAccounts
          Strikethrough   =   0   'False
       EndProperty
       CustomFormat    =   " dd-MM-yyyy"
-      Format          =   138543107
+      Format          =   37355523
       CurrentDate     =   39705
    End
    Begin VB.CommandButton Command1 
@@ -393,7 +393,7 @@ End If
     Exit Sub
 SysError:
     Command1.Enabled = True
-    MsgBox IIf(ErrorMessage = "", err.description, ErrorMessage), vbInformation
+    MsgBox IIf(ErrorMessage = "", err.Description, ErrorMessage), vbInformation
 End Sub
 
 Private Sub Command2_Click()
@@ -410,7 +410,7 @@ Private Sub Command2_Click()
   
             Set rsBudgets = oSaccoMaster.GetRecordset("Set DateFormat DMY Select Budgetted" _
             & " As BudgetAmount From BUDGETS where AccNo='" & rsAccounts.Fields("accno") & "' and mmonth='" _
-            & month(dtpFinishDate) & "' and yyear='" & year(dtpFinishDate) & "'")
+            & month(dtpFinishDate) & "' and yyear='" & Year(dtpFinishDate) & "'")
             If Not rsBudgets.EOF Then
             Dim b As Currency
             '//updates on the tem
@@ -453,7 +453,7 @@ Private Sub Command2_Click()
     Exit Sub
 SysError:
     Command1.Enabled = True
-    MsgBox err.description, vbInformation, Me.Caption
+    MsgBox err.Description, vbInformation, Me.Caption
 End Sub
 
 Private Sub Command3_Click()
@@ -479,7 +479,7 @@ Private Sub Command4_Click()
     Dim transtype As String, DocumentNo As String, accType As String, AccGroup As String, AccName As String, TotalDr As Double, TotalCr As Double
     
     
-    If year(DTPStartDate) < year(dtpFinishDate) Then
+    If Year(DTPStartDate) < Year(dtpFinishDate) Then
         MsgBox "The choosen period crosses the definition of the funancial period", vbCritical, "INVALID PERIOD"
         Exit Sub
     End If
@@ -598,16 +598,16 @@ Private Sub Command4_Click()
                 transtype = "DR"
             End If
         'retained Earnings
-'        If ACCBAL <> 0 Then
-'            sql = "Set DateFormat DMY INSERT INTO [tbbalance] ([AccNo],[AccName], [Amount],[Transtype], [Closed],[StartDate], [EndDate], [AuditID], [AccType], [AccGroup], [BudgetAmount])"
-'
-'            sql = sql & " Values('" & REarningsAcc & "','" & UCase("Retained Earnings") & "'," & ACCBAL & ",'" & transtype & "',0,'" & dtpStartDate & "','" & dtpFinishDate.value & _
-'            "','" & User & "','" & accType & "','" & AccGroup & "',0)"
-'
-'            If Not oSaccoMaster.Execute(sql) Then
-'                GoTo SysError
-'            End If
-'        End If
+        If ACCBAL <> 0 Then
+            sql = "Set DateFormat DMY INSERT INTO [tbbalance] ([AccNo],[AccName], [Amount],[Transtype], [Closed],[StartDate], [EndDate], [AuditID], [AccType], [AccGroup], [BudgetAmount])"
+
+            sql = sql & " Values('" & REarningsAcc & "','" & UCase("Retained Earnings") & "'," & ACCBAL & ",'" & transtype & "',0,'" & DTPStartDate & "','" & dtpFinishDate.value & _
+            "','" & User & "','" & accType & "','" & AccGroup & "',0)"
+
+            If Not oSaccoMaster.Execute(sql) Then
+                GoTo SysError
+            End If
+        End If
         
         End If
     End If
@@ -616,7 +616,7 @@ Private Sub Command4_Click()
     Exit Sub
 SysError:
     Command1.Enabled = True
-    MsgBox IIf(ErrorMessage = "", err.description, ErrorMessage), vbInformation
+    MsgBox IIf(ErrorMessage = "", err.Description, ErrorMessage), vbInformation
 
 End Sub
 

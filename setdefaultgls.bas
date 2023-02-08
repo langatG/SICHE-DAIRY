@@ -1,6 +1,6 @@
 Attribute VB_Name = "setdefaultgls"
 Public Sub setdefaultgls(transdate As Date, Description As String)
-        Dim E, Remark As String
+        Dim E, Remark, Ddr, Ccr As String
         Dim amount As Double
         
         Startdate = DateSerial(Year(transdate), month(transdate), 1)
@@ -13,7 +13,8 @@ Public Sub setdefaultgls(transdate As Date, Description As String)
         sql = "select * from GLSetDefaultGls Where Affect='" & Description & "'"
         Set rs = oSaccoMaster.GetRecordset(sql)
         If Not rs.EOF Then
-        
+          Ddr = rs!dr
+          Ccr = rs!cr
           If Description = "Purchases" Then
             sql = "set dateformat dmy select isnull(sum(PAmount),0) as amnt from  d_Milkintake Where TransDate='" & transdate & "'"
           ElseIf Description = "Payables" Then
@@ -41,7 +42,7 @@ Public Sub setdefaultgls(transdate As Date, Description As String)
                oSaccoMaster.ExecuteThis (sql)
              Else
                sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) "
-               sql = sql & " values ('" & transdate & "','" & amount & "','" & rs!dr & "','" & rs!cr & "','" & Description & "','' ,'" & E & "-" & Remark & "','" & Now & "','" & User & "',0,0)"
+               sql = sql & " values ('" & transdate & "','" & amount & "','" & Ddr & "','" & Ccr & "','" & Description & "','' ,'" & E & "-" & Remark & "','" & Now & "','" & User & "',0,0)"
                oSaccoMaster.ExecuteThis (sql)
             End If
           End If
