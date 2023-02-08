@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmdebtor1 
    Caption         =   "DEBTORS SALES AND REGISTRY"
@@ -75,7 +75,7 @@ Begin VB.Form frmdebtor1
       _ExtentX        =   2778
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   111017985
+      Format          =   122159105
       CurrentDate     =   38814
    End
    Begin TabDlg.SSTab SSTab1 
@@ -103,15 +103,15 @@ Begin VB.Form frmdebtor1
       TabCaption(0)   =   "DEBTORS REGISTRATION"
       TabPicture(0)   =   "frmdebtor1.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "cmdnewvehicle"
+      Tab(0).Control(0)=   "Frame1"
       Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "cmdSave"
+      Tab(0).Control(1)=   "cmdNew"
       Tab(0).Control(1).Enabled=   0   'False
       Tab(0).Control(2)=   "cmdEdit"
       Tab(0).Control(2).Enabled=   0   'False
-      Tab(0).Control(3)=   "cmdNew"
+      Tab(0).Control(3)=   "cmdSave"
       Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).Control(4)=   "Frame1"
+      Tab(0).Control(4)=   "cmdnewvehicle"
       Tab(0).Control(4).Enabled=   0   'False
       Tab(0).ControlCount=   5
       TabCaption(1)   =   "POINT OF SALES "
@@ -204,31 +204,18 @@ Begin VB.Form frmdebtor1
       TabPicture(2)   =   "frmdebtor1.frx":0038
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "Label29"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "Label28"
-      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "Label30"
-      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label31"
-      Tab(2).Control(3).Enabled=   0   'False
       Tab(2).Control(4)=   "Label32"
-      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).Control(5)=   "prgStatus"
-      Tab(2).Control(5).Enabled=   0   'False
       Tab(2).Control(6)=   "ListViewG"
-      Tab(2).Control(6).Enabled=   0   'False
       Tab(2).Control(7)=   "cmdActive"
-      Tab(2).Control(7).Enabled=   0   'False
       Tab(2).Control(8)=   "cmdAssign"
-      Tab(2).Control(8).Enabled=   0   'False
       Tab(2).Control(9)=   "cboGari"
-      Tab(2).Control(9).Enabled=   0   'False
       Tab(2).Control(10)=   "cboGari2"
-      Tab(2).Control(10).Enabled=   0   'False
       Tab(2).Control(11)=   "cmdprce"
-      Tab(2).Control(11).Enabled=   0   'False
       Tab(2).Control(12)=   "cmdreport"
-      Tab(2).Control(12).Enabled=   0   'False
       Tab(2).ControlCount=   13
       Begin VB.CommandButton cmddedproce 
          Caption         =   "Vehicle Customers Balance"
@@ -734,7 +721,7 @@ Begin VB.Form frmdebtor1
             Top             =   2760
             Width           =   10335
             Begin VB.Label Label26 
-               Caption         =   "Cr Vehicle"
+               Caption         =   "Cr"
                BeginProperty Font 
                   Name            =   "Century"
                   Size            =   9.75
@@ -751,7 +738,7 @@ Begin VB.Form frmdebtor1
                Width           =   1215
             End
             Begin VB.Label Label25 
-               Caption         =   "Dr Stock"
+               Caption         =   "Dr"
                BeginProperty Font 
                   Name            =   "Century"
                   Size            =   9.75
@@ -1406,7 +1393,7 @@ Begin VB.Form frmdebtor1
       Begin VB.Label lblcrvehicle 
          BackColor       =   &H00FFFFC0&
          Height          =   255
-         Left            =   6360
+         Left            =   5400
          TabIndex        =   25
          Top             =   1860
          Width           =   1095
@@ -1414,13 +1401,13 @@ Begin VB.Form frmdebtor1
       Begin VB.Label lbldrstock 
          BackColor       =   &H00FFFFC0&
          Height          =   255
-         Left            =   6360
+         Left            =   5400
          TabIndex        =   24
          Top             =   1500
          Width           =   1095
       End
       Begin VB.Label Label13 
-         Caption         =   "Cr Vehicle"
+         Caption         =   "Cr"
          BeginProperty Font 
             Name            =   "Century"
             Size            =   9.75
@@ -1437,7 +1424,7 @@ Begin VB.Form frmdebtor1
          Width           =   1215
       End
       Begin VB.Label Label12 
-         Caption         =   "Dr Stock"
+         Caption         =   "Dr"
          BeginProperty Font 
             Name            =   "Century"
             Size            =   9.75
@@ -1484,7 +1471,7 @@ Begin VB.Form frmdebtor1
          Width           =   1095
       End
       Begin VB.Label Label6 
-         Caption         =   "Dr Vehicle"
+         Caption         =   "Dr"
          BeginProperty Font 
             Name            =   "Century"
             Size            =   9.75
@@ -1495,13 +1482,13 @@ Begin VB.Form frmdebtor1
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   4680
+         Left            =   5400
          TabIndex        =   17
          Top             =   3660
          Width           =   1335
       End
       Begin VB.Label Label9 
-         Caption         =   "Cr Sales"
+         Caption         =   "Cr"
          BeginProperty Font 
             Name            =   "Century"
             Size            =   9.75
@@ -1512,7 +1499,7 @@ Begin VB.Form frmdebtor1
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   4680
+         Left            =   5400
          TabIndex        =   16
          Top             =   4260
          Width           =   1215
@@ -1837,7 +1824,7 @@ cboGari = ""
 cboGari2 = ""
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 Private Sub cmdAssign_Click()
 On Error GoTo ErrorHandler
@@ -1874,7 +1861,7 @@ cboGari = ""
 cboGari2 = ""
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 Public Sub loadAssignments()
     With ListViewG
@@ -2203,7 +2190,7 @@ End If
 cmdreport.Enabled = True
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 Private Sub vehiclepro()
 Startdate = DateSerial(Year(txtdateenterered), month(txtdateenterered), 1)
@@ -2300,11 +2287,15 @@ MsgBox "Records successively updated."
 loadReg
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 
 End Sub
 Private Sub cmdsave3_Click()
 On Error GoTo ErrorHandler
+
+        Startdate = DateSerial(Year(txtdateenterered), month(txtdateenterered), 1)
+        Enddate = DateSerial(Year(txtdateenterered), month(txtdateenterered) + 1, 1 - 1)
+
 If chkoutletre.value = 0 Then
   If txtdcode = "" Then
    MsgBox "Debtors code cannot be blank; input an existing one", vbCritical
@@ -2381,6 +2372,20 @@ If chkoutletre.value = 0 Then
                 ErrorMessage = ""
             End If
     End If
+    '''' behind the scene
+    sql = "SET dateformat dmy SELECT AVG(distinct PPU) AS AveragePrice FROM d_Milkintake where TransDate>='" & Startdate & "' and TransDate<='" & txtdateenterered & "'"
+    Set rsg = oSaccoMaster.GetRecordset(sql)
+    sql = "select * from GLSetDefaultGls Where Affect='Join'"
+    Set rst = oSaccoMaster.GetRecordset(sql)
+    
+    If Not Save_GLTRANSACTION(Format(txtdateenterered, "dd/mm/yyyy"), (CCur(rsg!AveragePrice) * CCur(txtDispatch)), " & rst!dr & ", " & rst!cr & ", Y, txtRefNo, User, ErrorMessage, "Milk Sales", 1, 1, txtRefNo, transactionNo, "", "", 0) Then
+            If ErrorMessage <> "" Then
+                MsgBox ErrorMessage, vbInformation, Me.Caption
+                ErrorMessage = ""
+            End If
+    End If
+    '''' end of behind the scene
+    
     
  Else
    Y = cboNames
@@ -2394,6 +2399,20 @@ If chkoutletre.value = 0 Then
                 ErrorMessage = ""
             End If
     End If
+    
+        '''' behind the scene
+    sql = "SET dateformat dmy SELECT AVG(distinct PPU) AS AveragePrice FROM d_Milkintake where TransDate>='" & Startdate & "' and TransDate<='" & txtdateenterered & "'"
+    Set rsg = oSaccoMaster.GetRecordset(sql)
+    sql = "select * from GLSetDefaultGls Where Affect='Join'"
+    Set rst = oSaccoMaster.GetRecordset(sql)
+    
+    If Not Save_GLTRANSACTION(Format(txtdateenterered, "dd/mm/yyyy"), (CCur(rsg!AveragePrice) * CCur(txtDispatch)), " & rst!cr & ", " & rst!dr & ", Y, txtRefNo, User, ErrorMessage, "Milk Sales Remove", 1, 1, txtRefNo, transactionNo, "", "", 0) Then
+            If ErrorMessage <> "" Then
+                MsgBox ErrorMessage, vbInformation, Me.Caption
+                ErrorMessage = ""
+            End If
+    End If
+    '''' end of behind the scene
 
  End If
 '/////////////end of checking if it is to delete
@@ -2702,7 +2721,7 @@ lblcracc = ""
     
  Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 
 End Sub
 
@@ -2820,7 +2839,7 @@ Private Sub txtDrAccNo_Change()
     End If
     Exit Sub
 SysError:
-    MsgBox err.description, vbInformation, Me.Caption
+    MsgBox err.Description, vbInformation, Me.Caption
 
 End Sub
 Private Sub txtCrAccNo_Change()
@@ -2840,7 +2859,7 @@ Private Sub txtCrAccNo_Change()
     End If
     Exit Sub
 SysError:
-    MsgBox err.description, vbInformation, Me.Caption
+    MsgBox err.Description, vbInformation, Me.Caption
 End Sub
 
 Private Sub cmdstatement_Click()
@@ -3279,7 +3298,7 @@ End If
 'txtdcode_Validate True
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 Private Sub txtdcode_Validate(Cancel As Boolean)
 Set rs = oSaccoMaster.GetRecordset("SELECT dname,Price,accdr,acccr,drcess,crcess,capp,crate FROM d_Debtors WHERE DCode = '" & txtdcode & "'")
@@ -3320,7 +3339,7 @@ End If
 
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub txtRefNo_Change()
@@ -3347,7 +3366,7 @@ End If
 'txtdcode_Validate True
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub txtTown_Change()

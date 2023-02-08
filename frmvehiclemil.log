@@ -1,1 +1,2 @@
-Line 289: Class MSComDlg.CommonDialog of control cdgPrint was not a loaded control class.
+Line 183: Class MSComctlLib.ListView of control ListView3 was not a loaded control class.
+Line 232: Class MSComctlLib.StatusBar of control StatusBar1 was not a loaded control class.

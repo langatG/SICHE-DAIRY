@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmcomplaintdesk 
    Caption         =   "COMPLAIN DESK"
@@ -141,7 +141,7 @@ Begin VB.Form frmcomplaintdesk
       _ExtentX        =   2990
       _ExtentY        =   450
       _Version        =   393216
-      Format          =   61014017
+      Format          =   120258561
       CurrentDate     =   40556
    End
    Begin VB.CommandButton cmdcomplaintreport 
@@ -476,7 +476,7 @@ Begin VB.Form frmcomplaintdesk
             Style           =   5
             Object.Width           =   1764
             MinWidth        =   1764
-            TextSave        =   "12:04 PM"
+            TextSave        =   "12:34 AM"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   1
@@ -520,7 +520,7 @@ Begin VB.Form frmcomplaintdesk
       _Version        =   393216
       MouseIcon       =   "frmcomplaintdesk.frx":01E8
       CalendarBackColor=   8454016
-      Format          =   61014017
+      Format          =   120258561
       CurrentDate     =   40095
    End
    Begin VB.Label Label1 
@@ -936,7 +936,7 @@ Exit Sub
 End If
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub cmdDays1_Click()
@@ -1600,7 +1600,7 @@ txtSNo.SetFocus
 Exit Sub
 ErrorHandler:
 
-MsgBox err.description
+MsgBox err.Description
 
 
 
@@ -2415,7 +2415,12 @@ End If
     '******END OF SMS*******
 
 
+' '************insert gls***************'
 
+setdefaultgls.setdefaultgls DTPMilkDate, "Purchases"
+
+
+' '************end***************'
 
 
 
@@ -2655,7 +2660,7 @@ txtSNo.SetFocus
 Exit Sub
 ErrorHandler:
 
-MsgBox err.description
+MsgBox err.Description
 
 End Sub
 
@@ -3251,7 +3256,7 @@ Enddate = DateSerial(Year(DTPMilkDate), month(DTPMilkDate) + 1, 1 - 1)
  Reset
 Exit Sub
 ErrorHandler:
-MsgBox err.description, vbCritical
+MsgBox err.Description, vbCritical
 End Sub
 
 Private Sub cmdsumaintake2_Click()
@@ -3281,7 +3286,7 @@ If Not rs.EOF Then
     MsgBox "The period " & Enddate & " has been closed by " & rs.Fields(0)
     Exit Sub
 End If
-Dim sno As String, Date_Deduc As Date, description As String, amount As Double, tbl As String
+Dim sno As String, Date_Deduc As Date, Description As String, amount As Double, tbl As String
 'Id, SNo, Date_Deduc, Description, Amount, auditid
  For I = 1 To Lvwdeductions.ListItems.Count
  
@@ -3292,12 +3297,12 @@ Dim sno As String, Date_Deduc As Date, description As String, amount As Double, 
         amount = CDbl(Lvwdeductions.ListItems(I).SubItems(4))
         Date_Deduc = Lvwdeductions.ListItems(I).SubItems(2)
         sno = Lvwdeductions.ListItems(I).SubItems(1)
-        description = Lvwdeductions.ListItems(I).SubItems(3)
+        Description = Lvwdeductions.ListItems(I).SubItems(3)
         '//before delete update audit report
             sql = ""
             sql = "set dateformat dmy INSERT INTO AUDITTRANS"
              sql = sql & "         (TransTable, TransDescription, TransDate, Amount, AuditID, AuditTime)"
-             sql = sql & " VALUES     ('" & tbl & "','" & description & "','" & Date_Deduc & "'," & amount & ",'" & User & "','" & Get_Server_Date & "')"
+             sql = sql & " VALUES     ('" & tbl & "','" & Description & "','" & Date_Deduc & "'," & amount & ",'" & User & "','" & Get_Server_Date & "')"
              oSaccoMaster.ExecuteThis (sql)
              
         'identi = Lvwdeductions.ListItems(I).SubItems(1)
@@ -3309,7 +3314,7 @@ Dim sno As String, Date_Deduc As Date, description As String, amount As Double, 
 MsgBox "Record Sucessfully Updated"
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub Command1_Click()
@@ -3436,7 +3441,7 @@ End If
     
   Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
     
 End Sub
 
@@ -3527,7 +3532,7 @@ End If
 
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 'txttoday = "0"
 Set rs = New ADODB.Recordset
 sql = "d_sp_DailyTotal1 '" & DTPMilkDate & "','" & txtSNo & "'"

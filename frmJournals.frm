@@ -1,8 +1,8 @@
 VERSION 5.00
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmJournals 
    Caption         =   "JOURNAL POSTING"
    ClientHeight    =   7860
@@ -25,53 +25,340 @@ Begin VB.Form frmJournals
    ScaleWidth      =   9615
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
-   Begin VB.TextBox txtBalance 
+   Begin VB.Frame Frame5 
+      BorderStyle     =   0  'None
+      Height          =   495
+      Left            =   1560
+      TabIndex        =   30
+      Top             =   1890
+      Width           =   1935
+      Begin VB.OptionButton optShares 
+         Caption         =   "Shares"
+         Height          =   315
+         Left            =   0
+         TabIndex        =   32
+         Top             =   120
+         Value           =   -1  'True
+         Width           =   855
+      End
+      Begin VB.OptionButton optSavings 
+         Caption         =   "Savings"
+         Height          =   315
+         Left            =   960
+         TabIndex        =   31
+         Top             =   120
+         Width           =   975
+      End
+   End
+   Begin VB.CommandButton cmdclose 
+      Caption         =   "Close"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   6435
+      TabIndex        =   28
+      Top             =   7290
+      Width           =   1005
+   End
+   Begin VB.TextBox txtMemberNo 
+      Appearance      =   0  'Flat
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   300
+      Left            =   1665
+      Locked          =   -1  'True
+      TabIndex        =   26
+      Top             =   1650
+      Width           =   1455
+   End
+   Begin VB.CommandButton cmdFind 
+      Caption         =   "<>"
+      Enabled         =   0   'False
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   300
+      Left            =   3120
+      TabIndex        =   25
+      Top             =   1650
+      Width           =   345
+   End
+   Begin VB.ComboBox cboAccno 
+      Height          =   330
+      Left            =   645
+      Style           =   2  'Dropdown List
+      TabIndex        =   24
+      Top             =   540
+      Width           =   1200
+   End
+   Begin VB.TextBox txtAccNames 
+      Height          =   315
+      Left            =   2220
+      TabIndex        =   23
+      Top             =   525
+      Width           =   3300
+   End
+   Begin VB.CommandButton cmdAdd 
+      Caption         =   "Add"
+      Enabled         =   0   'False
+      Height          =   345
+      Left            =   3405
+      TabIndex        =   22
+      Top             =   4170
+      Width           =   1140
+   End
+   Begin VB.CommandButton cmdRemove 
+      Caption         =   "Remove"
+      Height          =   345
+      Left            =   4590
+      TabIndex        =   21
+      Top             =   4170
+      Width           =   1230
+   End
+   Begin VB.CommandButton cmdAcctsSearch 
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   300
+      Left            =   1845
+      Picture         =   "frmJournals.frx":030A
+      Style           =   1  'Graphical
+      TabIndex        =   20
+      Top             =   525
+      Width           =   330
+   End
+   Begin VB.TextBox txtTotalDr 
       Alignment       =   1  'Right Justify
       Appearance      =   0  'Flat
-      ForeColor       =   &H00FF0000&
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   8100
+      TabIndex        =   19
+      Text            =   "0"
+      Top             =   2670
+      Width           =   1155
+   End
+   Begin VB.TextBox txtTotalCr 
+      Alignment       =   1  'Right Justify
+      Appearance      =   0  'Flat
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   285
+      Left            =   8100
+      TabIndex        =   18
+      Text            =   "0"
+      Top             =   3375
+      Width           =   1155
+   End
+   Begin VB.CommandButton cmdProcessJournal 
+      Caption         =   "&Process"
       Height          =   375
-      Left            =   6000
-      Locked          =   -1  'True
-      TabIndex        =   44
-      Top             =   2160
-      Width           =   1575
+      Left            =   1200
+      TabIndex        =   17
+      Top             =   7275
+      Width           =   1425
    End
-   Begin VB.ComboBox Combo1 
-      Height          =   330
-      Left            =   1800
-      TabIndex        =   43
-      Top             =   3480
-      Width           =   3495
-   End
-   Begin VB.CommandButton cmdRemoveu 
-      Caption         =   "Remove (Unposted)"
+   Begin VB.CommandButton cmdClear 
+      Caption         =   "Remove All"
       Height          =   345
-      Left            =   7230
-      TabIndex        =   38
-      Top             =   4320
-      Width           =   1590
+      Left            =   5880
+      TabIndex        =   16
+      Top             =   4170
+      Width           =   1230
    End
-   Begin VB.CommandButton cmdNewJournal 
-      Caption         =   "New Journal"
-      Height          =   360
-      Left            =   120
-      TabIndex        =   37
-      Top             =   7440
-      Width           =   1185
+   Begin VB.TextBox txtDr 
+      Alignment       =   1  'Right Justify
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   12
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   6300
+      TabIndex        =   15
+      Text            =   "0"
+      Top             =   360
+      Width           =   1275
+   End
+   Begin VB.TextBox txtCr 
+      Alignment       =   1  'Right Justify
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   12
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   6300
+      TabIndex        =   14
+      Text            =   "0"
+      Top             =   690
+      Width           =   1275
+   End
+   Begin VB.CommandButton cmdSearchLoan 
+      Caption         =   "<>"
+      Enabled         =   0   'False
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   300
+      Left            =   3120
+      TabIndex        =   13
+      Top             =   2820
+      Width           =   345
+   End
+   Begin VB.ComboBox cboShareType 
+      Height          =   330
+      Left            =   1665
+      Locked          =   -1  'True
+      TabIndex        =   12
+      Top             =   2475
+      Width           =   1455
+   End
+   Begin VB.TextBox txtJournaNo 
+      Alignment       =   1  'Right Justify
+      Height          =   315
+      Left            =   1740
+      TabIndex        =   11
+      Top             =   15
+      Width           =   1230
+   End
+   Begin VB.ComboBox cboLoanno 
+      Height          =   330
+      Left            =   1650
+      TabIndex        =   10
+      Top             =   2850
+      Width           =   1485
+   End
+   Begin VB.CommandButton CmdUnpostedJV 
+      Caption         =   "Unposted Journals"
+      Height          =   345
+      Left            =   60
+      TabIndex        =   8
+      Top             =   3645
+      Width           =   1770
+   End
+   Begin VB.CommandButton cmdPostJournal 
+      Caption         =   "&Post"
+      Height          =   375
+      Left            =   2625
+      TabIndex        =   7
+      Top             =   7275
+      Width           =   1425
    End
    Begin VB.CommandButton cmdPrint 
       Caption         =   "Print JV"
       Height          =   360
-      Left            =   3105
-      TabIndex        =   36
-      Top             =   150
+      Left            =   2985
+      TabIndex        =   5
+      Top             =   0
       Width           =   1095
+   End
+   Begin VB.CommandButton cmdNewJournal 
+      Caption         =   "New Journal"
+      Height          =   360
+      Left            =   0
+      TabIndex        =   4
+      Top             =   7290
+      Width           =   1185
+   End
+   Begin VB.CommandButton cmdRemoveu 
+      Caption         =   "Remove (Unposted)"
+      Height          =   345
+      Left            =   7110
+      TabIndex        =   3
+      Top             =   4170
+      Width           =   1590
+   End
+   Begin VB.Frame Frame1 
+      Height          =   1695
+      Left            =   600
+      TabIndex        =   0
+      Top             =   1650
+      Width           =   7095
+      Begin VB.ComboBox cboJournalType 
+         Height          =   330
+         Left            =   1920
+         TabIndex        =   1
+         Text            =   "Combo1"
+         Top             =   240
+         Width           =   4695
+      End
+      Begin VB.Label Label6 
+         Caption         =   "Journal Type"
+         Height          =   255
+         Left            =   360
+         TabIndex        =   2
+         Top             =   240
+         Width           =   1095
+      End
+   End
+   Begin MSComDlg.CommonDialog dlg9 
+      Left            =   10455
+      Top             =   3840
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _Version        =   393216
    End
    Begin MSComctlLib.ListView lvwUnpostedjvs 
       Height          =   2730
-      Left            =   120
-      TabIndex        =   35
-      Top             =   4785
+      Left            =   0
+      TabIndex        =   6
+      Top             =   4635
       Visible         =   0   'False
       Width           =   9255
       _ExtentX        =   16325
@@ -108,256 +395,22 @@ Begin VB.Form frmJournals
          Object.Width           =   2540
       EndProperty
    End
-   Begin VB.CommandButton cmdPostJournal 
-      Caption         =   "&Post"
-      Height          =   375
-      Left            =   2640
-      TabIndex        =   34
-      Top             =   7425
-      Width           =   1425
-   End
-   Begin VB.CommandButton CmdUnpostedJV 
-      Caption         =   "Unposted Journals"
-      Height          =   345
-      Left            =   240
-      TabIndex        =   33
-      Top             =   4200
-      Width           =   1770
-   End
    Begin RichTextLib.RichTextBox rtpNarration 
-      Height          =   270
-      Left            =   3645
-      TabIndex        =   5
-      Top             =   3960
-      Visible         =   0   'False
+      Height          =   870
+      Left            =   3525
+      TabIndex        =   9
+      Top             =   3195
       Width           =   4065
       _ExtentX        =   7170
-      _ExtentY        =   476
+      _ExtentY        =   1535
       _Version        =   393217
-      TextRTF         =   $"frmJournals.frx":030A
-   End
-   Begin VB.ComboBox cboLoanno 
-      Height          =   330
-      Left            =   1770
-      TabIndex        =   4
-      Top             =   3000
-      Width           =   1485
-   End
-   Begin VB.TextBox txtJournaNo 
-      Alignment       =   1  'Right Justify
-      Height          =   315
-      Left            =   1860
-      TabIndex        =   29
-      Top             =   165
-      Width           =   1230
-   End
-   Begin VB.ComboBox cboShareType 
-      Height          =   330
-      Left            =   1785
-      Locked          =   -1  'True
-      TabIndex        =   3
-      Top             =   2625
-      Width           =   1455
-   End
-   Begin VB.CommandButton cmdSearchLoan 
-      Caption         =   "<>"
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   300
-      Left            =   3240
-      TabIndex        =   23
-      Top             =   2970
-      Width           =   345
-   End
-   Begin VB.TextBox txtCr 
-      Alignment       =   1  'Right Justify
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   315
-      Left            =   6420
-      TabIndex        =   2
-      Text            =   "0"
-      Top             =   840
-      Width           =   1275
-   End
-   Begin VB.TextBox txtDr 
-      Alignment       =   1  'Right Justify
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   315
-      Left            =   6420
-      TabIndex        =   1
-      Text            =   "0"
-      Top             =   510
-      Width           =   1275
-   End
-   Begin VB.CommandButton cmdClear 
-      Caption         =   "Remove All"
-      Height          =   345
-      Left            =   6000
-      TabIndex        =   20
-      Top             =   4320
-      Width           =   1230
-   End
-   Begin VB.CommandButton cmdProcessJournal 
-      Caption         =   "&Process"
-      Height          =   375
-      Left            =   1320
-      TabIndex        =   19
-      Top             =   7425
-      Width           =   1425
-   End
-   Begin VB.TextBox txtTotalCr 
-      Alignment       =   1  'Right Justify
-      Appearance      =   0  'Flat
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   285
-      Left            =   8220
-      TabIndex        =   18
-      Text            =   "0"
-      Top             =   3525
-      Width           =   1155
-   End
-   Begin VB.TextBox txtTotalDr 
-      Alignment       =   1  'Right Justify
-      Appearance      =   0  'Flat
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   315
-      Left            =   8220
-      TabIndex        =   17
-      Text            =   "0"
-      Top             =   2820
-      Width           =   1155
-   End
-   Begin VB.CommandButton cmdAcctsSearch 
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   300
-      Left            =   1965
-      Picture         =   "frmJournals.frx":0381
-      Style           =   1  'Graphical
-      TabIndex        =   16
-      Top             =   675
-      Width           =   330
-   End
-   Begin VB.CommandButton cmdRemove 
-      Caption         =   "Remove"
-      Height          =   345
-      Left            =   4710
-      TabIndex        =   15
-      Top             =   4320
-      Width           =   1230
-   End
-   Begin VB.CommandButton cmdAdd 
-      Caption         =   "Add"
-      Enabled         =   0   'False
-      Height          =   345
-      Left            =   3525
-      TabIndex        =   14
-      Top             =   4320
-      Width           =   1140
-   End
-   Begin VB.TextBox txtAccNames 
-      Height          =   315
-      Left            =   2340
-      TabIndex        =   13
-      Top             =   675
-      Width           =   3300
-   End
-   Begin VB.ComboBox cboAccno 
-      Height          =   330
-      Left            =   765
-      Style           =   2  'Dropdown List
-      TabIndex        =   0
-      Top             =   690
-      Width           =   1200
-   End
-   Begin VB.CommandButton cmdFind 
-      Caption         =   "<>"
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   300
-      Left            =   3240
-      TabIndex        =   9
-      Top             =   1800
-      Width           =   345
-   End
-   Begin VB.TextBox txtMemberNo 
-      Appearance      =   0  'Flat
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   300
-      Left            =   1785
-      Locked          =   -1  'True
-      TabIndex        =   6
-      Top             =   1800
-      Width           =   1455
+      TextRTF         =   $"frmJournals.frx":040C
    End
    Begin MSComctlLib.ListView lvwTrans 
       Height          =   2520
-      Left            =   135
-      TabIndex        =   8
-      Top             =   4770
+      Left            =   15
+      TabIndex        =   27
+      Top             =   4620
       Width           =   9285
       _ExtentX        =   16378
       _ExtentY        =   4445
@@ -412,35 +465,11 @@ Begin VB.Form frmJournals
          Object.Width           =   2540
       EndProperty
    End
-   Begin MSComDlg.CommonDialog dlg9 
-      Left            =   10455
-      Top             =   3840
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _Version        =   393216
-   End
-   Begin VB.CommandButton cmdclose 
-      Caption         =   "Close"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   6555
-      TabIndex        =   7
-      Top             =   7440
-      Width           =   1005
-   End
    Begin MSComCtl2.DTPicker dtpReceiptDate 
       Height          =   300
-      Left            =   8040
-      TabIndex        =   12
-      Top             =   225
+      Left            =   7920
+      TabIndex        =   29
+      Top             =   75
       Width           =   1320
       _ExtentX        =   2328
       _ExtentY        =   529
@@ -455,47 +484,12 @@ Begin VB.Form frmJournals
          Strikethrough   =   0   'False
       EndProperty
       CustomFormat    =   "  dd-MM-yyyy"
-      Format          =   123928577
+      Format          =   120258561
       CurrentDate     =   40336
    End
-   Begin VB.Frame Frame5 
-      BorderStyle     =   0  'None
-      Height          =   495
-      Left            =   1680
-      TabIndex        =   39
-      Top             =   2040
-      Width           =   1935
-      Begin VB.OptionButton optSavings 
-         Caption         =   "Savings"
-         Height          =   315
-         Left            =   960
-         TabIndex        =   41
-         Top             =   120
-         Width           =   975
-      End
-      Begin VB.OptionButton optShares 
-         Caption         =   "Shares"
-         Height          =   315
-         Left            =   0
-         TabIndex        =   40
-         Top             =   120
-         Value           =   -1  'True
-         Width           =   855
-      End
-   End
-   Begin VB.Label Label6 
-      Caption         =   "Ref Doc:"
-      Height          =   255
-      Left            =   240
-      TabIndex        =   42
-      Top             =   3240
-      Visible         =   0   'False
-      Width           =   855
-   End
-   Begin VB.Label Label9 
-      Alignment       =   1  'Right Justify
+   Begin VB.Label Label1 
       AutoSize        =   -1  'True
-      Caption         =   "Total DR"
+      Caption         =   "MemberNo"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   8.25
@@ -506,10 +500,147 @@ Begin VB.Form frmJournals
          Strikethrough   =   0   'False
       EndProperty
       Height          =   210
-      Left            =   8475
-      TabIndex        =   32
-      Top             =   2535
-      Width           =   660
+      Left            =   660
+      TabIndex        =   44
+      Top             =   1680
+      Width           =   915
+   End
+   Begin VB.Label lblfullnames 
+      BorderStyle     =   1  'Fixed Single
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   3465
+      TabIndex        =   43
+      Top             =   1650
+      Width           =   4095
+   End
+   Begin VB.Label Label3 
+      Caption         =   "DR"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   270
+      Left            =   5595
+      TabIndex        =   42
+      Top             =   375
+      Width           =   645
+   End
+   Begin VB.Label Label5 
+      Caption         =   "CR"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   270
+      Left            =   5595
+      TabIndex        =   41
+      Top             =   750
+      Width           =   585
+   End
+   Begin VB.Label lblLoantype 
+      BorderStyle     =   1  'Fixed Single
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   3450
+      TabIndex        =   40
+      Top             =   2820
+      Width           =   4110
+   End
+   Begin VB.Label Loanno 
+      AutoSize        =   -1  'True
+      Caption         =   "Loanno"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   210
+      Left            =   660
+      TabIndex        =   39
+      Top             =   2850
+      Width           =   915
+   End
+   Begin VB.Label lblShareType 
+      BorderStyle     =   1  'Fixed Single
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   3480
+      TabIndex        =   38
+      Top             =   2475
+      Width           =   4080
+   End
+   Begin VB.Label ShareType 
+      AutoSize        =   -1  'True
+      Caption         =   "ShareType"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   210
+      Left            =   660
+      TabIndex        =   37
+      Top             =   2505
+      Width           =   915
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Journal No"
+      Height          =   270
+      Left            =   600
+      TabIndex        =   36
+      Top             =   30
+      Width           =   885
+   End
+   Begin VB.Label Label4 
+      Caption         =   "Journal Narration"
+      Height          =   285
+      Left            =   2235
+      TabIndex        =   35
+      Top             =   3225
+      Width           =   1305
    End
    Begin VB.Label Label7 
       Alignment       =   1  'Right Justify
@@ -525,30 +656,15 @@ Begin VB.Form frmJournals
          Strikethrough   =   0   'False
       EndProperty
       Height          =   210
-      Left            =   8475
-      TabIndex        =   31
-      Top             =   3225
+      Left            =   8355
+      TabIndex        =   34
+      Top             =   3075
       Width           =   675
    End
-   Begin VB.Label Label4 
-      Caption         =   "Journal Narration"
-      Height          =   285
-      Left            =   480
-      TabIndex        =   30
-      Top             =   3480
-      Width           =   1305
-   End
-   Begin VB.Label Label2 
-      Caption         =   "Document No"
-      Height          =   270
-      Left            =   480
-      TabIndex        =   28
-      Top             =   180
-      Width           =   1125
-   End
-   Begin VB.Label ShareType 
+   Begin VB.Label Label9 
+      Alignment       =   1  'Right Justify
       AutoSize        =   -1  'True
-      Caption         =   "ShareType"
+      Caption         =   "Total DR"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   8.25
@@ -559,139 +675,15 @@ Begin VB.Form frmJournals
          Strikethrough   =   0   'False
       EndProperty
       Height          =   210
-      Left            =   780
-      TabIndex        =   27
-      Top             =   2655
-      Width           =   915
-   End
-   Begin VB.Label lblShareType 
-      BorderStyle     =   1  'Fixed Single
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   315
-      Left            =   3600
-      TabIndex        =   26
-      Top             =   2625
-      Width           =   4080
-   End
-   Begin VB.Label Loanno 
-      AutoSize        =   -1  'True
-      Caption         =   "Loanno"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   210
-      Left            =   780
-      TabIndex        =   25
-      Top             =   3000
-      Width           =   915
-   End
-   Begin VB.Label lblLoantype 
-      BorderStyle     =   1  'Fixed Single
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   315
-      Left            =   3570
-      TabIndex        =   24
-      Top             =   2970
-      Width           =   4110
-   End
-   Begin VB.Label Label5 
-      Caption         =   "CR"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   270
-      Left            =   5715
-      TabIndex        =   22
-      Top             =   900
-      Width           =   585
-   End
-   Begin VB.Label Label3 
-      Caption         =   "DR"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   270
-      Left            =   5715
-      TabIndex        =   21
-      Top             =   525
-      Width           =   645
-   End
-   Begin VB.Label lblfullnames 
-      BorderStyle     =   1  'Fixed Single
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   315
-      Left            =   3585
-      TabIndex        =   11
-      Top             =   1800
-      Width           =   4095
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "MemberNo"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   210
-      Left            =   780
-      TabIndex        =   10
-      Top             =   1830
-      Width           =   915
+      Left            =   8355
+      TabIndex        =   33
+      Top             =   2385
+      Width           =   660
    End
    Begin VB.Menu mnuOptions 
       Caption         =   "Options"
       Begin VB.Menu mnuAllJournals 
          Caption         =   "All Journals"
-      End
-      Begin VB.Menu mnuGltrans 
-         Caption         =   "GL Correction"
       End
       Begin VB.Menu mnuShareAdjust 
          Caption         =   "Share Capital Adjustment"
@@ -705,24 +697,24 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Dim totalamount As Currency
+Dim Totalamount As Currency
 Dim pushed As Currency
 Dim objLabelEdit As LabelEdit
 Dim interestAcc As String, LoanAcc As String
 Dim k As Integer
-Dim shareBal As Double, Balance As Double
+Dim shareBal As Double, balance As Double
 Dim sharesCode As String, VoucherNo As String
 Dim isMember As Boolean
-Dim memberId As String
+Dim memberid As String
 Dim subType As String
-Dim totalCr As Double, totalDr As Double
-
+Dim TotalCr As Double, TotalDr As Double
+Dim DRAcc As String, CRAcc As String, ContraAcc As String, paymentno As String
 
 Private Sub cboAccno_Change()
-    Dim AccNo As String
-    AccNo = cboAccno.Text
-    sql = "select GLACCNAME,TYPE,SUBTYPE from glsetup where accno='" & AccNo & "'"
-    Set rs = oSaccoMaster.GetRecordSet(sql)
+    Dim ACCNO As String
+    ACCNO = cboAccno.Text
+    sql = "select GLACCNAME,TYPE,SUBTYPE from glsetup where accno='" & ACCNO & "'"
+    Set rs = oSaccoMaster.GetRecordset(sql)
     If Not rs.EOF Then
         txtAccNames.Text = rs(0)
         subType = UCase(rs.Fields("SubType"))
@@ -738,9 +730,9 @@ Private Sub cboAccno_Change()
             isMember = False
             txtMemberNo.Locked = True
             txtMemberNo.Text = ""
-            cboShareType.Text = " "
-            cboLoanno.clear
-            cboLoanno.Text = " "
+            'cboShareType.Text = " "
+            'cboLoanno.clear
+            'cboLoanno.Text = " "
             cboLoanno.Locked = True
             cmdFind.Enabled = False
             cmdSearchLoan.Enabled = False
@@ -764,12 +756,17 @@ Private Sub cboAccno_KeyPress(KeyAscii As Integer)
     End If
 End Sub
 
+
+Private Sub cboBanks_Click()
+
+End Sub
+
 Private Sub cboLoanno_Change()
-    If Trim(cboLoanno.Text) = "" Then
+    If cboLoanno.Text = "" Then
         Exit Sub
     End If
     sql = "select lt.loantype from loantype lt inner join loanbal lb on lt.loancode=lb.loancode where lb.Loanno='" & cboLoanno & "'"
-    Set rs = oSaccoMaster.GetRecordSet(sql)
+    Set rs = oSaccoMaster.GetRecordset(sql)
     If rs.EOF Then
         lblLoantype.Caption = ""
     Else
@@ -788,12 +785,10 @@ Private Sub cboLoanno_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub cboShareType_Change()
-  Dim bala As String
-  
     On Error GoTo Capture
-    If optShares.Value = True Then
+    If optShares.value = True Then
         sql = "select st.sharestype from sharetype ST where ST.sharescode='" & cboShareType & "'"
-        Set rs = oSaccoMaster.GetRecordSet(sql)
+        Set rs = oSaccoMaster.GetRecordset(sql)
         With rs
             If Not .EOF Then
                 lblShareType.Caption = rs(0)
@@ -802,14 +797,11 @@ Private Sub cboShareType_Change()
             End If
         End With
     Else
-        bala = getcubaccbalance(cboShareType)
-        bala = bala - 200
-        txtBalance = Format(bala, Cfmt)
         sql = "Select ac.AccountName AccName  " _
         & " from AccountCodes ac inner join cub on cub.accountcode=ac.accountcode " _
         & " where cub.Accno='" & cboShareType & "'"
-        
-        Set rst = oSaccoMaster.GetRecordSet(sql)
+
+        Set rst = oSaccoMaster.GetRecordset(sql)
         If Not rst.EOF Then
             lblShareType.Caption = rst("AccName")
         Else
@@ -818,7 +810,7 @@ Private Sub cboShareType_Change()
     End If
     Exit Sub
 Capture:
-    ShowErrorMessage Err.Description
+    ShowErrorMessage err.description
 End Sub
 
 Private Sub cboShareType_Click()
@@ -838,33 +830,34 @@ Private Sub cmdAcctsSearch_Click()
     frmAcctsSearch.Show vbModal, Me
     If Continue Then
         If SearchValue <> "" Then
-            cboAccno = SearchValue
+            cboAccno.List(0) = SearchValue
+            cboAccno.Text = cboAccno.List(0)
             SearchValue = ""
             Continue = False
         End If
     End If
 End Sub
 
-Private Sub cmdadd_Click()
+Private Sub cmdAdd_Click()
     On Error GoTo SysError
     If cboAccno.Text = "" Then
         Exit Sub
     End If
-    
+
     If Not ValidateEntry(0, 0) Then
         MsgBox ErrorMessage, vbCritical
         Exit Sub
     End If
-    
+
     Set li = lvwTrans.ListItems.Add(, , cboAccno)
-     li.SubItems(1) = txtAccNames
+    li.SubItems(1) = txtAccNames
     li.SubItems(2) = "0.00"
     li.SubItems(3) = txtMemberNo.Text
 
-    
+
     Exit Sub
 SysError:
-    MsgBox Err.Description, vbInformation, Me.Caption
+    MsgBox err.description, vbInformation, Me.Caption
 End Sub
 
 
@@ -874,13 +867,13 @@ Private Sub cmdbookedreceipts_Click()
     Show_Sales_Crystal_Report STRFORMULA, reportname, title
 End Sub
 
-Private Sub cmdClose_Click()
+Private Sub cmdclose_Click()
     Unload Me
 End Sub
 
 Private Sub cmdFind_Click()
-    frmSearchMembers.Show vbModal
-    txtMemberNo.Text = SearchValue
+    'frmSearchMembers.Show vbModal
+    'txtMemberNo.Text = SearchValue
 End Sub
 
 Private Sub cmdNewJournal_Click()
@@ -888,9 +881,9 @@ Private Sub cmdNewJournal_Click()
 End Sub
 
 Private Sub cmdPrint_Click()
-    reportname = "JV.rpt"
+    reportname = "JV2.rpt"
     STRFORMULA = "{journals.vno}='" & txtJournaNo.Text & "'"
-    Show_Sales_Crystal_Report STRFORMULA, reportname, companyname
+    Show_Sales_Crystal_Report STRFORMULA, reportname, CompanyName
 End Sub
 
 
@@ -898,42 +891,42 @@ End Sub
 Private Sub cmdRemove_Click()
     On Error GoTo SysError
     With lvwTrans
-        If .ListItems.count > 0 Then
+        If .ListItems.Count > 0 Then
             If MsgBox("Do you want to remove " & lvwTrans.SelectedItem.SubItems(1) & _
             " From the list?", vbQuestion + vbYesNo, Me.Caption) = vbNo Then
                 Exit Sub
             End If
-            .ListItems.Remove (.SelectedItem.index)
+            .ListItems.Remove (.SelectedItem.Index)
             Recalculate
-            
+
         End If
     End With
-    
+
     Exit Sub
 SysError:
-    MsgBox Err.Description, vbInformation, Me.Caption
+    MsgBox err.description, vbInformation, Me.Caption
 End Sub
 
 
 Private Sub cmdRemoveu_Click()
     On Error GoTo Capture
     Dim JvNos As String
-    Dim Sel As Integer
+    Dim sel As Integer
     With lvwUnpostedjvs
-        If .ListItems.count > 0 Then
-            For I = 1 To .ListItems.count
+        If .ListItems.Count > 0 Then
+            For I = 1 To .ListItems.Count
                 If .ListItems(I).Checked Then
                     If I = 1 Then
                         JvNos = "'" & .ListItems(I).Text & "'"
-                        Sel = 1
+                        sel = 1
                     Else
                         JvNos = JvNos & "," & "'" & .ListItems(I).Text & "'"
-                        Sel = Sel + 1
+                        sel = sel + 1
                     End If
                 End If
             Next I
             If JvNos <> "" Then
-                If MsgBox("Delete the selected " & Sel & " Unposted Records?", vbQuestion + vbYesNo) = vbNo Then
+                If MsgBox("Delete the selected " & sel & " Unposted Records?", vbQuestion + vbYesNo) = vbNo Then
                     Exit Sub
                 End If
                 If Not oSaccoMaster.Execute("delete from journals where vNo in (" & JvNos & ")") Then
@@ -945,7 +938,7 @@ Private Sub cmdRemoveu_Click()
     End With
     Exit Sub
 Capture:
-    MsgBox IIf(ErrorMessage = "", Err.Description, ErrorMessage)
+    MsgBox IIf(ErrorMessage = "", err.description, ErrorMessage)
 End Sub
 
 Private Sub cmdProcessJournal_Click()
@@ -956,12 +949,17 @@ Private Sub cmdProcessJournal_Click()
             MsgBox "The journal is not balancing, please rectify", vbCritical + vbOKOnly
                 Exit Sub
         End If
-        If Combo1.Text = "" Then
-            MsgBox "The Naration is Required", vbCritical
-            Combo1.SetFocus
+        
+        If cboJournalType.Text = "" Then
+            MsgBox "The journal type is Required", vbCritical
             Exit Sub
         End If
-        Set rst = oSaccoMaster.GetRecordSet("select vno from journals where vno='" & txtJournaNo & "'")
+        
+        If rtpNarration.Text = "" Then
+            MsgBox "The Naration is Required", vbCritical
+            Exit Sub
+        End If
+        Set rst = oSaccoMaster.GetRecordset("select vno from journals where vno='" & txtJournaNo & "'")
         If Not rst.EOF Then
             MsgBox "The Voucherno is already Processed, maybe awaiting Posting"
             Exit Sub
@@ -970,23 +968,23 @@ Private Sub cmdProcessJournal_Click()
         With oSaccoMaster.goConn
         .BeginTrans
             With lvwTrans
-                For I = 1 To lvwTrans.ListItems.count
+                For I = 1 To lvwTrans.ListItems.Count
                     If I = 1 Then
                         If CDbl(.ListItems(I).ListSubItems(2)) > 0 Then
-                            mMemberno = .ListItems(I).ListSubItems(4)
-                            dracc = .ListItems(I).Text
+                            mMemberNo = .ListItems(I).ListSubItems(4)
+                            DRAcc = .ListItems(I).Text
                             CRAcc = ""
                         Else
-                            mMemberno = .ListItems(I).ListSubItems(4)
+                            mMemberNo = .ListItems(I).ListSubItems(4)
                             CRAcc = .ListItems(I).Text
-                            dracc = ""
+                            DRAcc = ""
                         End If
                         sql = ""
                         'i = IIf(DRAcc = "", CDbl(.ListItems(i).ListSubItems(3)), CDbl(.ListItems(i).ListSubItems(2)))
-                        sql = "set dateformat dmy insert into Journals(accno,name,Naration,memberno,vno,Amount,Transtype,TRANSDATE,AuditId,Posted,Loanno,sharetype,transactionno)" _
-                        & " Values('" & .ListItems(I).Text & "','" & .ListItems(I).ListSubItems(1) & "','" & Combo1.Text & "','" & mMemberno & "'," _
-                        & " '" & txtJournaNo & "'," & IIf(dracc = "", CDbl(.ListItems(I).ListSubItems(3)), CDbl(.ListItems(I).ListSubItems(2))) & ",'" & IIf(dracc <> "", "DR", "CR") & "'," _
-                        & " '" & dtpReceiptDate & "','" & User & "',0,'" & .ListItems(I).ListSubItems(5) & "','" & .ListItems(I).ListSubItems(5) & "','" & transactionNo & "')"
+                        sql = "set dateformat dmy insert into Journals(accno,type,name,Naration,memberno,vno,Amount,Transtype,TRANSDATE,AuditId,Posted,Loanno,sharetype)" _
+                        & " Values('" & .ListItems(I).Text & "','" & cboJournalType & "','" & .ListItems(I).ListSubItems(1) & "','" & rtpNarration.Text & "','" & mMemberNo & "'," _
+                        & " '" & txtJournaNo & "'," & IIf(DRAcc = "", CDbl(.ListItems(I).ListSubItems(3)), CDbl(.ListItems(I).ListSubItems(2))) & ",'" & IIf(DRAcc <> "", "DR", "CR") & "'," _
+                        & " '" & dtpReceiptDate & "','" & User & "',0,'" & .ListItems(I).ListSubItems(5) & "','" & .ListItems(I).ListSubItems(5) & "')"
                         oSaccoMaster.goConn.Execute sql
                         GoTo NNext
                     End If
@@ -997,27 +995,27 @@ Private Sub cmdProcessJournal_Click()
 '                        End If
                         'CRAcc = ""
                     End If
-                    If dracc = "" Then
-                        dracc = .ListItems(I).Text
+                    If DRAcc = "" Then
+                        DRAcc = .ListItems(I).Text
 '                        If Not Save_GLTRANSACTION(dtpReceiptDate, .ListItems(i).ListSubItems(2), DRAcc, CRAcc, txtJournaNo, "JV", User, ErrorMessage, rtpNarration, 0, 1, txtJournaNo) Then
 '                            GoTo SysError
 '                        End If
-                        dracc = ""
+                        DRAcc = ""
                     End If
                     'save the jv
-                    
+
                     sql = ""
-                    sql = "set dateformat dmy insert into Journals(accno,name,Naration,vno,Amount,Transtype,Memberno,Sharetype,Loanno,TRANSDATE,AuditId,posted)" _
-                    & " Values('" & .ListItems(I).Text & "','" & .ListItems(I).ListSubItems(1) & "','" & Combo1.Text & "'," _
-                    & " '" & txtJournaNo & "'," & IIf(dracc = "", CDbl(.ListItems(I).ListSubItems(2)), CDbl(.ListItems(I).ListSubItems(3))) & ",'" & IIf(dracc = "", "DR", "CR") & "'," _
+                    sql = "set dateformat dmy insert into Journals(accno,type,name,Naration,vno,Amount,Transtype,Memberno,Sharetype,Loanno,TRANSDATE,AuditId,posted)" _
+                    & " Values('" & .ListItems(I).Text & "','" & cboJournalType & "','" & .ListItems(I).ListSubItems(1) & "','" & rtpNarration.Text & "'," _
+                    & " '" & txtJournaNo & "'," & IIf(DRAcc = "", CDbl(.ListItems(I).ListSubItems(2)), CDbl(.ListItems(I).ListSubItems(3))) & ",'" & IIf(DRAcc = "", "DR", "CR") & "'," _
                     & " '" & .ListItems(I).ListSubItems(4) & "','" & .ListItems(I).ListSubItems(5) & "','" & .ListItems(I).ListSubItems(5) & "','" & dtpReceiptDate & "','" & User & "',0)"
                     oSaccoMaster.goConn.Execute sql
 NNext:
                 Next I
             End With
         oSaccoMaster.goConn.CommitTrans
-        MsgBox "Journal Processed Successfully"
-        lvwTrans.ListItems.clear
+        MsgBox "Journal Posted Successfully"
+        lvwTrans.ListItems.Clear
         txtJournaNo.Text = JVnumber
         txtTotalCr = 0
         txtTotalDr = 0
@@ -1027,35 +1025,32 @@ SysError:
             .RollbackTrans
         'End If
         End With
-    MsgBox Err.Description, vbInformation, Me.Caption
+    MsgBox err.description, vbInformation, Me.Caption
 End Sub
 Private Function JVnumber()
 Dim jvid
-    Set rs = oSaccoMaster.GetRecordSet("select top 1 vno from journals order by jvid desc ")
+    Set rs = oSaccoMaster.GetRecordset("select COUNT (distinct vno) from journals ")
     If Not rs.EOF Then
-        jvid = CInt(Mid(rs(0), 4, 5))
-        jvid = jvid + 1
-    Else
-        jvid = 1
+        JVnumber = "MCJ-" & Format(CStr(rs(0) + 1), "000")
     End If
-    Select Case jvid
-        Case Is < 10
-            JVnumber = "JV-0000" & CStr(jvid)
-        Case Is < 100
-            JVnumber = "JV-000" & CStr(jvid)
-        Case Is < 1000
-            JVnumber = "JV-00" & CStr(jvid)
-        Case Is < 10000
-            JVnumber = "JV-0" & CStr(jvid)
-        Case Else
-            JVnumber = "JV-" & CStr(jvid)
-    End Select
-    
-    
+'    Select Case jvid
+'        Case Is < 10
+'            JVnumber = "MCJ-0000" & CStr(jvid)
+'        Case Is < 100
+'            JVnumber = "MCJ-000" & CStr(jvid)
+'        Case Is < 1000
+'            JVnumber = "MCJ-00" & CStr(jvid)
+'        Case Is < 10000
+'            JVnumber = "MCJ-0" & CStr(jvid)
+'        Case Else
+'            JVnumber = "MCJ-" & CStr(jvid)
+'    End Select
+
+
 End Function
 Public Sub getrefno(memberno As String)
 
-    Set rst = oSaccoMaster.GetRecordSet("select * from CONTRIB where " _
+    Set rst = oSaccoMaster.GetRecordset("select * from CONTRIB where " _
         & "MemberNo='" & txtMemberNo.Text & "' and schemecode='select sharescode from sharetype where UsedToGuarantee=1' order by RefNo desc")
         k = 0
         With rst
@@ -1069,7 +1064,7 @@ Public Sub getrefno(memberno As String)
             k = k + 1
         End With
         'get sharebal to update
-        Set rst = oSaccoMaster.GetRecordSet("select * from CONTRIB where " _
+        Set rst = oSaccoMaster.GetRecordset("select * from CONTRIB where " _
         & "MemberNo='" & txtMemberNo.Text & "' and schemecode='L009' order by RefNo desc")
         With rst
             If Not .EOF Then
@@ -1078,29 +1073,29 @@ Public Sub getrefno(memberno As String)
         End With
 
 End Sub
-Private Function saveReceipt(Receiptno As String, mMemberno As String, ccode As String, name As String, transdate As Date, Amount As Double, chequeno As String, ptype As String) As Boolean
+Private Function saveReceipt(ReceiptNo As String, mMemberNo As String, ccode As String, name As String, transdate As Date, amount As Double, chequeno As String, ptype As String) As Boolean
     On Error GoTo Capture
             ErrorMessage = ""
             sql = ""
             sql = "set dateformat dmy INSERT INTO ReceiptBooking (ReceiptNo,MemberNo,Ccode,Name,Transdate," _
-            & "Amount, Chequeno, ptype, auditid,datedeposited) VALUES ('" & Receiptno & "','" & _
-            mMemberno & "','" & ccode & "','" & name & "','" & transdate & "'," & Amount & ",'" & _
+            & "Amount, Chequeno, ptype, auditid,datedeposited) VALUES ('" & ReceiptNo & "','" & _
+            mMemberNo & "','" & ccode & "','" & name & "','" & transdate & "'," & amount & ",'" & _
             chequeno & "','" & ptype & "','" & User & "','" & Get_Server_Date & "')"
             oSaccoMaster.ExecuteThis (sql)
             saveReceipt = True
     Exit Function
 Capture:
     saveReceipt = False
-    ErrorMessage = Err.Description
+    ErrorMessage = err.description
 End Function
 
 
 Private Sub cmdClear_Click()
     With lvwTrans
-        If .ListItems.count > 0 Then
+        If .ListItems.Count > 0 Then
             If MsgBox("Are you sure you want to clear the entire list?", vbQuestion + vbYesNo) = vbYes Then
                 Recalculate
-                .ListItems.clear
+                .ListItems.Clear
             End If
         End If
     End With
@@ -1110,63 +1105,63 @@ End Sub
 
 Private Sub Command3_Click()
     With lvwTrans
-        If .ListItems.count > 0 Then
+        If .ListItems.Count > 0 Then
            pushed = pushed - .SelectedItem.ListSubItems(2)
-            .ListItems.Remove (.SelectedItem.index)
+            .ListItems.Remove (.SelectedItem.Index)
         End If
     End With
 End Sub
 
 Private Sub cmdPostJournal_Click()
     On Error GoTo SysError
-    Dim debitJournal As Boolean, creditJournal As Boolean
+    Dim debitJournal As Boolean, creditJournal As Boolean, Index As Integer
     Dim NormalBal As String, Effect As String, Source() As String
     Dim jvSubAmount As Double
     Dim mValue As Double
-    Dim Dr As Integer, Cr As Integer
-    dracc = ""
+    Dim dr As Integer, cr As Integer
+    DRAcc = ""
     CRAcc = ""
     Loanno = ""
     sharesCode = ""
-    
-    Set rst = oSaccoMaster.GetRecordSet("select vno from journals where vno='" & txtJournaNo.Text & "'")
+
+    Set rst = oSaccoMaster.GetRecordset("select vno from journals where vno='" & txtJournaNo.Text & "'")
     If rst.EOF Then
         MsgBox "The Above Journal has not been processed", vbCritical
         Exit Sub
     End If
-    
-'    If currentUser.IDNo = memberId Then
+
+'    If currentUser.idno = memberId <> "" And mem Then
 '        MsgBox "You Can't Operate your own account", vbCritical
 '        Exit Sub
 '    End If
-    
+
     If CDbl(txtTotalDr) <> CDbl(txtTotalCr) Then
         MsgBox "The journal is not balancing, please rectify", vbCritical + vbOKOnly
             Exit Sub
     ElseIf MsgBox("Confirm the posting date as " & dtpReceiptDate & "?", vbQuestion + vbYesNo) = vbNo Then
         Exit Sub
     Else
-    
+
     End If
-    
-    
+
+
     With lvwTrans
-        For I = 1 To .ListItems.count
+        For I = 1 To .ListItems.Count
             If .ListItems(I).ListSubItems(2) > 0 Then
-                Dr = Dr + 1
+                dr = dr + 1
             Else
-                Cr = Cr + 1
+                cr = cr + 1
             End If
         Next I
-        
-        If Dr = 1 Then
+
+        If dr = 1 Then
             debitJournal = True
         Else
             creditJournal = True
         End If
-        
+
         'so which is this Debit/Credit account (Contra)
-        For I = 1 To .ListItems.count
+        For I = 1 To .ListItems.Count
             If debitJournal = True Then
                 If .ListItems(I).ListSubItems(2) > 0 Then
                     ContraAcc = .ListItems(I).Text
@@ -1180,41 +1175,38 @@ Private Sub cmdPostJournal_Click()
             End If
         Next I
 
-        
+
     End With
-        
+
 moveOn:
 
     'oSaccoMaster.ConnectDatabase
     With oSaccoMaster.goConn
-        '// get transactionno
-        saveTransno (User)
-       transno = getTransno
     memberno = txtMemberNo.Text
     .BeginTrans
-    
+
     'Create a TransactionNo
-    transactionTotal = CDbl(txtTotalCr.Text)
-    NewTransaction transactionTotal, dtpReceiptDate, "Journal Posting", Mach, transno
- 
+        transactionTotal = CDbl(txtTotalCr.Text)
+    NewTransaction transactionTotal, dtpReceiptDate, "Journal Posting"
+
         With lvwTrans
-            If lvwTrans.ListItems.count > 0 Then
-                ReDim Source(lvwTrans.ListItems.count)
+            If lvwTrans.ListItems.Count > 0 Then
+                ReDim Source(lvwTrans.ListItems.Count)
             End If
-        
-            For I = 1 To lvwTrans.ListItems.count
+
+            For I = 1 To lvwTrans.ListItems.Count
                 Source(I - 1) = .ListItems(I).Text
             Next I
-            For I = 1 To lvwTrans.ListItems.count
+            For I = 1 To lvwTrans.ListItems.Count
                 saveToGl = False
                 'totalamount = IIf(.ListItems(I).ListSubItems(2).Text > 0, .ListItems(I).ListSubItems(2).Text, .ListItems(I).ListSubItems(3).Text)
-                
+
                 'If creditJournal = True Then
                 If CDbl(.ListItems(I).ListSubItems(2)) > 0 Then
-                    dracc = .ListItems(I).Text
+                    DRAcc = .ListItems(I).Text
                     jvSubAmount = .ListItems(I).ListSubItems(2)
                     mValue = jvSubAmount
-                    Set rst = oSaccoMaster.GetRecordSet("SELECT NORMALBAL,TYPE FROM GLSETUP WHERE ACCNO='" & dracc & "'")
+                    Set rst = oSaccoMaster.GetRecordset("SELECT NORMALBAL,TYPE FROM GLSETUP WHERE ACCNO='" & DRAcc & "'")
                     If Not success Then
                         GoTo SysError
                     End If
@@ -1226,7 +1218,7 @@ moveOn:
                             sharesCode = Loanno
                             Effect = "Add"
                             If Not Loanno = "" Then
-                                If Not effectOnMember(memberno, dracc, Source(IIf(I = 1, 1, 0)), Loanno, jvSubAmount, sharesCode, Effect, transactionNo, transno, Combo1.Text) Then
+                                If Not effectOnMember(memberno, DRAcc, Source(IIf(I = 1, 1, 0)), Loanno, jvSubAmount, sharesCode, Effect, transactionNo, rtpNarration.Text) Then
                                     GoTo SysError
                                 End If
                             End If
@@ -1236,7 +1228,7 @@ moveOn:
                             Loanno = .ListItems(I).ListSubItems(5).Text
                             sharesCode = .ListItems(I).ListSubItems(5).Text
 
-                            If Not effectOnMember(memberno, dracc, Source(IIf(I = 1, 1, 0)), Loanno, jvSubAmount, sharesCode, Effect, transactionNo, transno, Combo1.Text) Then
+                            If Not effectOnMember(memberno, DRAcc, Source(IIf(I = 1, 1, 0)), Loanno, jvSubAmount, sharesCode, Effect, transactionNo, rtpNarration.Text) Then
                                 GoTo SysError
                             End If
                         End If
@@ -1249,7 +1241,7 @@ moveOn:
                     CRAcc = .ListItems(I).Text
                     jvSubAmount = .ListItems(I).ListSubItems(3)
                     mValue = jvSubAmount
-                    Set rst = oSaccoMaster.GetRecordSet("SELECT NORMALBAL,TYPE FROM GLSETUP WHERE ACCNO='" & CRAcc & "'")
+                    Set rst = oSaccoMaster.GetRecordset("SELECT NORMALBAL,TYPE FROM GLSETUP WHERE ACCNO='" & CRAcc & "'")
                     If Not success Then
                         GoTo SysError
                     End If
@@ -1258,9 +1250,9 @@ moveOn:
                         If UCase(rst!NormalBal) = "DEBIT" Then
                             memberno = .ListItems(I).ListSubItems(4).Text
                             Loanno = .ListItems(I).ListSubItems(5).Text
-    
+
                             Effect = "Less"
-                            If Not effectOnMember(memberno, CRAcc, Source(IIf(I = 1, 1, 0)), Loanno, jvSubAmount, sharesCode, Effect, transactionNo, transno) Then
+                            If Not effectOnMember(memberno, CRAcc, Source(IIf(I = 1, 1, 0)), Loanno, jvSubAmount, sharesCode, Effect, transactionNo) Then
                                 GoTo SysError
                             End If
                         Else
@@ -1268,7 +1260,7 @@ moveOn:
                             memberno = .ListItems(I).ListSubItems(4).Text
                             sharesCode = .ListItems(I).ListSubItems(5).Text
                             Loanno = sharesCode
-                            If Not effectOnMember(memberno, CRAcc, Source(IIf(I = 1, 1, 0)), Loanno, jvSubAmount, sharesCode, Effect, transactionNo, transno, Combo1.Text) Then
+                            If Not effectOnMember(memberno, CRAcc, Source(IIf(I = 1, 1, 0)), Loanno, jvSubAmount, sharesCode, Effect, transactionNo, rtpNarration.Text) Then
                                 GoTo SysError
                             End If
                         End If
@@ -1276,35 +1268,28 @@ moveOn:
                         isMember = False
                     End If
                 End If
-                
+
                 'End If
-                
                 If debitJournal = True And CRAcc <> "" Then
-                        If CRAcc <> ContraAcc Then
-                    If Not Save_GLTRANSACTION(dtpReceiptDate, mValue, ContraAcc, CRAcc, txtJournaNo, memberno, User, ErrorMessage, Combo1.Text, 0, 1, txtJournaNo, transactionNo, transno) Then
+                    If Not Save_GLTRANSACTION(dtpReceiptDate, mValue, ContraAcc, CRAcc, txtJournaNo, memberno, User, ErrorMessage, rtpNarration.Text, 0, 1, txtJournaNo, transactionNo) Then
                         GoTo SysError
                     End If
-                   Else
-                  End If
                     CRAcc = ""
-                ElseIf creditJournal = True And dracc <> "" Then
-                     If dracc <> ContraAcc Then
-                    If Not Save_GLTRANSACTION(dtpReceiptDate, mValue, dracc, ContraAcc, txtJournaNo, memberno, User, ErrorMessage, Combo1.Text, 0, 1, txtJournaNo, transactionNo, transno) Then
+                ElseIf creditJournal = True And DRAcc <> "" Then
+                    If Not Save_GLTRANSACTION(dtpReceiptDate, mValue, DRAcc, ContraAcc, txtJournaNo, memberno, User, ErrorMessage, rtpNarration.Text, 0, 1, txtJournaNo, transactionNo) Then
                         GoTo SysError
                     End If
-                   Else
-                 End If
-                    dracc = ""
+                    DRAcc = ""
                 End If
-                
+
 NNext:
             Next I
             oSaccoMaster.ExecuteThis ("update journals set posted=1 where vno='" & txtJournaNo.Text & "'")
         End With
-        
+
         oSaccoMaster.goConn.CommitTrans
         MsgBox "Journal Posted Successfully"
-        lvwTrans.ListItems.clear
+        lvwTrans.ListItems.Clear
         txtJournaNo.Text = JVnumber
         txtTotalCr = 0
         txtTotalDr = 0
@@ -1316,30 +1301,28 @@ SysError:
         End If
         saveToGl = True
         End With
-    MsgBox IIf(ErrorMessage = "", Err.Description, ErrorMessage), vbInformation, Me.Caption
+    MsgBox IIf(ErrorMessage = "", err.description, ErrorMessage), vbInformation, Me.Caption
 End Sub
-Private Function effectOnMember(mMemberno As String, AccNo As String, Source As String, Loanno As String, Amount As Double, sharesCode As String, Effect As String, Optional transactionNo As String, Optional transno As Integer, Optional Remarks As String) As Boolean
+Private Function effectOnMember(mMemberNo As String, ACCNO As String, Source As String, Loanno As String, amount As Double, sharesCode As String, Effect As String, Optional transactionNo As String, Optional Remarks As String) As Boolean
     On Error GoTo Capture
     Dim SomethingDone As Boolean
     SomethingDone = False
-    sql = "SELECT AccNo, GlAccName, NormalBal,subType FROM GLSETUP WHERE (Type = 'MEMBER') and accno ='" & AccNo & "'"
-    Set rst = oSaccoMaster.GetRecordSet(sql)
+    sql = "SELECT AccNo, GlAccName, NormalBal,subType FROM GLSETUP WHERE (Type = 'MEMBER') and accno ='" & ACCNO & "'"
+    Set rst = oSaccoMaster.GetRecordset(sql)
     With rst
         If Not .EOF Then
             .Filter = "SubType='LOAN'"
             If Not .EOF Then ' it's a loan account
                 If Effect = "Add" Then
-                      Transcode = Combo1.Text
-                    If Not SaveRepay(Loanno, Format(dtpReceiptDate, "dd/mm/yyyy"), Amount * -1, Source, txtJournaNo, 0, 0, Remarks, User, mMemberno, transactionNo, transno, "", False, , , Transcode, Effect) Then
-                        effectOnMember = False
-                        Exit Function
-                    End If
+'                    If Not SaveRepay(Loanno, Format(dtpReceiptDate, "dd/mm/yyyy"), Amount * -1, Source, txtJournaNo, 0, 0, Remarks, User, mMemberno, transactionNo, , , False) Then
+'                        effectOnMember = False
+'                        Exit Function
+'                    End If
                 Else
-                    Transcode = Combo1.Text
-                    If Not SaveRepay(Loanno, Format(dtpReceiptDate, "dd/mm/yyyy"), Amount, Source, txtJournaNo, 0, 0, Remarks, User, mMemberno, transactionNo, transno, False, False, , , Transcode, Effect) Then
-                        effectOnMember = False
-                        Exit Function
-                    End If
+'                    If Not SaveRepay(Loanno, Format(dtpReceiptDate, "dd/mm/yyyy"), Amount, Source, txtJournaNo, 0, 0, Remarks, User, mMemberno, transactionNo, , False, False) Then
+'                        effectOnMember = False
+'                        Exit Function
+'                    End If
                 End If
                 SomethingDone = True
                 GoTo proceed
@@ -1347,33 +1330,31 @@ Private Function effectOnMember(mMemberno As String, AccNo As String, Source As 
             .Filter = adFilterNone
             .Filter = "SubType='INTEREST'"
             If Not .EOF Then ' it's a interest account
-                
+
                 sql = " select max(paymentno) from repay where loanno='" & Loanno & "' "
-                Set rs = oSaccoMaster.GetRecordSet(sql)
+                Set rs = oSaccoMaster.GetRecordset(sql)
                 If Not IsNull(rs.EOF) Then
-                    PaymentNo = IIf(IsNull(rs(0)) = True, 0, rs(0)) + 1
+                    paymentno = IIf(IsNull(rs(0)) = True, 0, rs(0)) + 1
                 Else
-                    PaymentNo = 1
+                    paymentno = 1
                 End If
-                
-                
+
+
 
                 If Effect = "Add" Then
-                    sql = "set dateformat dmy insert into Repay(loanno,datereceived,paymentno,amount,principal,interest,penalty,intrcharged,introwed,intbalance,loanbalance,receiptno,remarks,auditid,transactionno,Transno)" _
-                    & " Values ('" & Loanno & "','" & Format(dtpReceiptDate, "dd/mm/yyyy") & "'," & PaymentNo & "," & Amount & ",0," & Amount & ",0,0,0," & IntBalalance - Amount & ",0,'" & txtJournaNo & "','" & Combo1.Text & "','" & auditid & "','" & transactionNo & "','" & transno & "')"
-                
-                
+'                    sql = "set dateformat dmy insert into Repay(loanno,datereceived,paymentno,amount,principal,interest,penalty,intrcharged,introwed,intbalance,loanbalance,receiptno,remarks,auditid,transactionno)" _
+'                    & " Values ('" & Loanno & "','" & Format(dtpReceiptDate, "dd/mm/yyyy") & "'," & paymentno & "," & Amount & ",0," & Amount & ",0,0,0," & IntBalalance - Amount & ",0,'" & txtJournaNo & "','" & rtpNarration.Text & "','" & auditid & "','" & transactionNo & "')"
                 Else
-                    sql = "set dateformat dmy insert into Repay(loanno,datereceived,paymentno,amount,principal,interest,penalty,intrcharged,introwed,intbalance,loanbalance,receiptno,remarks,auditid,transactionno,transno)" _
-                    & " Values ('" & Loanno & "','" & Format(dtpReceiptDate, "dd/mm/yyyy") & "'," & PaymentNo & "," & Round(Amount, 2) * (-1) & ",0," & Amount * (-1) & ",0,0,0," & IntBalalance - Amount & ",0,'" & txtJournaNo & "','" & Combo1.Text & "','" & auditid & "','" & transactionNo & "','" & transno & "')"
-                    
+'                    sql = "set dateformat dmy insert into Repay(loanno,datereceived,paymentno,amount,principal,interest,penalty,intrcharged,introwed,intbalance,loanbalance,receiptno,remarks,auditid,transactionno)" _
+'                    & " Values ('" & Loanno & "','" & Format(dtpReceiptDate, "dd/mm/yyyy") & "'," & paymentno & "," & Round(Amount, 2) * (-1) & ",0," & Amount * (-1) & ",0,0,0," & IntBalalance - Amount & ",0,'" & txtJournaNo & "','" & rtpNarration.Text & "','" & auditid & "','" & transactionNo & "')"
+'
                 End If
                 If Not oSaccoMaster.Execute(sql) Then
                     GoTo Capture
-                ElseIf Not oSaccoMaster.Execute("update loanbal set intbalance=" & IntBalalance - Amount & " where loanno='" & Loanno & "'") Then
+                ElseIf Not oSaccoMaster.Execute("update loanbal set intbalance=" & IntBalalance - amount & " where loanno='" & Loanno & "'") Then
                     GoTo Capture
                 End If
-                
+
                 SomethingDone = True
 '                If Not Refresh_Loan(Loanno) Then
 '
@@ -1384,38 +1365,37 @@ Private Function effectOnMember(mMemberno As String, AccNo As String, Source As 
                 .Filter = "SubType= 'SHARE'"
                 If Not .EOF Then 'Affects the share/deposit account
                     If Effect = "Add" Then
-                        If Not SaveContrib(mMemberno, dtpReceiptDate, sharesCode, Amount, "", txtJournaNo, txtJournaNo, User, txtJournaNo, transactionNo, Combo1, , , Effect) Then
-                                effectOnMember = False
-                            Exit Function
-                        End If
+'                        If Not SaveContrib(mMemberno, dtpReceiptDate, sharesCode, Amount, Source, txtJournaNo, txtJournaNo, User, txtJournaNo, transactionNo) Then
+'                                effectOnMember = False
+'                            Exit Function
+'                        End If
                     Else
-                        Effect = "Less"
-                        If Not SaveContrib(mMemberno, dtpReceiptDate, sharesCode, Amount * (-1), "", txtJournaNo, txtJournaNo, "Journal", txtJournaNo, transactionNo, Combo1, , , Effect) Then
-                                effectOnMember = False
-                            Exit Function
-                        End If
+'                        If Not SaveContrib(mMemberno, dtpReceiptDate, sharesCode, Amount * (-1), Source, txtJournaNo, txtJournaNo, "Journal", txtJournaNo, transactionNo) Then
+'                                effectOnMember = False
+'                            Exit Function
+'                        End If
                     End If
                 End If
                 SomethingDone = True
-                
+
                 .Filter = adFilterNone
                 .Filter = "SubType= 'SAVING'"
                 If Not .EOF Then 'Affects the savings account
                     saveToGl = False
                     If Effect = "Add" Then
-                        If Not Deposit("", sharesCode, dtpReceiptDate, Amount, "JE", txtJournaNo, "", transactionNo, transno, "JE", Remarks, Combo1.Text) Then
-                            effectOnMember = False
-                            SomethingDone = False
-                        End If
+'                        If Not Deposit("", sharesCode, dtpReceiptDate, Amount, "JE", txtJournaNo, "", transactionNo, "JE", Remarks) Then
+'                            effectOnMember = False
+'                            SomethingDone = False
+'                        End If
                     Else
-                        If Not Withdraw("", sharesCode, dtpReceiptDate, Amount, "JE", txtJournaNo, "", transactionNo, transno, Remarks, False, Combo1.Text) Then
-                            effectOnMember = False
-                            SomethingDone = False
-                        End If
+'                        If Not Withdraw("", sharesCode, dtpReceiptDate, Amount, "JE", txtJournaNo, "", transactionNo, Remarks, False) Then
+'                            effectOnMember = False
+'                            SomethingDone = False
+'                        End If
                     End If
                 End If
                 SomethingDone = True
-                
+
             End If
 proceed:
         End If
@@ -1432,9 +1412,9 @@ End Function
 
 Private Sub CmdUnpostedJV_Click()
     On Error Resume Next
-    lvwUnpostedjvs.ListItems.clear
+    lvwUnpostedjvs.ListItems.Clear
     sql = "select vno,transdate,naration,(sum(amount)/2)Amount from journals where posted =0 group by vno,transdate,naration"
-    Set rst = oSaccoMaster.GetRecordSet(sql)
+    Set rst = oSaccoMaster.GetRecordset(sql)
     With rst
         If .EOF Then Exit Sub
         lvwUnpostedjvs.Visible = True
@@ -1448,52 +1428,33 @@ Private Sub CmdUnpostedJV_Click()
     End With
 End Sub
 
-Private Sub Combo1_Change()
-'Set rs = oSaccoMaster.GetRecordSet("select TransactionType from TransactionCode where TranscationCode ='" & Combo1 & "'")
-'     If Not rs.EOF Then
-'       rtpNarration.Text = rs(0)
-'     End If
-End Sub
-
-Private Sub Combo1_Click()
-Combo1_Change
-End Sub
 Private Sub Form_Load()
     On Error Resume Next
     Dim rscompany As New ADODB.Recordset
     'Load Gl's
-    txtBalance.Visible = False
-      txtBalance.Text = 0#
-    sql = "Select accno from glsetup order by accno asc"
-    Set rst = oSaccoMaster.GetRecordSet(sql)
+    sql = "Select type from journaltypes "
+    Set rst = oSaccoMaster.GetRecordset(sql)
     While Not rst.EOF
-        cboAccno.AddItem (rst(0))
+        cboJournalType.AddItem (rst(0))
         rst.MoveNext
     Wend
     'load hareCodes
-     sql = "Select Description from TransCodebosa  order by Transactioncode "
-    Set rst1 = oSaccoMaster.GetRecordSet(sql)
-    While Not rst1.EOF
-        Combo1.AddItem (rst1(0))
-        rst1.MoveNext
-    Wend
-    cboShareType.clear
-    Set rst = oSaccoMaster.GetRecordSet("select sharescode from sharetype")
-    While Not rst.EOF
-        cboShareType.AddItem rst(0)
-        rst.MoveNext
-    Wend
+'    Set rst = oSaccoMaster.GetRecordset("select sharescode from sharetype")
+'    While Not rst.EOF
+'        cboShareType.AddItem rst(0)
+'        rst.MoveNext
+'    Wend
     'initialization
-    totalamount = 0
+    Totalamount = 0
     pushed = 0
     txtJournaNo.Text = JVnumber
-    
-    dtpReceiptDate.Value = Get_Server_Date
-    
+
+    dtpReceiptDate.value = Get_Server_Date
+
 End Sub
 
 Private Sub optotherpayments_Click()
-    
+
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -1509,8 +1470,8 @@ Private Sub lvwTrans_Click()
     Dim ccount As Integer
     total = 0
     With lvwTrans
-        If .ListItems.count > 0 Then
-            ccount = .ListItems.count
+        If .ListItems.Count > 0 Then
+            ccount = .ListItems.Count
             For I = 1 To ccount
                 With .ListItems(I)
                         amt = CDbl(.ListSubItems(2))
@@ -1523,7 +1484,7 @@ Private Sub lvwTrans_Click()
         End If
     End With
 '    txtDistributed.Text = total
-    
+
 
 End Sub
 
@@ -1549,26 +1510,25 @@ Call txtStaffNo_Change
 End Sub
 
 Private Sub lvwUnpostedjvs_DblClick()
-
     Dim vno As String
     txtTotalCr = 0
     txtTotalDr = 0
     With lvwUnpostedjvs
-        If .ListItems.count > 0 Then
+        If .ListItems.Count > 0 Then
             vno = .SelectedItem.Text
             VoucherNo = vno
             txtJournaNo.Text = vno
             sql = "select accno,name,Naration,vno,memberno,sharetype,loanno,Amount,Transtype,TRANSDATE,AuditId,Posted from journals where vno='" & vno & "'"
-            Set rst = oSaccoMaster.GetRecordSet(sql)
+            Set rst = oSaccoMaster.GetRecordset(sql)
             If Not rst.EOF Then
                 rtpNarration = rst!naration
                 With lvwTrans
-                    .ListItems.clear
+                    .ListItems.Clear
                     While Not rst.EOF
-                        Set li = .ListItems.Add(, , rst!AccNo)
+                        Set li = .ListItems.Add(, , rst!ACCNO)
                         li.ListSubItems.Add , , rst!name
-                        li.ListSubItems.Add , , IIf(Trim(rst!transtype) = "DR", rst!Amount, 0)
-                        li.ListSubItems.Add , , IIf(Trim(rst!transtype) = "CR", rst!Amount, 0)
+                        li.ListSubItems.Add , , IIf(Trim(rst!transtype) = "DR", rst!amount, 0)
+                        li.ListSubItems.Add , , IIf(Trim(rst!transtype) = "CR", rst!amount, 0)
                         li.ListSubItems.Add , , rst!memberno
                         li.ListSubItems.Add , , IIf(IsNull(rst!ShareType), "", rst!ShareType)
                         li.ListSubItems.Add , , IIf(IsNull(rst!Loanno), "", rst!Loanno)
@@ -1586,11 +1546,7 @@ End Sub
 
 Private Sub mnuAllJournals_Click()
     reportname = "JV2.rpt"
-    Show_Sales_Crystal_Report "", reportname, companyname
-End Sub
-
-Private Sub mnuGltrans_Click()
- frmGltransactionview.Show vbModal, Me
+    Show_Sales_Crystal_Report "", reportname, CompanyName
 End Sub
 
 Private Sub mnuShareAdjust_Click()
@@ -1598,18 +1554,10 @@ Private Sub mnuShareAdjust_Click()
 End Sub
 
  Private Sub optSavings_Click()
-    cboShareType.clear
+    cboShareType.Clear
     lblShareType.Caption = ""
-    If OptSavings.Value = True Then
-    
-    txtBalance.Visible = True
-    Else
-     txtBalance.Visible = False
-     txtBalance.Text = 0
-    End If
-    
     sql = "select Accno from cub where memberno='" & txtMemberNo & "' order by 1"
-    Set rst = oSaccoMaster.GetRecordSet(sql)
+    Set rst = oSaccoMaster.GetRecordset(sql)
     If Not rst.EOF Then
         While Not rst.EOF
             cboShareType.AddItem rst(0)
@@ -1619,16 +1567,10 @@ End Sub
 End Sub
 
 Private Sub optShares_Click()
-   If optShares.Value = True Then
-     txtBalance.Visible = False
-      txtBalance.Text = 0#
-     Else
-     txtBalance.Visible = True
-   End If
-    cboShareType.clear
+    cboShareType.Clear
     lblShareType.Caption = ""
     sql = "select sharescode from sharetype"
-    Set rst = oSaccoMaster.GetRecordSet(sql)
+    Set rst = oSaccoMaster.GetRecordset(sql)
     If Not rst.EOF Then
         While Not rst.EOF
             cboShareType.AddItem rst(0)
@@ -1636,44 +1578,32 @@ Private Sub optShares_Click()
         Wend
     End If
 End Sub
-
 Private Sub txtCr_GotFocus()
      txtCr = SelectAllText(txtCr)
 End Sub
 
 Private Sub txtCr_keypress(KeyAscii As Integer)
-   Dim balances As Double
     Dim Source As String
     If Not keyIsValid(KeyAscii, 1) Then
         Beep
         KeyAscii = 0
     End If
-    balances = Format(txtBalance, Cfmt)
-      If OptSavings.Value = True Then
-        If txtCr = "" Then
-        Exit Sub
-        End If
-'      If CDbl(txtCr) > CDbl(txtBalance) Then
-'       MsgBox "The amount you Enter is great than the Available", vbInformation
-'       Exit Sub
-'       End If
-    End If
-      
+
     Select Case KeyAscii
         Case 13
-            
+
             If Not ValidateEntry(0, 1) Then
                 MsgBox ErrorMessage, vbCritical, "ENTRY NOT VALID"
                 cboLoanno.SetFocus
                 Exit Sub
             End If
-            
+
             Source = IIf(cboShareType.Text = "", cboLoanno.Text, cboShareType.Text)
             If Source = "" And isMember = True And subType <> "OTHERS" Then
                 MsgBox "You must select the Share/Saving or Loan Account", vbCritical
                 Exit Sub
             End If
-            
+
             If CDbl(txtCr) > 0 Then
                 With lvwTrans
                     Set li = .ListItems.Add(, , cboAccno)
@@ -1692,7 +1622,7 @@ Private Sub txtCr_keypress(KeyAscii As Integer)
             cboLoanno.Text = ""
             Recalculate
         Case Else
-            
+
     End Select
 End Sub
 
@@ -1700,7 +1630,7 @@ End Sub
 
 Private Sub txtCr_LostFocus()
     txtCr = IIf(txtCr.Text = "", 0, txtCr)
-    
+
 End Sub
 
 Private Sub txtDr_GotFocus()
@@ -1709,35 +1639,25 @@ End Sub
 
 Private Sub txtDr_KeyPress(KeyAscii As Integer)
     Dim Source As String
-    Dim balances As Double
     If Not keyIsValid(KeyAscii, 1) Then
         Beep
         KeyAscii = 0
     End If
     Select Case KeyAscii
         Case 13
-        
+
             If Not ValidateEntry(1, 0) Then
                 MsgBox ErrorMessage, vbCritical
                 cboLoanno.SetFocus
                 Exit Sub
             End If
-         balances = Format(txtBalance, Cfmt)
-      If OptSavings.Value = True Then
-        If txtDr = "" Then
-        Exit Sub
-        End If
-      If CDbl(txtDr) > CDbl(txtBalance) Then
-       MsgBox "The amount you Enter is great than the Available Balance", vbInformation
-       Exit Sub
-       End If
-      End If
-        Source = IIf(cboShareType.Text = "", cboLoanno.Text, cboShareType.Text)
+
+            Source = IIf(cboShareType.Text = "", cboLoanno.Text, cboShareType.Text)
             If Source = "" And isMember = True And subType <> "OTHERS" Then
                 MsgBox "You must select the Share/Saving or Loan Account", vbCritical
                 Exit Sub
             End If
-            
+
             If CDbl(txtDr) > 0 Then
                 With lvwTrans
                     Set li = .ListItems.Add(, , cboAccno)
@@ -1750,17 +1670,17 @@ Private Sub txtDr_KeyPress(KeyAscii As Integer)
                 End With
             End If
             txtCr.SetFocus
-            cboShareType.Text = ""
-            cboLoanno.Text = ""
+            'cboShareType.Text = ""
+            'cboLoanno.Text = ""
             Recalculate
         Case Else
-            
+
     End Select
 End Sub
 
 Function ValidateEntry(addedDR As Double, addedCR As Double) As Boolean
 
-    Dim Dr As Integer, Cr As Integer
+    Dim dr As Integer, cr As Integer
 
     If subType = "LOAN" Or subType = "INTEREST" Then
         If cboLoanno.Text = "" Then
@@ -1775,29 +1695,29 @@ Function ValidateEntry(addedDR As Double, addedCR As Double) As Boolean
             Exit Function
         End If
     End If
-    
+
     With lvwTrans
-        For I = 1 To .ListItems.count
+        For I = 1 To .ListItems.Count
 '            If cboAccno.Text = .ListItems(I).Text Then
 '                ErrorMessage = "This account have already been added to the list"
 '                Exit Function
 '            End If
-            
+
             If .ListItems(I).ListSubItems(2) > 0 Then
-                Dr = Dr + 1
+                dr = dr + 1
             Else
-                Cr = Cr + 1
+                cr = cr + 1
             End If
         Next I
-        
-        If Dr + addedDR > 1 And Cr + addedCR > 1 Then
+
+        If dr + addedDR > 1 And cr + addedCR > 1 Then
             ErrorMessage = "A journal must have a single entry in atleast one side!"
             Exit Function
         End If
     End With
     ValidateEntry = True
     Exit Function
-    
+
 End Function
 
 Private Sub txtDr_LostFocus()
@@ -1807,10 +1727,10 @@ End Sub
 Private Sub txtMemberNo_Change()
     mysql = ""
     mysql = "select surname,othernames,HomeAddr,companycode,idno  from members  where memberno ='" & txtMemberNo & "'"
-    Set rs = oSaccoMaster.GetRecordSet(mysql)
+    Set rs = oSaccoMaster.GetRecordset(mysql)
     If Not rs.EOF Then
         lblfullnames = rs!surname & "  " & rs!OtherNames
-        memberId = rs!idno
+        memberid = rs!idno
         cmdAdd.Enabled = True
     Else
         lblfullnames = ""
@@ -1827,20 +1747,20 @@ Private Sub txtMemberNo_KeyPress(KeyAscii As Integer)
                 cboShareType.SetFocus
                 cboLoanno.Text = ""
                 cboLoanno.Locked = True
-                optShares.Value = True
+                optShares.value = True
                 optShares_Click
             ElseIf UCase(subType) = "SAVING" Then
                 cboShareType.Locked = False
                 cboShareType.SetFocus
                 cboLoanno.Text = ""
                 cboLoanno.Locked = True
-                OptSavings.Value = True
+                optSavings.value = True
                 optSavings_Click
             ElseIf UCase(subType) = "LOAN" Or UCase(subType) = "INTEREST" Then
                 sql = "select loanno from loanbal where memberno='" & txtMemberNo & "'"
-                Set rst = oSaccoMaster.GetRecordSet(sql)
+                Set rst = oSaccoMaster.GetRecordset(sql)
                 With rst
-                    cboLoanno.clear
+                    cboLoanno.Clear
                     While Not .EOF
                         cboLoanno.AddItem rst(0)
                         .MoveNext
@@ -1856,18 +1776,18 @@ Private Sub txtMemberNo_KeyPress(KeyAscii As Integer)
     End Select
 End Sub
 Sub Recalculate()
-    totalCr = 0
-    totalDr = 0
+    TotalCr = 0
+    TotalDr = 0
     With lvwTrans
-        For I = 1 To .ListItems.count
+        For I = 1 To .ListItems.Count
             If .ListItems(I).ListSubItems(2) > 0 Then
-                totalDr = totalDr + .ListItems(I).ListSubItems(2)
+                TotalDr = TotalDr + .ListItems(I).ListSubItems(2)
             Else
-                totalCr = totalCr + .ListItems(I).ListSubItems(3)
+                TotalCr = TotalCr + .ListItems(I).ListSubItems(3)
             End If
         Next I
-        txtTotalCr = totalCr
-        txtTotalDr = totalDr
+        txtTotalCr = TotalCr
+        txtTotalDr = TotalDr
 
     End With
 End Sub

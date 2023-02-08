@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.MDIForm MainForm 
    Appearance      =   0  'Flat
@@ -291,7 +291,7 @@ Begin VB.MDIForm MainForm
                Style           =   5
                Object.Width           =   1764
                MinWidth        =   1764
-               TextSave        =   "04:38 PM"
+               TextSave        =   "09:55 PM"
             EndProperty
             BeginProperty Panel7 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
                Style           =   1
@@ -413,7 +413,7 @@ Begin VB.MDIForm MainForm
          _ExtentX        =   2566
          _ExtentY        =   661
          _Version        =   393216
-         Format          =   121569281
+         Format          =   130940929
          UpDown          =   -1  'True
          CurrentDate     =   40095
       End
@@ -876,6 +876,9 @@ Begin VB.MDIForm MainForm
             Caption         =   "Selling Price"
             Enabled         =   0   'False
          End
+         Begin VB.Menu mnusetdefaultgls 
+            Caption         =   "Set Default Gls"
+         End
       End
       Begin VB.Menu mnuDeductions 
          Caption         =   "Deductions"
@@ -1329,19 +1332,19 @@ mnuReports.Enabled = True
 
 'End If
 details
-dtpPeriod = Format(Get_Server_Date, "mmm/yyyy")
+DTPPeriod = Format(Get_Server_Date, "mmm/yyyy")
 Frame1.Visible = False
 'details
 End Sub
 Public Sub details()
 MainForm.Caption = "EasyMa " & "--(Milk Intake Form)"
-dtpPeriod = Date
-Startdate = DateSerial(Year(dtpPeriod), month(dtpPeriod), 1)
-Enddate = DateSerial(Year(dtpPeriod), month(dtpPeriod) + 1, 1 - 1)
+DTPPeriod = Date
+Startdate = DateSerial(Year(DTPPeriod), month(DTPPeriod), 1)
+Enddate = DateSerial(Year(DTPPeriod), month(DTPPeriod) + 1, 1 - 1)
 Dim rsst, rss, rst, rsg, rs, rsh As Recordset
 '''''todays no of suppliers
 sql = ""
-sql = "set dateformat DMY select count(distinct(SNo)) from  d_Milkintake where TransDate='" & dtpPeriod & "' "
+sql = "set dateformat DMY select count(distinct(SNo)) from  d_Milkintake where TransDate='" & DTPPeriod & "' "
 Set rsst = New ADODB.Recordset
 Set rsst = oSaccoMaster.GetRecordset(sql)
 If Not rsst.EOF Then
@@ -1361,7 +1364,7 @@ End If
  End If
  '''''todays kgs
 sql = ""
-sql = "set dateformat DMY select isnull(sum(QSupplied),0) from  d_Milkintake where TransDate='" & dtpPeriod & "' "
+sql = "set dateformat DMY select isnull(sum(QSupplied),0) from  d_Milkintake where TransDate='" & DTPPeriod & "' "
 Set rst = New ADODB.Recordset
 Set rst = oSaccoMaster.GetRecordset(sql)
 If Not rst.EOF Then
@@ -1585,7 +1588,7 @@ frmPricing.Show vbModal
 End Sub
 
 Private Sub mnubprocess_Click()
-frmbonusprocess.Show vbModal
+'frmbonusprocess.Show vbModal
 End Sub
 
 Private Sub mnuBranch_Click()
@@ -2409,6 +2412,10 @@ reportname = "MILK SALES REPORT1.rpt"
 reportname = "MILK SALES REPORT.rpt"
  End If
  Show_Sales_Crystal_Report STRFORMULA, reportname, ""
+End Sub
+
+Private Sub mnusetdefaultgls_Click()
+frmsetdefaultgls.Show vbModal, Me
 End Sub
 
 Private Sub mnuspecialpurchacepayment_Click()

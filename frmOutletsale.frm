@@ -41,7 +41,7 @@ Begin VB.Form frmOutletsale
       _ExtentX        =   2990
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   121569281
+      Format          =   117047297
       CurrentDate     =   38814
    End
    Begin VB.ComboBox cbobranch 
@@ -62,7 +62,7 @@ Begin VB.Form frmOutletsale
       _ExtentX        =   19923
       _ExtentY        =   16748
       _Version        =   393216
-      Tab             =   2
+      Tab             =   1
       TabHeight       =   520
       BackColor       =   16777088
       ForeColor       =   255
@@ -82,12 +82,13 @@ Begin VB.Form frmOutletsale
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "OUTLET SALES"
       TabPicture(1)   =   "frmOutletsale.frx":0020
-      Tab(1).ControlEnabled=   0   'False
+      Tab(1).ControlEnabled=   -1  'True
       Tab(1).Control(0)=   "Frame3"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Vehicle Milk Dispatch"
       TabPicture(2)   =   "frmOutletsale.frx":003C
-      Tab(2).ControlEnabled=   -1  'True
+      Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "ListView200"
       Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "Frame5"
@@ -110,7 +111,7 @@ Begin VB.Form frmOutletsale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   2655
-         Left            =   7320
+         Left            =   -67680
          TabIndex        =   109
          Top             =   2880
          Width           =   3855
@@ -219,7 +220,7 @@ Begin VB.Form frmOutletsale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   3615
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   87
          Top             =   5400
          Width           =   9735
@@ -262,7 +263,7 @@ Begin VB.Form frmOutletsale
          EndProperty
          ForeColor       =   &H00800080&
          Height          =   2775
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   78
          Top             =   480
          Width           =   11055
@@ -979,7 +980,7 @@ Begin VB.Form frmOutletsale
       Begin VB.Frame Frame3 
          BackColor       =   &H00FFFFC0&
          Height          =   8895
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   17
          Top             =   480
          Width           =   11055
@@ -1559,7 +1560,7 @@ Begin VB.Form frmOutletsale
       End
       Begin MSComctlLib.ListView ListView200 
          Height          =   2175
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   92
          Top             =   3240
          Width           =   6975
@@ -2236,7 +2237,7 @@ Set rsinstock = oSaccoMaster.GetRecordset("set dateformat dmy select isnull(sum(
 
 '// check the stock if it is less than zero
 k = 0
-txtamount.Text = ""
+txtAmount.Text = ""
 
 '''''' '''convert youghart to litres
 sql = ""
@@ -2398,7 +2399,7 @@ Label18 = ""
 Label38 = ""
 chkretail.value = vbUnchecked
 chkWhole.value = vbUnchecked
-txtamount.SetFocus
+txtAmount.SetFocus
 Exit Sub
 ErrorHandler:
 MsgBox err.description
@@ -2793,7 +2794,7 @@ On Error GoTo ErrorHandler
 'Exit Sub
 'End If
 
-If txtamount = "" Then
+If txtAmount = "" Then
 MsgBox "Amount paid needed", vbInformation
 Exit Sub
 End If
@@ -3176,7 +3177,7 @@ Private Sub listview1_DblClick()
 chkWhole = 0
 chkretail = 0
 k = 1
-txtamount.Text = ""
+txtAmount.Text = ""
 cbobranch = ListView1.SelectedItem.SubItems(7)
 txtdateenterered = ListView1.SelectedItem
 txtpaybill = ListView1.SelectedItem.SubItems(6)
@@ -3188,7 +3189,7 @@ If ListView1.SelectedItem.SubItems(5) = "Whole sales" Then
 Else
  chkretail = 1
 End If
-txtamount.Text = ListView1.SelectedItem.SubItems(3)
+txtAmount.Text = ListView1.SelectedItem.SubItems(3)
 End Sub
 
 Private Sub ListView30_DblClick()
@@ -3762,7 +3763,7 @@ On Error Resume Next
 'Exit Sub
 'End If
 'End If
-TXTCHANGE = txtamount - TXTTOTAL
+TXTCHANGE = txtAmount - TXTTOTAL
     Exit Sub
 SysError:
 MsgBox err.description, vbInformation, Me.Caption
@@ -3774,7 +3775,7 @@ Private Sub txtCrAccNo_Change()
         
         Editing = True
     Account = Get_Acc_Details(txtCrAccNo, ErrorMessage)
-    If Account.ACCNO <> "" Then
+    If Account.AccNo <> "" Then
         txtCrAccName = Account.AccName
     Else
         If ErrorMessage <> "" Then
@@ -3826,7 +3827,7 @@ Private Sub txtDrAccNo_Change()
     Dim Account As Acc_Details
     Editing = True
     Account = Get_Acc_Details(txtDrAccNo, ErrorMessage)
-    If Account.ACCNO <> "" Then
+    If Account.AccNo <> "" Then
         lblDrAccName = Account.AccName
     Else
         If ErrorMessage <> "" Then
@@ -3939,5 +3940,5 @@ End Sub
 
 Private Sub txttotal_Change()
 On Error Resume Next
-TXTCHANGE = txtamount - TXTTOTAL
+TXTCHANGE = txtAmount - TXTTOTAL
 End Sub

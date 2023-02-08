@@ -1,1 +1,4 @@
-Line 63: Class TabDlg.SSTab of control SSTab1 was not a loaded control class.
+Line 771: Class MSComctlLib.ListView of control ListView8 was not a loaded control class.
+Line 1168: Class MSComctlLib.ListView of control ListView1 was not a loaded control class.
+Line 1193: Class MSComctlLib.ListView of control ListViewG was not a loaded control class.
+Line 1218: Class MSComctlLib.ProgressBar of control prgStatus was not a loaded control class.

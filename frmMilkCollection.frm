@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmMilkCollection 
    BackColor       =   &H00FFFFC0&
@@ -287,7 +287,7 @@ Begin VB.Form frmMilkCollection
             Style           =   5
             Object.Width           =   1764
             MinWidth        =   1764
-            TextSave        =   "05:40 PM"
+            TextSave        =   "12:29 AM"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   1
@@ -553,7 +553,7 @@ Begin VB.Form frmMilkCollection
       _Version        =   393216
       MouseIcon       =   "frmMilkCollection.frx":1AF4
       CalendarBackColor=   8454016
-      Format          =   132448257
+      Format          =   120258561
       CurrentDate     =   40095
    End
    Begin VB.CheckBox chkPrint 
@@ -1644,7 +1644,7 @@ txtSNo.SetFocus
 Exit Sub
 ErrorHandler:
 
-MsgBox err.description
+MsgBox err.Description
 
 
 
@@ -1758,7 +1758,7 @@ End If
     txtFile.Close
     Exit Sub
 ErrorHandler:
-    MsgBox err.description
+    MsgBox err.Description
     
 End Sub
 
@@ -1994,7 +1994,7 @@ End If
     txtFile.Close
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub cmdprintself_Click()
@@ -2692,6 +2692,12 @@ sql = "d_sp_UpdatePayrollDed  " & txtSNo & ",'" & Enddate & "'," & Transport & "
 oSaccoMaster.ExecuteThis (sql)
 End If
 
+' '************insert gls***************'
+
+setdefaultgls.setdefaultgls DTPMilkDate, "Purchases"
+
+
+' '************end***************'
 ' '************message***************'
      ''''''''//check settings  for sms alert///''''''''''
 
@@ -3270,7 +3276,7 @@ lvwpreviousmilk.Visible = False
 Exit Sub
 ErrorHandler:
 
-MsgBox err.description
+MsgBox err.Description
 
 End Sub
 'Private Sub details()
@@ -4007,7 +4013,7 @@ Enddate = DateSerial(Year(DTPMilkDate), month(DTPMilkDate) + 1, 1 - 1)
  Reset
 Exit Sub
 ErrorHandler:
-MsgBox err.description, vbCritical
+MsgBox err.Description, vbCritical
 End Sub
 
 Private Sub Command2_Click()
@@ -4221,7 +4227,7 @@ End If
 lvwpreviousmilk.Visible = False
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 Private Sub txtQnty_Validate(Cancel As Boolean)
 txtQnty = Format(txtQnty, "####0.00")
@@ -4334,7 +4340,7 @@ Exit Sub
 End If
 
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub txtTCode_Validate(Cancel As Boolean)

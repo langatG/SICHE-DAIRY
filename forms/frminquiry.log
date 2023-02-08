@@ -1,0 +1,19 @@
+Line 587: Class MSComCtl2.DTPicker of control dtpfromtransdate was not a loaded control class.
+Line 1141: Class MSComctlLib.ListView of control lvememtrans was not a loaded control class.
+Line 593: The property name _ExtentX in dtpfromtransdate is invalid.
+Line 594: The property name _ExtentY in dtpfromtransdate is invalid.
+Line 595: The property name _Version in dtpfromtransdate is invalid.
+Line 605: The property name CustomFormat in dtpfromtransdate is invalid.
+Line 606: The property name Format in dtpfromtransdate is invalid.
+Line 607: The property name CurrentDate in dtpfromtransdate is invalid.
+Line 1148: The property name _ExtentX in lvememtrans is invalid.
+Line 1149: The property name _ExtentY in lvememtrans is invalid.
+Line 1150: The property name View in lvememtrans is invalid.
+Line 1151: The property name LabelEdit in lvememtrans is invalid.
+Line 1152: The property name MultiSelect in lvememtrans is invalid.
+Line 1153: The property name LabelWrap in lvememtrans is invalid.
+Line 1154: The property name HideSelection in lvememtrans is invalid.
+Line 1155: The property name FullRowSelect in lvememtrans is invalid.
+Line 1156: The property name GridLines in lvememtrans is invalid.
+Line 1157: The property name _Version in lvememtrans is invalid.
+Line 1171: The property name NumItems in lvememtrans is invalid.
