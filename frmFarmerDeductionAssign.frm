@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomct2.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmFarmerDeductionAssign 
    Appearance      =   0  'Flat
    BackColor       =   &H00FFFF80&
@@ -164,7 +164,7 @@ Begin VB.Form frmFarmerDeductionAssign
       _ExtentX        =   2778
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   174653441
+      Format          =   121110529
       CurrentDate     =   40096
    End
    Begin MSComCtl2.DTPicker DTPStartDate 
@@ -176,7 +176,7 @@ Begin VB.Form frmFarmerDeductionAssign
       _ExtentX        =   2990
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   174653441
+      Format          =   121110529
       CurrentDate     =   40096
    End
    Begin MSComCtl2.DTPicker DTPDDeduction 
@@ -188,7 +188,7 @@ Begin VB.Form frmFarmerDeductionAssign
       _ExtentX        =   2778
       _ExtentY        =   450
       _Version        =   393216
-      Format          =   174653441
+      Format          =   121110529
       CurrentDate     =   40096
    End
    Begin MSComctlLib.ListView ListView1 
@@ -487,7 +487,7 @@ If Not rst.EOF Then
     Exit Sub
 End If
 
-txtamount = ""
+txtAmount = ""
 txtSNames = ""
 txtSNo = ""
 cboDeductionType = ""
@@ -500,21 +500,21 @@ Exit Sub
 End Sub
 
 Private Sub cmdNew_Click()
-txtamount = ""
+txtAmount = ""
 txtSNames = ""
 txtSNo = ""
 cboDeductionType = ""
 
-txtamount.Locked = False
+txtAmount.Locked = False
 txtSNo.Locked = False
 cboDeductionType.Locked = False
 
-cmdsave.Enabled = True
-cmdnew.Enabled = False
+cmdSave.Enabled = True
+cmdNew.Enabled = False
 cmdDelete.Enabled = True
 DTPDDeduction = Format(Get_Server_Date, "dd/mm/yyyy")
-dtpStartDate = Format(Get_Server_Date, "dd/mm/yyyy")
-DTPEndDate = DateSerial(Year(dtpStartDate), Month(dtpStartDate) + 1, 1 - 1)
+DTPStartDate = Format(Get_Server_Date, "dd/mm/yyyy")
+DTPEndDate = DateSerial(Year(DTPStartDate), month(DTPStartDate) + 1, 1 - 1)
 
 End Sub
 
@@ -543,8 +543,8 @@ Dim NetP As Currency
 'NetP = rs.Fields("GPay")
 'End If
 
-Startdate = DateSerial(Year(DTPDDeduction), Month(DTPDDeduction), 1)
-Enddate = DateSerial(Year(DTPDDeduction), Month(DTPDDeduction) + 1, 1 - 1)
+Startdate = DateSerial(Year(DTPDDeduction), month(DTPDDeduction), 1)
+Enddate = DateSerial(Year(DTPDDeduction), month(DTPDDeduction) + 1, 1 - 1)
 If txtSNo = "" Then Exit Sub
 Set rs = oSaccoMaster.GetRecordset("d_sp_SupNet " & txtSNo & ",'" & Startdate & "','" & Enddate & "', 0")
 If Not rs.EOF Then
@@ -563,7 +563,7 @@ NetP = NetP - 0
 End If
 End If
 
-If NetP < CCur(txtamount) Then
+If NetP < CCur(txtAmount) Then
 'ans = MsgBox("The supplier number " & txtSNo & " has; " & vbNewLine & "Gross pay of " & Format((NetP + rs.Fields(0)), "#,##0.00") & vbNewLine & " Total Deductios " & Format(rs.Fields(0), "#,##0.00") & vbNewLine & "NetPay " & Format(NetP, "#,##0.00") & "." & vbNewLine & "You Can Continue anyway?", vbInformation, "LESS NET AMOUNT")
 
 'If ans = vbNo Then
@@ -612,8 +612,8 @@ DESCR = cboDeductionType.Text
 'DESCR = "TMShares"
 'End If
 
-Startdate = DateSerial(Year(DTPDDeduction), Month(DTPDDeduction), 1)
-Enddate = DateSerial(Year(DTPDDeduction), Month(DTPDDeduction) + 1, 1 - 1)
+Startdate = DateSerial(Year(DTPDDeduction), month(DTPDDeduction), 1)
+Enddate = DateSerial(Year(DTPDDeduction), month(DTPDDeduction) + 1, 1 - 1)
 
 Set rs = oSaccoMaster.GetRecordset("d_sp_IsClosed '" & Enddate & "'")
 If Not rs.EOF Then
@@ -622,7 +622,7 @@ If Not rs.EOF Then
 End If
 '//Update deductions
 Set cn = New ADODB.Connection
-sql = "d_sp_SupplierDeduct " & txtSNo & ",'" & DTPDDeduction & "','" & DESCR & "'," & txtamount & ",'" & dtpStartDate & "','" & DTPEndDate & "'," & Year(DTPEndDate) & ",'" & User & "','" & txtremarks & "','" & cbobranches & "',''"
+sql = "d_sp_SupplierDeduct " & txtSNo & ",'" & DTPDDeduction & "','" & DESCR & "'," & txtAmount & ",'" & DTPStartDate & "','" & DTPEndDate & "'," & Year(DTPEndDate) & ",'" & User & "','" & txtremarks & "','" & cbobranches & "',''"
 oSaccoMaster.ExecuteThis (sql)
 
 'UPDATE Shares Chekoff
@@ -641,12 +641,12 @@ End With
 sex = Left(sex, 1)
 strSQL = "set dateformat dmy insert into [d_Shares]([IdNo],[SNO],[Code],[Name],[Sex],[Loc],[Type],[TransDate],[pmode],[Period],[Amnt],[amount],[AuditId], [AuditDateTime])"
 strSQL = strSQL & " values( '" & Trim$(idno) & "','" & txtSNo & "','" & txtSNo & "','" & txtSNames & "','" & sex & "','" & Location & "','" & DESCR & "','"
-strSQL = strSQL & Enddate & "',' 0','" & Enddate & "'," & txtamount & "," & txtamount & ",'" & User & "','" & Get_Server_Date & "')"
+strSQL = strSQL & Enddate & "',' 0','" & Enddate & "'," & txtAmount & "," & txtAmount & ",'" & User & "','" & Get_Server_Date & "')"
 oSaccoMaster.ExecuteThis (strSQL)
 
 sql = ""
 sql = "set dateformat dmy insert into d_sconribution(sno, transdate, amount, bal, transdescription, auditid)"
-sql = sql & " values('" & txtSNo & "','" & Enddate & "'," & txtamount & "," & txtamount & ",'" & sex & "','" & User & "') "
+sql = sql & " values('" & txtSNo & "','" & Enddate & "'," & txtAmount & "," & txtAmount & ",'" & sex & "','" & User & "') "
 oSaccoMaster.ExecuteThis (sql)
 End If
 
@@ -665,7 +665,7 @@ End If
 
 
 Set Rs1 = New ADODB.Recordset
-sql = "d_sp_TotalDeduct " & txtSNo & "," & Month(DTPDDeduction) & "," & Year(DTPDDeduction) & ""
+sql = "d_sp_TotalDeduct " & txtSNo & "," & month(DTPDDeduction) & "," & Year(DTPDDeduction) & ""
 Set Rs1 = oSaccoMaster.GetRecordset(sql)
 If Not Rs1.EOF Then
 Dim TotalDed As Currency
@@ -734,40 +734,45 @@ Set rst = New ADODB.Recordset
 sql = "select bal from d_shares where sno= '" & txtSNo & "'"
 Set rst = oSaccoMaster.GetRecordset(sql)
 If Not rst.EOF Then
-'txtTCHPBalances = Rst.Fields(0)
-
- '//get the balance
-
-sql = "SELECT     bal   FROM         d_sconribution  WHERE     sno ='" & txtSNo & "'  ORDER BY transdate DESC, id DESC "
-Dim rr As New ADODB.Recordset
-Set rr = oSaccoMaster.GetRecordset(sql)
-If Not rr.EOF Then
-txtTCHPBalances = txtTCHPBalances + CCur(txtamount)
-',[sno],[transdate],[amount],[bal],[transdescription],[auditid],[auditdate],[mno]
-  'From [EASYTEA].[dbo].[d_sconribution]
-  sql = ""
-  sql = "set dateformat dmy insert into d_sconribution([sno],[transdate],[amount],[bal],[transdescription],[auditid])"
-  sql = sql & " values ('" & txtSNo & "','" & DTPDDeduction & "'," & txtamount & "," & txtTCHPBalances & ",'Shares','" & User & "') "
-  oSaccoMaster.ExecuteThis (sql)
-  
-  sql = ""
-  sql = "update d_shares set bal=" & txtTCHPBalances & " where sno='" & txtSNo & "' "
-  oSaccoMaster.ExecuteThis (sql)
-'txtTCHPBALANCE = rr.Fields(0)
+    'txtTCHPBalances = Rst.Fields(0)
+    
+     '//get the balance
+    
+        sql = "SELECT     bal   FROM         d_sconribution  WHERE     sno ='" & txtSNo & "'  ORDER BY transdate DESC, id DESC "
+        Dim rr As New ADODB.Recordset
+        Set rr = oSaccoMaster.GetRecordset(sql)
+        If Not rr.EOF Then
+            txtTCHPBalances = txtTCHPBalances + CCur(txtAmount)
+            ',[sno],[transdate],[amount],[bal],[transdescription],[auditid],[auditdate],[mno]
+              'From [EASYTEA].[dbo].[d_sconribution]
+              sql = ""
+              sql = "set dateformat dmy insert into d_sconribution([sno],[transdate],[amount],[bal],[transdescription],[auditid])"
+              sql = sql & " values ('" & txtSNo & "','" & DTPDDeduction & "'," & txtAmount & "," & txtTCHPBalances & ",'Shares','" & User & "') "
+              oSaccoMaster.ExecuteThis (sql)
+              
+              sql = ""
+              sql = "update d_shares set bal=" & txtTCHPBalances & " where sno='" & txtSNo & "' "
+              oSaccoMaster.ExecuteThis (sql)
+            'txtTCHPBALANCE = rr.Fields(0)
+        End If
+    Else
+        '//add new one
+        txtTCHPBalances = 0
+        sql = "insert into d_Shares(sno, Cash,bal,auditid)"
+        sql = sql & " values('" & txtSNo & "',1," & txtAmount & ",'" & User & "')"
+        oSaccoMaster.ExecuteThis (sql)
+        sql = ""
+        sql = "set dateformat dmy insert into d_sconribution([sno],[transdate],[amount],[bal],[transdescription],[auditid])"
+        sql = sql & " values ('" & txtSNo & "','" & DTPDDeduction & "'," & txtAmount & "," & txtAmount & ",'Shares','" & User & "') "
+        oSaccoMaster.ExecuteThis (sql)
+    
+    End If
 End If
-Else
-'//add new one
-txtTCHPBalances = 0
-sql = "insert into d_Shares(sno, Cash,bal,auditid)"
-sql = sql & " values('" & txtSNo & "',1," & txtamount & ",'" & User & "')"
-oSaccoMaster.ExecuteThis (sql)
-sql = ""
-sql = "set dateformat dmy insert into d_sconribution([sno],[transdate],[amount],[bal],[transdescription],[auditid])"
-sql = sql & " values ('" & txtSNo & "','" & DTPDDeduction & "'," & txtamount & "," & txtamount & ",'Shares','" & User & "') "
-oSaccoMaster.ExecuteThis (sql)
 
-End If
-End If
+
+' '************insert gls***************'
+setdefaultgls.deductions DTPDDeduction, cboDeductionType, txtSNo, txtremarks
+' '************end***************'
 
 
 Transport = 0
@@ -778,6 +783,8 @@ FSA = 0
 HShares = 0
 Advance = 0
 Others = 0
+
+
 
 'Dim Yr As Integer
 
@@ -798,7 +805,7 @@ Others = 0
 'oSaccoMaster.ExecuteThis ("d_sp_TransPRoll '" & DTPStartDate & "','" & DTPEndDate & "','" & User & "'")
 'Lock period
 
-txtamount = ""
+txtAmount = ""
 txtSNo = ""
 txtnetp = 0
 txtSNo_Validate True
@@ -810,7 +817,7 @@ loadBranchesTypes
 '//
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 
 End Sub
 
@@ -819,34 +826,34 @@ Private Sub Combo1_Change()
 End Sub
 
 Private Sub DTPDDeduction_Change()
-dtpStartDate = DateSerial(Year(DTPDDeduction), Month(DTPDDeduction), 1)
-DTPEndDate = DateSerial(Year(DTPDDeduction), Month(DTPDDeduction) + 1, 1 - 1)
+DTPStartDate = DateSerial(Year(DTPDDeduction), month(DTPDDeduction), 1)
+DTPEndDate = DateSerial(Year(DTPDDeduction), month(DTPDDeduction) + 1, 1 - 1)
 loadBranchesTypes
 End Sub
 
 
 
 Private Sub Form_Load()
-txtamount = ""
+txtAmount = ""
 txtSNames = ""
 txtSNo = ""
 txtremarks = ""
 
 cboDeductionType = ""
-txtamount.Locked = True
+txtAmount.Locked = True
 txtSNames.Locked = True
 txtSNo.Locked = True
 cboDeductionType.Locked = True
 
-cmdnew.Enabled = True
-cmdsave.Enabled = False
+cmdNew.Enabled = True
+cmdSave.Enabled = False
 cmdEdit.Enabled = False
 cmdDelete.Enabled = False
 
 DTPDDeduction = Format(Get_Server_Date, "dd/mm/yyyy")
-dtpStartDate = DateSerial(Year(DTPDDeduction), Month(DTPDDeduction), 1)
+DTPStartDate = DateSerial(Year(DTPDDeduction), month(DTPDDeduction), 1)
 'DTPStartDate = Format(Get_Server_Date, "dd/mm/yyyy")
-DTPEndDate = DateSerial(Year(dtpStartDate), Month(dtpStartDate) + 1, 1 - 1)
+DTPEndDate = DateSerial(Year(DTPStartDate), month(DTPStartDate) + 1, 1 - 1)
 loadBranchesTypes
     cboDeductionType.Clear
     Set myclass = New cdbase
@@ -974,8 +981,8 @@ Dim NetP As Currency
 'NetP = rs.Fields("GPay")
 'End If
 
-Startdate = DateSerial(Year(DTPDDeduction), Month(DTPDDeduction), 1)
-Enddate = DateSerial(Year(DTPDDeduction), Month(DTPDDeduction) + 1, 1 - 1)
+Startdate = DateSerial(Year(DTPDDeduction), month(DTPDDeduction), 1)
+Enddate = DateSerial(Year(DTPDDeduction), month(DTPDDeduction) + 1, 1 - 1)
 If txtSNo = "" Then Exit Sub
 Set rs = oSaccoMaster.GetRecordset("d_sp_SupNet " & txtSNo & ",'" & Startdate & "','" & Enddate & "',0")
 If Not rs.EOF Then

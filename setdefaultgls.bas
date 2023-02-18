@@ -1,13 +1,13 @@
 Attribute VB_Name = "setdefaultgls"
 Public Sub setdefaultgls(transdate As Date, Description As String)
-        Dim E, Remark, Ddr, Ccr As String
+        Dim E, remark, Ddr, Ccr As String
         Dim amount As Double
         
         Startdate = DateSerial(Year(transdate), month(transdate), 1)
         Enddate = DateSerial(Year(transdate), month(transdate) + 1, 1 - 1)
 
             E = Format(transdate, "dd/mm/yyyy") & ""
-            Remark = MILK + "& Description &"
+            remark = milk + "& Description &"
             
         sql = "" 'Dr='" & txtDrAccNo & "' and Cr='" & txtCrAccNo & "' and
         sql = "select * from GLSetDefaultGls Where Affect='" & Description & "'"
@@ -38,14 +38,87 @@ Public Sub setdefaultgls(transdate As Date, Description As String)
             If Not rss.EOF Then
              
                
-                sql = "set dateformat dmy update gltransactions set amount='" & amount & "' where transdate='" & transdate & "' and documentno='" & Description & "' and transdescript='" & E & "-" & Remark & "'"
+                sql = "set dateformat dmy update gltransactions set amount='" & amount & "' where transdate='" & transdate & "' and documentno='" & Description & "' and transdescript='" & E & "-" & remark & "'"
                oSaccoMaster.ExecuteThis (sql)
              Else
                sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) "
-               sql = sql & " values ('" & transdate & "','" & amount & "','" & Ddr & "','" & Ccr & "','" & Description & "','' ,'" & E & "-" & Remark & "','" & Now & "','" & User & "',0,0)"
+               sql = sql & " values ('" & transdate & "','" & amount & "','" & Ddr & "','" & Ccr & "','" & Description & "','' ,'" & E & "- " & remark & "','" & Now & "','" & User & "',0,0)"
                oSaccoMaster.ExecuteThis (sql)
             End If
           End If
+        End If
+        
+        Exit Sub
+Capture:
+        ErrorMessage = ErrorMessage
+End Sub
+Public Sub deductions(transdate As Date, Description As String, Sno As String, Remarks As String)
+        Dim E, remark, Ddr, Ccr As String
+        Dim amount As Double
+        
+        Startdate = DateSerial(Year(transdate), month(transdate), 1)
+        Enddate = DateSerial(Year(transdate), month(transdate) + 1, 1 - 1)
+
+            E = Format(transdate, "dd/mm/yyyy") & ""
+            
+        sql = "SELECT Dedaccno, Contraacc FROM d_DCodes where Description='" & Description & "'"
+        Set rs = oSaccoMaster.GetRecordset(sql)
+        If Not rs.EOF Then
+        
+               sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) "
+               sql = sql & " values ('" & transdate & "','" & amount & "','" & Ddr & "','" & Ccr & "','" & Description & "','' ,'" & E & "- " & Remarks & "','" & Now & "','" & User & "',0,0)"
+               oSaccoMaster.ExecuteThis (sql)
+        
+        End If
+        
+        Exit Sub
+Capture:
+        ErrorMessage = ErrorMessage
+End Sub
+Public Sub defaultglsdebit(transdate As Date)
+        Dim E, remark, Ddr, Ccr, Description As String
+        Dim amount As Double
+        Description = "STORE FARMERS PAYMENT"
+        remark = "FARMERS PAYROLL"
+        Startdate = DateSerial(Year(transdate), month(transdate), 1)
+        Enddate = DateSerial(Year(transdate), month(transdate) + 1, 1 - 1)
+
+            E = Format(transdate, "dd/mm/yyyy") & ""
+        'EndofPeriod
+        sql = "set dateformat dmy select isnull(sum(Agrovet),0)as Agrovet, isnull(sum(GPay),0)as GPay FROM d_Payroll where EndofPeriod='" & transdate & "'"
+        Set rss = oSaccoMaster.GetRecordset(sql)
+        If Not rss.EOF Then
+            '''''''DEBIT CREDIT BANK AND STORE PURCHASES
+            If rss!agrovet > 0 Then
+                sql = ""
+                sql = "set dateformat dmy select * from  gltransactions Where transdate='" & transdate & "' and documentno='" & Description & "'"
+                Set rs = oSaccoMaster.GetRecordset(sql)
+                If rs.EOF Then
+                     
+                       sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) "
+                       sql = sql & " values ('" & transdate & "','" & rss!agrovet & "','C002','AG003','" & Description & "','' ,'" & E & "- " & Description & "','" & Now & "','" & User & "',0,0)"
+                       oSaccoMaster.ExecuteThis (sql)
+                Else
+                     sql = "set dateformat dmy update gltransactions set amount='" & rss!agrovet & "' where transdate='" & transdate & "' and documentno='" & Description & "' and transdescript='" & E & "- " & Description & "'"
+                       oSaccoMaster.ExecuteThis (sql)
+                End If
+            End If
+            '''''''DEBIT ACCOUNT PAYABLES AND CREDIT BANK
+            If rss!GPay > 0 Then
+                sql = ""
+                sql = "set dateformat dmy select * from  gltransactions Where transdate='" & transdate & "' and documentno='" & remark & "'"
+                Set rs = oSaccoMaster.GetRecordset(sql)
+                If rs.EOF Then
+                     
+                       sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) "
+                       sql = sql & " values ('" & transdate & "','" & rss!GPay & "','A001','C002','" & remark & "','' ,'" & E & "- " & remark & "','" & Now & "','" & User & "',0,0)"
+                       oSaccoMaster.ExecuteThis (sql)
+                Else
+                     sql = "set dateformat dmy update gltransactions set amount='" & rss!GPay & "' where transdate='" & transdate & "' and documentno='" & remark & "' and transdescript='" & E & "- " & remark & "'"
+                       oSaccoMaster.ExecuteThis (sql)
+                End If
+            End If
+            
         End If
         
         Exit Sub

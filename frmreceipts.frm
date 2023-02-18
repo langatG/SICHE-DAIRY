@@ -394,7 +394,7 @@ Begin VB.Form frmreceipts
       _ExtentX        =   2566
       _ExtentY        =   450
       _Version        =   393216
-      Format          =   129105921
+      Format          =   121110529
       CurrentDate     =   40588
    End
    Begin VB.TextBox txttranscode 
@@ -553,7 +553,7 @@ Begin VB.Form frmreceipts
       _ExtentX        =   2355
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   129105921
+      Format          =   121110529
       CurrentDate     =   40265
    End
    Begin VB.TextBox txtrno 
@@ -624,7 +624,7 @@ Begin VB.Form frmreceipts
       _ExtentX        =   2778
       _ExtentY        =   450
       _Version        =   393216
-      Format          =   129105921
+      Format          =   121110529
       CurrentDate     =   40588
    End
    Begin MSComctlLib.ListView ListView1 
@@ -1173,7 +1173,7 @@ If Not rs.EOF Then
 txtpcode = rs.Fields(0)
 lblbalance = rs.Fields(3)
 'txtserialno = rs.Fields(1)
-txtamount = rs.Fields(4)
+txtAmount = rs.Fields(4)
 txtserai = rs.Fields(5)
 
 End If
@@ -1305,7 +1305,7 @@ End If
 ' txtpcode = ""
  'txtserialno = ""
  txtquantity = 1
- txtamount = 0
+ txtAmount = 0
  txtamtreceived = 0
  TXTCHANGE = 0
  TXTTOTAL = 0
@@ -1372,8 +1372,8 @@ End If
     
  
     
-If txtamount = "" Then
-txtamount = 0
+If txtAmount = "" Then
+txtAmount = 0
 End If
 Provider = "maziwa"
 Set cn = New ADODB.Connection
@@ -1427,8 +1427,8 @@ End If
         Set li = Lvwitems.ListItems.Add(, , txtpcode)
                         li.SubItems(1) = cboproductname & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtamount & ""
-                        li.SubItems(4) = CCur(txtamount) * CCur(txtquantity) & ""
+                        li.SubItems(3) = txtAmount & ""
+                        li.SubItems(4) = CCur(txtAmount) * CCur(txtquantity) & ""
                         li.SubItems(5) = cash
                         'Total = CCur(Total + li.SubItems(4))
                         TXTTOTAL = total
@@ -1455,8 +1455,8 @@ End If
     Set li = Lvwitems.ListItems.Add(, , txtpcode)
                         li.SubItems(1) = cboproductname & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtamount & ""
-                        li.SubItems(4) = CCur(txtamount) * (CCur(txtquantity)) & ""
+                        li.SubItems(3) = txtAmount & ""
+                        li.SubItems(4) = CCur(txtAmount) * (CCur(txtquantity)) & ""
                         li.SubItems(5) = cash
                         'Total = CCur(Total + li.SubItems(4))
                         TXTTOTAL = total
@@ -1472,8 +1472,8 @@ End If
      Set li = Lvwitems.ListItems.Add(, , txtpcode)
                         li.SubItems(1) = cboproductname & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtamount & ""
-                        li.SubItems(4) = CCur(txtamount) * (CCur(txtquantity)) & ""
+                        li.SubItems(3) = txtAmount & ""
+                        li.SubItems(4) = CCur(txtAmount) * (CCur(txtquantity)) & ""
                         li.SubItems(5) = cash
                         'Total = CCur(Total + li.SubItems(4))
                         TXTTOTAL = total
@@ -1495,12 +1495,12 @@ txtquantity = ""
 txtpcode.SetFocus
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 Private Sub cmdproprocess_Click()
 On Error GoTo ErrorHandler
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 sql = ""
 sql = "set dateformat dmy delete from ag_ReceiptsProcess where Date>= '" & Startdate & "' And Date<='" & Enddate & "' and Name<>'FEEDS CARRY FORWARD' and Name<>'FEEDS RECEIVE'"
 cn.Execute sql
@@ -1653,11 +1653,11 @@ Wend
 
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 Private Sub siche()
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 
 sql = ""
 sql = "set dateformat dmy delete from ag_ReceiptsProcess where Date>= '" & Startdate & "' And Date<='" & Enddate & "' and Name='FEEDS RECEIVE'"
@@ -1772,12 +1772,12 @@ Exit Sub
 Wend
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 
 End Sub
 Private Sub cmdrepo67_Click()
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 
 sql = ""
 sql = "set dateformat dmy delete from ag_ReceiptsProcess where Date>= '" & Startdate & "' And Date<='" & Enddate & "' and Name='FEEDS CARRY FORWARD'"
@@ -1914,7 +1914,7 @@ Exit Sub
 Wend
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub cmdsagroded_Click()
@@ -2007,7 +2007,7 @@ saveothers
 Exit Sub
 End If
 HEREEE:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 
@@ -2015,8 +2015,8 @@ Private Sub savesno()
 On Error GoTo ebraim
 'Startdate & "','" & Enddate
 
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 
 If lblCheckOff = True Then
 
@@ -2115,13 +2115,14 @@ oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHE
 oSaccoMaster.ExecuteThis ("Update Rcpno SET rcpno =" & txtrno & "")
 '//XXXXXXXXXXXXXXX
     sql = ""
-    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & "','" & User & "',0,0)"
+    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "','" & Lvwitems.SelectedItem.SubItems(4) & "','" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & "','" & User & "',0,0)"
     oSaccoMaster.ExecuteThis (sql)
 
-''sql = ""
-'''amount = Bpprice
-''    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Bpprice & ",'33-104','33-501','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & "','" & User & "',0,0)"
-''    oSaccoMaster.ExecuteThis (sql)
+sql = ""
+'amount = Bpprice
+    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "','" & Bpprice * Lvwitems.SelectedItem.SubItems(2) & "','AG005','33-103','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & "','" & User & "',0,0)"
+    oSaccoMaster.ExecuteThis (sql)
+''''''End of gls
 
 Else
 
@@ -2139,15 +2140,19 @@ sql = sql & "," & txtSNo & "," & Lvwitems.SelectedItem.SubItems(2) & "," & Remai
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
 oSaccoMaster.ExecuteThis ("Update Rcpno SET rcpno =" & txtrno & "")
+
 '//XXXXXXXXXXXXXXX
     sql = ""
-    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'22-15','22-02','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & "','" & User & "',0,0)"
+    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "','" & Lvwitems.SelectedItem.SubItems(4) & "','" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & "','" & User & "',0,0)"
     oSaccoMaster.ExecuteThis (sql)
 
-sql = ""
+
 'amount = Bpprice
-    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Bpprice & ",'22-04','22-03','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & "','" & User & "',0,0)"
+    sql = ""
+    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "','" & Bpprice * Lvwitems.SelectedItem.SubItems(2) & "','AG005','33-103','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & "','" & User & "',0,0)"
     oSaccoMaster.ExecuteThis (sql)
+''''''End of gls
+    
 End If
 
 'XXXXXXXXXXXXXXXXXXXXXX
@@ -2347,7 +2352,7 @@ End If
 Lvwitems.ListItems.Clear
 txtpcode.Text = ""
 txtquantity = ""
-txtamount = ""
+txtAmount = ""
 cboproductname = ""
 txtrno = ""
 txtSNo = ""
@@ -2364,7 +2369,7 @@ cmdNew_Click
 MsgBox "Records saved"
 Exit Sub
 ebraim:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 Private Sub savetransporters()
@@ -2373,7 +2378,7 @@ On Error GoTo kiparu2
 Dim Startdate As Date
 Dim Enddate As Date
 
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
 'Enddate = DateSerial(year(DTPDDeduction), month(DTPDDeduction) + 1, 1 - 1)
 If opttransport = True Then
 If txttranscode = "" Then
@@ -2457,8 +2462,8 @@ End If
 End If
 
 
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 
 
 Set rs = oSaccoMaster.GetRecordset("d_sp_IsClosed '" & Enddate & "'")
@@ -2466,7 +2471,7 @@ If Not rs.EOF Then
     MsgBox "The period " & Enddate & " has been closed by " & rs.Fields(0)
     Exit Sub
 End If
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
 Enddate = Startdate + 19
 If lbltransnetpay < 0 And txtransdate = Enddate Then
 MsgBox "Transpoter Account Is negative"
@@ -2715,12 +2720,12 @@ txtpcode.Text = ""
 'txtserialno = ""
 lbltransnetpay = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
  
 MsgBox "Records saved"
 Exit Sub
 kiparu2:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 End If
 
 End Sub
@@ -2754,8 +2759,8 @@ j = j + 1
 Loop
 
 
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 
 
 Set rs = oSaccoMaster.GetRecordset("d_sp_IsClosed '" & Enddate & "'")
@@ -3036,13 +3041,13 @@ Lvwitems.ListItems.Clear
 txtrno = ""
 txtpcode.Text = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
 Cmbstation.Text = ""
 
 MsgBox "Record saved Successfully"
 Exit Sub
 kiparu:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 End Sub
 Private Sub savestaff()
 On Error GoTo olkalou
@@ -3074,8 +3079,8 @@ Loop
 
 
 
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 
 Set rs = oSaccoMaster.GetRecordset("d_sp_IsClosed '" & Enddate & "'")
 If Not rs.EOF Then
@@ -3127,7 +3132,7 @@ sql = sql & "," & Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User
 
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
-If txtamount <> 0 Then
+If txtAmount <> 0 Then
 
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,AI) VALUES ("
@@ -3180,7 +3185,7 @@ sql = sql & "," & Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User
 
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
-If txtamount <> 0 Then
+If txtAmount <> 0 Then
 
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,AI) VALUES ("
@@ -3320,13 +3325,13 @@ Lvwitems.ListItems.Clear
 txtrno = ""
 txtpcode.Text = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
 
 MsgBox "Record saved Successfully"
 Exit Sub
 End If
 olkalou:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 Private Sub saveothers()
@@ -3364,8 +3369,8 @@ Loop
 
 
 
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 
 Set rs = oSaccoMaster.GetRecordset("d_sp_IsClosed '" & Enddate & "'")
 If Not rs.EOF Then
@@ -3587,13 +3592,13 @@ Lvwitems.ListItems.Clear
 txtrno = ""
 txtpcode.Text = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
 
 MsgBox "Record saved Successfully"
 Exit Sub
 End If
 olkalou:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 Private Sub savecash()
@@ -3620,8 +3625,8 @@ Loop
 
 
 
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 
 Set rs = oSaccoMaster.GetRecordset("d_sp_IsClosed '" & Enddate & "'")
 If Not rs.EOF Then
@@ -3838,14 +3843,14 @@ Lvwitems.ListItems.Clear
 txtrno = ""
 txtpcode.Text = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
 txttransby = ""
 txtidno = ""
 txtmobile = ""
 MsgBox "Record saved Successfully"
 Exit Sub
 olkalou:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 Private Sub savempesa()
@@ -3890,8 +3895,8 @@ Loop
 
 
 
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 
 Set rs = oSaccoMaster.GetRecordset("d_sp_IsClosed '" & Enddate & "'")
 If Not rs.EOF Then
@@ -4109,14 +4114,14 @@ Lvwitems.ListItems.Clear
 txtrno = ""
 txtpcode.Text = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
 txttransby = ""
 txtidno = ""
 txtmobile = ""
 MsgBox "Record saved Successfully"
 Exit Sub
 olkalou:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 
@@ -4257,7 +4262,7 @@ Wend
 
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub cmdstorece_Click()
@@ -4289,7 +4294,7 @@ Loop
 'End If
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 
 End Sub
 
@@ -4408,8 +4413,8 @@ Label10.Visible = False
 lbltransnetpay.Visible = False
 chkhalf.value = vbUnchecked
 txtransdate = Format(Get_Server_Date, "dd/mm/yyyy")
-DTPfrom = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-DTPto = DateSerial(Year(DTPfrom), Month(DTPfrom) + 1, 1 - 1)
+DTPfrom = DateSerial(Year(txtransdate), month(txtransdate), 1)
+DTPto = DateSerial(Year(DTPfrom), month(DTPfrom) + 1, 1 - 1)
 
 
 Provider = "MAZIWA"
@@ -4451,7 +4456,7 @@ Wend
     rst.MoveNext
     Wend
 
-    lbldracc = "33-103"
+    lbldracc = "AG003"
 
     lblcracc = "33-302"
 
@@ -4708,7 +4713,7 @@ If Not IsNull(rs.Fields(0)) Then txtrno = (rs.Fields(0))
 If Not IsNull(rs.Fields(1)) Then txtpcode = (rs.Fields(1))
 'If Not IsNull(rs.Fields(2)) Then txtserialno = (rs.Fields(2))
 If Not IsNull(rs.Fields(3)) Then txtquantity = (rs.Fields(3))
-If Not IsNull(rs.Fields(4)) Then txtamount = (rs.Fields(4))
+If Not IsNull(rs.Fields(4)) Then txtAmount = (rs.Fields(4))
 If Not IsNull(rs.Fields(3)) Then lblbalance = (rs.Fields(3))
 Call cboname
 End If
@@ -4813,8 +4818,8 @@ Private Sub txtransdate_change()
 ''DTPfrom = DateSerial(year(txtransdate), month(txtransdate), 1)
 ''DTPto = DateSerial(year(DTPfrom), month(DTPfrom) + 1, 1 - 1)
 
-DTPfrom = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-DTPto = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+DTPfrom = DateSerial(Year(txtransdate), month(txtransdate), 1)
+DTPto = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 loadBranchesTypes
 End Sub
 
@@ -4893,8 +4898,8 @@ Else
 lblSNames = ""
 End If
 
-Startdate = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-Enddate = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
+Enddate = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 
 Set rs = oSaccoMaster.GetRecordset("d_sp_SupNet '" & txtSNo & "','" & Startdate & "','" & Enddate & "', 0")
 
@@ -4927,7 +4932,7 @@ lblNPay = Format((CCur(lblGPay) - CCur(lblDed)), "#,##0.00")
 
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub txtStaffNo_Change()
@@ -4957,8 +4962,8 @@ Set rs = oSaccoMaster.GetRecordset(sql)
 If Not rs.EOF Then
 If Not IsNull(rs.Fields(0)) Then lbltransportername = rs.Fields(0)
 End If
-DTPfrom = DateSerial(Year(txtransdate), Month(txtransdate), 1)
-DTPto = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
+DTPfrom = DateSerial(Year(txtransdate), month(txtransdate), 1)
+DTPto = DateSerial(Year(txtransdate), month(txtransdate) + 1, 1 - 1)
 'oSaccoMaster.ExecuteThis ("d_sp_UpdateTranstmpEnquery '" & txttranscode & "','" & DTPto & "'")
 'oSaccoMaster.ExecuteThis ("d_sp_UpdateTranstmpEnqueryDed '" & txttranscode & "','" & DTPfrom & "','" & DTPto & "'")
 '
@@ -4970,7 +4975,7 @@ DTPto = DateSerial(Year(txtransdate), Month(txtransdate) + 1, 1 - 1)
 'End If
 ' get transporter netpay
    Dim mMonth, yYear As Integer
-   mMonth = Month(txtransdate)
+   mMonth = month(txtransdate)
    yYear = Year(txtransdate)
    
   sql = " Select(Select isnull(SUM(Amount + Subsidy),0) from d_TransDetailed where Trans_Code='" & txttranscode & "' and MMonth= " & mMonth & " and YYear=" & yYear & "),"

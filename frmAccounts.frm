@@ -103,7 +103,7 @@ Begin VB.Form frmAccounts
          Strikethrough   =   0   'False
       EndProperty
       CustomFormat    =   " dd-MM-yyyy"
-      Format          =   37355523
+      Format          =   120193027
       CurrentDate     =   39705
    End
    Begin MSComCtl2.DTPicker dtpStartDate 
@@ -125,7 +125,7 @@ Begin VB.Form frmAccounts
          Strikethrough   =   0   'False
       EndProperty
       CustomFormat    =   " dd-MM-yyyy"
-      Format          =   37355523
+      Format          =   120193027
       CurrentDate     =   39705
    End
    Begin VB.CommandButton Command1 
@@ -224,7 +224,7 @@ Private Sub cmdEOY_Click()
 Call EOY_Processing(dtpFinishDate)
 End Sub
 
-Private Sub cmdPrint_Click()
+Private Sub cmdprint_Click()
  
  reportname = "Trial Balance.rpt"
  
@@ -505,7 +505,7 @@ Private Sub Command4_Click()
                 lblStatus.Caption = CStr(Round((I / .RecordCount) * 100, 0)) & " %"
                 prgStatus.value = Round((I / .RecordCount) * 100, 0)
                 ACCNO = !ACCNO
-'                If ACCNO = "11-302B" Then
+'                If ACCNO = "SHC" Then
 '                    MsgBox "Here"
 '                End If
                 lblAccount = ACCNO
@@ -566,26 +566,43 @@ Private Sub Command4_Click()
             Credits = rst("Debits") - rst("Credits")
             ACCBAL = rst("Debits") - rst("Credits")
             transtype = "CR"
-            
-            
         Else
             Debits = rst("Credits") - rst("Debits")
             ACCBAL = rst("Credits") - rst("Debits")
             transtype = "DR"
         End If
-        
-        If ACCBAL > 0 Then
-            sql = "Set DateFormat DMY INSERT INTO [tbbalance] ([AccNo],[AccName], [Amount],[Transtype], [Closed],[StartDate], [EndDate], [AuditID], [AccType], [AccGroup], [BudgetAmount])"
-            
-            sql = sql & " Values('" & SuspenseAcc & "','" & AccName & "'," & ACCBAL & ",'" & transtype & "',0,'" & DTPStartDate & "','" & dtpFinishDate.value & _
-            "','" & User & "','" & accType & "','" & AccGroup & "',0)"
-                
-            If Not oSaccoMaster.Execute(sql) Then
-                GoTo SysError
-            End If
-        End If
-        
+        'Dim AccName, SuspenseAcc, accType, AccGroup As String
+          Set rss = oSaccoMaster.GetRecordset("SELECT Accno,NormalBal,glaccType,glaccname,glaccGroup FROM GLSETUP WHERE Issuspense= 1 ")
+          If Not rss.EOF Then
+            AccName = rss!GlAccName
+            SuspenseAcc = rss!ACCNO
+            accType = rss!Glacctype
+            AccGroup = rss!GLAccGroup
+          End If
+'        If ACCBAL > 0 Then
+'            sql = "Set DateFormat DMY INSERT INTO [tbbalance] ([AccNo],[AccName], [Amount],[Transtype], [Closed],[StartDate], [EndDate], [AuditID], [AccType], [AccGroup], [BudgetAmount])"
+'
+'            sql = sql & " Values('" & SuspenseAcc & "','" & AccName & "'," & ACCBAL & ",'" & transtype & "',0,'" & dtpStartDate & "','" & dtpFinishDate.value & _
+'            "','" & User & "','" & accType & "','" & AccGroup & "',0)"
+'
+'            If Not oSaccoMaster.Execute(sql) Then
+'                GoTo SysError
+'            End If
+'        End If
         'For BalanceSheet Items, check whether they balance
+''        Dim AccName, SuspenseAcc, accType, AccGroup As String
+''
+''          Set rss = oSaccoMaster.GetRecordset("SELECT Accno,NormalBal,glaccType,glaccname,glaccGroup FROM GLSETUP WHERE Issuspense= 1 ")
+''          If Not rss.EOF Then
+''            REarningsAcc = rss!ACCNO
+''            accType = rss!Glacctype
+''            AccGroup = rss!GLAccGroup
+''          End If
+          Set rss = oSaccoMaster.GetRecordset("SELECT Accno,NormalBal,glaccType,glaccname,glaccGroup FROM GLSETUP WHERE isRearning= 1 ")
+          If Not rss.EOF Then
+            REarningsAcc = rss!ACCNO
+          End If
+        
         Set rst = oSaccoMaster.GetRecordset("SELECT  isnull((SELECT     SUM(Amount) FROM  tbbalance WHERE transtype = 'DR' and acctype='Balance Sheet'),0) AS Debits, isnull((SELECT     SUM(Amount) FROM  tbbalance WHERE transtype = 'CR' and acctype='Balance Sheet'),0) AS Credits")
         If Not rst.EOF Then
             If rst("Debits") > rst("Credits") Then
@@ -598,16 +615,16 @@ Private Sub Command4_Click()
                 transtype = "DR"
             End If
         'retained Earnings
-        If ACCBAL <> 0 Then
-            sql = "Set DateFormat DMY INSERT INTO [tbbalance] ([AccNo],[AccName], [Amount],[Transtype], [Closed],[StartDate], [EndDate], [AuditID], [AccType], [AccGroup], [BudgetAmount])"
+            If ACCBAL <> 0 Then
+                sql = "Set DateFormat DMY INSERT INTO [tbbalance] ([AccNo],[AccName], [Amount],[Transtype], [Closed],[StartDate], [EndDate], [AuditID], [AccType], [AccGroup], [BudgetAmount])"
 
-            sql = sql & " Values('" & REarningsAcc & "','" & UCase("Retained Earnings") & "'," & ACCBAL & ",'" & transtype & "',0,'" & DTPStartDate & "','" & dtpFinishDate.value & _
-            "','" & User & "','" & accType & "','" & AccGroup & "',0)"
+                sql = sql & " Values('" & REarningsAcc & "','" & UCase("Retained Earnings") & "'," & ACCBAL & ",'" & transtype & "',0,'" & DTPStartDate & "','" & dtpFinishDate.value & _
+                "','" & User & "','Balance Sheet','LIABILITIES',0)"
 
-            If Not oSaccoMaster.Execute(sql) Then
-                GoTo SysError
+                If Not oSaccoMaster.Execute(sql) Then
+                    GoTo SysError
+                End If
             End If
-        End If
         
         End If
     End If

@@ -26,7 +26,7 @@ Begin VB.Form frmJournals
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
    Begin VB.Frame Frame1 
-      Height          =   1575
+      Height          =   1095
       Left            =   720
       TabIndex        =   42
       Top             =   1800
@@ -35,8 +35,7 @@ Begin VB.Form frmJournals
          Height          =   330
          Left            =   1920
          TabIndex        =   44
-         Text            =   "Combo1"
-         Top             =   240
+         Top             =   360
          Width           =   4695
       End
       Begin VB.Label Label6 
@@ -44,7 +43,7 @@ Begin VB.Form frmJournals
          Height          =   255
          Left            =   360
          TabIndex        =   43
-         Top             =   240
+         Top             =   360
          Width           =   1095
       End
    End
@@ -139,6 +138,7 @@ Begin VB.Form frmJournals
       _ExtentX        =   7170
       _ExtentY        =   1535
       _Version        =   393217
+      Enabled         =   -1  'True
       TextRTF         =   $"frmjournals.frx":030A
    End
    Begin VB.ComboBox cboLoanno 
@@ -461,7 +461,7 @@ Begin VB.Form frmJournals
          Strikethrough   =   0   'False
       EndProperty
       CustomFormat    =   "  dd-MM-yyyy"
-      Format          =   122814465
+      Format          =   131072001
       CurrentDate     =   40336
    End
    Begin VB.Frame Frame5 

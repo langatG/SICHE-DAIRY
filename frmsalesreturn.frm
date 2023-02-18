@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomct2.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmsalesreturn 
    Caption         =   "Sales Return"
    ClientHeight    =   9690
@@ -484,7 +484,7 @@ Begin VB.Form frmsalesreturn
       _ExtentX        =   2355
       _ExtentY        =   450
       _Version        =   393216
-      Format          =   143720449
+      Format          =   121110529
       CurrentDate     =   40588
    End
    Begin MSComCtl2.DTPicker txtransdate 
@@ -496,7 +496,7 @@ Begin VB.Form frmsalesreturn
       _ExtentX        =   2355
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   143720449
+      Format          =   121110529
       CurrentDate     =   40265
    End
    Begin MSComctlLib.ListView Lvwitems 
@@ -559,7 +559,7 @@ Begin VB.Form frmsalesreturn
       _ExtentX        =   2355
       _ExtentY        =   450
       _Version        =   393216
-      Format          =   143720449
+      Format          =   121110529
       CurrentDate     =   40588
    End
    Begin VB.Line Line1 
@@ -1022,7 +1022,7 @@ If Not rs.EOF Then
 txtpcode = rs.Fields(0)
 lblbalance = rs.Fields(3)
 'txtserialno = rs.Fields(1)
-txtamount = rs.Fields(4)
+txtAmount = rs.Fields(4)
 txtserai = rs.Fields(5)
 
 End If
@@ -1154,7 +1154,7 @@ End If
 ' txtpcode = ""
  'txtserialno = ""
  txtquantity = 1
- txtamount = 0
+ txtAmount = 0
  txtamtreceived = 0
  TXTCHANGE = 0
  TXTTOTAL = 0
@@ -1240,7 +1240,7 @@ End If
     
     
     
-    If optTransport = True Then
+    If opttransport = True Then
     If Trim(txttranscode) = "" Then
         MsgBox "Please enter the Transporter"
     
@@ -1257,8 +1257,8 @@ End If
         Exit Sub
     End If
     
-If txtamount = "" Then
-txtamount = 0
+If txtAmount = "" Then
+txtAmount = 0
 End If
 Provider = "maziwa"
 Set cn = New ADODB.Connection
@@ -1314,8 +1314,8 @@ j = 1
         Set li = Lvwitems.ListItems.Add(, , txtpcode)
                         li.SubItems(1) = cboproductname & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtamount & ""
-                        li.SubItems(4) = CCur(txtamount) * CCur(txtquantity) & ""
+                        li.SubItems(3) = txtAmount & ""
+                        li.SubItems(4) = CCur(txtAmount) * CCur(txtquantity) & ""
                         li.SubItems(5) = cash
                         'Total = CCur(Total + li.SubItems(4))
                         TXTTOTAL = total
@@ -1342,8 +1342,8 @@ j = 1
     Set li = Lvwitems.ListItems.Add(, , txtpcode)
                         li.SubItems(1) = cboproductname & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtamount & ""
-                        li.SubItems(4) = CCur(txtamount) * (CCur(txtquantity)) & ""
+                        li.SubItems(3) = txtAmount & ""
+                        li.SubItems(4) = CCur(txtAmount) * (CCur(txtquantity)) & ""
                         li.SubItems(5) = cash
                         'Total = CCur(Total + li.SubItems(4))
                         TXTTOTAL = total
@@ -1359,8 +1359,8 @@ j = 1
      Set li = Lvwitems.ListItems.Add(, , txtpcode)
                         li.SubItems(1) = cboproductname & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtamount & ""
-                        li.SubItems(4) = CCur(txtamount) * (CCur(txtquantity)) & ""
+                        li.SubItems(3) = txtAmount & ""
+                        li.SubItems(4) = CCur(txtAmount) * (CCur(txtquantity)) & ""
                         li.SubItems(5) = cash
                         'Total = CCur(Total + li.SubItems(4))
                         TXTTOTAL = total
@@ -1388,7 +1388,7 @@ txtquantity = ""
 txtpcode.SetFocus
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub cmdsagroded_Click()
@@ -1421,7 +1421,7 @@ End Sub
 Private Sub cmdsave_Click()
 On Error GoTo HEREEE
 Dim rss As ADODB.Recordset
-If optTransport = True Then
+If opttransport = True Then
 savetransporters
 Exit Sub
 End If
@@ -1475,7 +1475,7 @@ saveothers
 Exit Sub
 End If
 HEREEE:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 
@@ -1564,90 +1564,72 @@ Bpprice = rsinstock!pprice * CInt(Lvwitems.SelectedItem.SubItems(2))
 spprice = rsinstock!sprice * CInt(Lvwitems.SelectedItem.SubItems(2))
 AI = rsinstock!AI
 If AI = 0 Then
-'Dim Remain As Double
-'Remain = rsinstock.Fields(1) + CInt(Lvwitems.SelectedItem.SubItems(2))
-
-
-sql = ""
-'sql = "select P_CODE,qin,qout,pprice, sprice  from ag_products where p_code='" & lvwItems.SelectedItem & "' AND  branch='" & Cmbstation & "'"
-sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount,S_no, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
-sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & txtSNo & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & "," & txtSNo & ",'" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales Return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
-
-oSaccoMaster.ExecuteThis (sql)
-sql = ""
-sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount,S_no, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,AI) VALUES ("
-sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & txtSNo & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & "," & txtSNo & ",'" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
-
-oSaccoMaster.ExecuteThis (sql)
-oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
-oSaccoMaster.ExecuteThis ("Update ag_Receipts SET S_Bal =" & CCur(Remain) & " WHERE R_No= " & txtrno & " and branch='" & Cmbstation & "'")
-oSaccoMaster.ExecuteThis ("Update Rcpno SET rcpno =" & txtrno & "")
-'//XXXXXXXXXXXXXXX
+    'Dim Remain As Double
+    'Remain = rsinstock.Fields(1) + CInt(Lvwitems.SelectedItem.SubItems(2))
+    
+    
     sql = ""
-    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'33-302','33-103','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & " Return " & "','" & User & "',0,0)"
+    'sql = "select P_CODE,qin,qout,pprice, sprice  from ag_products where p_code='" & lvwItems.SelectedItem & "' AND  branch='" & Cmbstation & "'"
+    sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount,S_no, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
+    sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
+    sql = sql & "," & txtSNo & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & "," & txtSNo & ",'" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales Return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+    
     oSaccoMaster.ExecuteThis (sql)
-
-sql = ""
-'amount = Bpprice
-    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Bpprice & ",'33-501','33-104','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & " Return " & "','" & User & "',0,0)"
+    sql = ""
+    sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount,S_no, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,AI) VALUES ("
+    sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
+    sql = sql & "," & txtSNo & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & "," & txtSNo & ",'" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
+    
     oSaccoMaster.ExecuteThis (sql)
+    oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
+    oSaccoMaster.ExecuteThis ("Update ag_Receipts SET S_Bal =" & CCur(Remain) & " WHERE R_No= " & txtrno & " and branch='" & Cmbstation & "'")
+    oSaccoMaster.ExecuteThis ("Update Rcpno SET rcpno =" & txtrno & "")
+    '//XXXXXXXXXXXXXXX
+        sql = ""
+        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & " Return " & "','" & User & "',0,0)"
+        oSaccoMaster.ExecuteThis (sql)
+    
+    
+    'amount = Bpprice
+        sql = ""
+        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Bpprice & ",'33-103','AG005','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & " Return " & "','" & User & "',0,0)"
+        oSaccoMaster.ExecuteThis (sql)
 
-
-'XXXXXXXXXXXXXXXXXXXXXX
-'Next j
-''j = j + 1
-''Loop
-'
-'If optCash.value = False Then
-'Set cn = New ADODB.Connection
-'sql = "d_sp_SupplierDeduct " & txtSNo & ",'" & txtransdate & "','Agrovet'," & total & ",'" & Startdate & "','" & Enddate & "'," & year(txtransdate) & ",'" & User & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Cmbstation & "'"
-'oSaccoMaster.ExecuteThis (sql)
-'End If
-'
-'If CDbl(txtamtreceived) > 0 Then
-'    '******Deduct Amount paid in cash
-'
-'    amount = 0
-'    amount = CDbl(txtamtreceived)
-'    sql = "d_sp_SupplierDeduct " & txtSNo & ",'" & txtransdate & "','Agrovet'," & -1 * amount & ",'" & Startdate & "','" & Enddate & "'," & year(txtransdate) & ",'" & User & "','Cash','" & Cmbstation & "'"
-'oSaccoMaster.ExecuteThis (sql)
 
 Else
 
-'Dim Remain As Double
-'Remain = rsinstock.Fields(1) + CInt(Lvwitems.SelectedItem.SubItems(2))
-
-
-sql = ""
-'sql = "select P_CODE,qin,qout,pprice, sprice  from ag_products where p_code='" & lvwItems.SelectedItem & "' AND  branch='" & Cmbstation & "'"
-sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount,S_no, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
-sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & txtSNo & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & "," & txtSNo & ",'" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales Return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
-
-oSaccoMaster.ExecuteThis (sql)
-sql = ""
-sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount,S_no, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,AI) VALUES ("
-sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & txtSNo & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & "," & txtSNo & ",'" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
-
-oSaccoMaster.ExecuteThis (sql)
-oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
-oSaccoMaster.ExecuteThis ("Update ag_Receipts SET S_Bal =" & CCur(Remain) & " WHERE R_No= " & txtrno & " and branch='" & Cmbstation & "'")
-oSaccoMaster.ExecuteThis ("Update Rcpno SET rcpno =" & txtrno & "")
-'//XXXXXXXXXXXXXXX
+    'Dim Remain As Double
+    'Remain = rsinstock.Fields(1) + CInt(Lvwitems.SelectedItem.SubItems(2))
+    
+    
     sql = ""
-    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'22-02','22-15','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & " Return " & "','" & User & "',0,0)"
+    'sql = "select P_CODE,qin,qout,pprice, sprice  from ag_products where p_code='" & lvwItems.SelectedItem & "' AND  branch='" & Cmbstation & "'"
+    sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount,S_no, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
+    sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
+    sql = sql & "," & txtSNo & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & "," & txtSNo & ",'" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales Return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+    
     oSaccoMaster.ExecuteThis (sql)
-
-sql = ""
-'amount = Bpprice
-    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Bpprice & ",'22-03','22-04','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & " Return " & "','" & User & "',0,0)"
+    sql = ""
+    sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount,S_no, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,AI) VALUES ("
+    sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
+    sql = sql & "," & txtSNo & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & "," & txtSNo & ",'" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
+    
     oSaccoMaster.ExecuteThis (sql)
-
-
-'XXXXXXXXXXXXXXXXXXXXXX
+    oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
+    oSaccoMaster.ExecuteThis ("Update ag_Receipts SET S_Bal =" & CCur(Remain) & " WHERE R_No= " & txtrno & " and branch='" & Cmbstation & "'")
+    oSaccoMaster.ExecuteThis ("Update Rcpno SET rcpno =" & txtrno & "")
+    '//XXXXXXXXXXXXXXX
+        sql = ""
+        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & " Return " & "','" & User & "',0,0)"
+        oSaccoMaster.ExecuteThis (sql)
+    
+    'amount = Bpprice
+        sql = ""
+        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtransdate & "'," & Bpprice & ",'33-103','AG005','" & Lvwitems.SelectedItem & "','" & cboproductname & "' ,'CHECK OFF SALES- " & "" & cboproductname & " Return " & "','" & User & "',0,0)"
+        oSaccoMaster.ExecuteThis (sql)
+    
+    
+    'XXXXXXXXXXXXXXXXXXXXXX
 
 End If
 
@@ -1778,7 +1760,7 @@ Dim ttt
     txtFile.WriteLine
     txtFile.WriteLine "Current Credit:" & xk
     txtFile.WriteLine "Trans By" & vbTab & txttransby
-    txtFile.WriteLine "Id No" & vbTab & txtIdNo
+    txtFile.WriteLine "Id No" & vbTab & txtidno
     txtFile.WriteLine
     txtFile.WriteLine "YOU WERE SERVED By " & UCase(username)
     txtFile.WriteLine "    Date :" & Format(Get_Server_Date, "dd/mm/yyyy HH:MM:SS AM/PM")
@@ -1827,7 +1809,7 @@ End If
 Lvwitems.ListItems.Clear
 txtpcode.Text = ""
 txtquantity = ""
-txtamount = ""
+txtAmount = ""
 cboproductname = ""
 txtrno = ""
 txtSNo = ""
@@ -1837,14 +1819,14 @@ lblDed = ""
 lblNPay = ""
 lblSNames = ""
 txttransby = ""
-txtIdNo = ""
+txtidno = ""
 txtmobile = ""
 'xk = ""
 cmdNew_Click
 MsgBox "Records saved"
 Exit Sub
 ebraim:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 Private Sub savetransporters()
@@ -1855,7 +1837,7 @@ Dim Enddate As Date
 
 Startdate = DateSerial(Year(txtransdate), month(txtransdate), 1)
 'Enddate = DateSerial(year(DTPDDeduction), month(DTPDDeduction) + 1, 1 - 1)
-If optTransport = True Then
+If opttransport = True Then
 If txttranscode = "" Then
 MsgBox "Please enter the transporter"
 Exit Sub
@@ -1995,13 +1977,13 @@ If AI = 0 Then
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno,mobile,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & txttranscode & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales Return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & txttranscode & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales Return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno,mobile,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & txttranscode & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & txttranscode & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
 '
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
@@ -2035,13 +2017,13 @@ Else
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno,mobile,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & txttranscode & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales Return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & txttranscode & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales Return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno,mobile,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & txttranscode & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & txttranscode & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
 '
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
@@ -2187,12 +2169,12 @@ txtpcode.Text = ""
 'txtserialno = ""
 lbltransnetpay = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
  
 MsgBox "Records saved"
 Exit Sub
 kiparu2:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 End If
 
 End Sub
@@ -2508,22 +2490,22 @@ Lvwitems.ListItems.Clear
 txtrno = ""
 txtpcode.Text = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
 Cmbstation.Text = ""
 
 MsgBox "Record saved Successfully"
 Exit Sub
 kiparu:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 End Sub
 Private Sub savestaff()
 On Error GoTo olkalou
 
 If optstaff = True Then
 Dim C As String
-Dim d As String
+Dim D As String
 C = "Staff" & txtstaffno
-d = lblstnames
+D = lblstnames
 Dim j As Integer
 If Lvwitems.ListItems.Count = 0 Then
 MsgBox "There are no items sold."
@@ -2588,23 +2570,23 @@ If AI = 0 Then
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & d & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & D & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & d & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & D & "','" & Cmbstation & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
 oSaccoMaster.ExecuteThis ("Update ag_Receipts SET S_Bal =" & CCur(Remain) & " WHERE R_No= " & txtrno & " and branch='" & Cmbstation & "'")
-If txtamount <> 0 Then
+If txtAmount <> 0 Then
 
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & d & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & D & "','" & Cmbstation & "'," & txtserai & ")"
 End If
 
 '    sql = ""
@@ -2642,23 +2624,23 @@ Else
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & d & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & D & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & d & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & D & "','" & Cmbstation & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
 oSaccoMaster.ExecuteThis ("Update ag_Receipts SET S_Bal =" & CCur(Remain) & " WHERE R_No= " & txtrno & " and branch='" & Cmbstation & "'")
-If txtamount <> 0 Then
+If txtAmount <> 0 Then
 
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & d & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & D & "','" & Cmbstation & "'," & txtserai & ")"
 End If
 
 '    sql = ""
@@ -2792,13 +2774,13 @@ Lvwitems.ListItems.Clear
 txtrno = ""
 txtpcode.Text = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
 
 MsgBox "Record saved Successfully"
 Exit Sub
 End If
 olkalou:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 Private Sub saveothers()
@@ -2806,14 +2788,14 @@ On Error GoTo olkalou
 
 If Optothers = True Then
 Dim C As String
-Dim d As String
-If txtName = "" Then
+Dim D As String
+If txtname = "" Then
 MsgBox "Enter Institution Name before you continue", vbCritical, "Maziwa"
 
 Exit Sub
 End If
 C = "Other"
-d = txtName
+D = txtname
 Dim j As Integer
 If Lvwitems.ListItems.Count = 0 Then
 MsgBox "There are no items sold."
@@ -2878,13 +2860,13 @@ If AI = 0 Then
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & d & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & D & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & d & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & D & "','" & Cmbstation & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
@@ -2921,13 +2903,13 @@ Else
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & d & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & D & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & d & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & D & "','" & Cmbstation & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
@@ -3062,13 +3044,13 @@ Lvwitems.ListItems.Clear
 txtrno = ""
 txtpcode.Text = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
 
 MsgBox "Record saved Successfully"
 Exit Sub
 End If
 olkalou:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 Private Sub savecash()
@@ -3139,13 +3121,13 @@ If AI = 0 Then
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
@@ -3180,13 +3162,13 @@ Else
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "Sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
@@ -3296,7 +3278,7 @@ Dim ttt
         txtFile.WriteLine "CHANGE" & vbTab & TXTCHANGE
         txtFile.WriteLine
         txtFile.WriteLine "Trans By" & vbTab & txttransby
-        txtFile.WriteLine "Id No" & vbTab & txtIdNo
+        txtFile.WriteLine "Id No" & vbTab & txtidno
         txtFile.WriteLine
         txtFile.WriteLine "YOU WERE SERVED By " & UCase(username)
         txtFile.WriteLine "    Date :" & Format(Get_Server_Date, "dd/mm/yyyy HH:MM:SS AM/PM")
@@ -3314,14 +3296,14 @@ Lvwitems.ListItems.Clear
 txtrno = ""
 txtpcode.Text = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
 txttransby = ""
-txtIdNo = ""
+txtidno = ""
 txtmobile = ""
 MsgBox "Record saved Successfully"
 Exit Sub
 olkalou:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 Private Sub savempesa()
@@ -3393,13 +3375,13 @@ If AI = 0 Then
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
@@ -3436,13 +3418,13 @@ Else
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,remarks,SPRICE,BPRICE,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "','" & Lvwitems.SelectedItem.SubItems(1) & "sales return" & "','" & spprice & "','" & Bpprice & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 sql = ""
 sql = sql & "SET dateformat DMY INSERT INTO ag_Receipts3(R_No, P_code, T_Date, Amount, Qua, S_Bal, user_id, Cash, SNo,Transby, Idno, mobile,branch,AI) VALUES ("
 sql = sql & txtrno & ",'" & Lvwitems.SelectedItem & "','" & txtransdate & "'," & -1 * Lvwitems.SelectedItem.SubItems(4)
-sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtIdNo & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
+sql = sql & "," & -1 * Lvwitems.SelectedItem.SubItems(2) & "," & Remain & ",'" & User & "'," & Lvwitems.SelectedItem.SubItems(5) & ",'" & C & "','" & txttransby & "','" & txtidno & "','" & txtmobile & "','" & Cmbstation & "'," & txtserai & ")"
 
 oSaccoMaster.ExecuteThis (sql)
 oSaccoMaster.ExecuteThis ("Update ag_Products SET Qout =" & CCur(Remain) & " WHERE p_code= '" & Lvwitems.SelectedItem & "' and branch='" & Cmbstation & "'")
@@ -3553,7 +3535,7 @@ Dim ttt
         txtFile.WriteLine "CHANGE" & vbTab & TXTCHANGE
         txtFile.WriteLine
         txtFile.WriteLine "Trans By" & vbTab & txttransby
-        txtFile.WriteLine "Id No" & vbTab & txtIdNo
+        txtFile.WriteLine "Id No" & vbTab & txtidno
         txtFile.WriteLine
         txtFile.WriteLine "YOU WERE SERVED By " & UCase(username)
         txtFile.WriteLine "    Date :" & Format(Get_Server_Date, "dd/mm/yyyy HH:MM:SS AM/PM")
@@ -3571,14 +3553,14 @@ Lvwitems.ListItems.Clear
 txtrno = ""
 txtpcode.Text = ""
 txtquantity = 1
-txtamount = ""
+txtAmount = ""
 txttransby = ""
-txtIdNo = ""
+txtidno = ""
 txtmobile = ""
 MsgBox "Record saved Successfully"
 Exit Sub
 olkalou:
-MsgBox err.description & " error occured."
+MsgBox err.Description & " error occured."
 
 End Sub
 Private Sub Command1_Click()
@@ -3606,7 +3588,7 @@ Loop
 'End If
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 
 End Sub
 
@@ -3679,7 +3661,9 @@ Wend
     rst.MoveNext
     Wend
 
+    lbldracc = "33-302"
 
+    lblcracc = "AG003"
 
 cboproductname.Enabled = True
 chkPrint.value = vbUnchecked
@@ -3813,7 +3797,7 @@ Label8.Visible = False
 End Sub
 
 Private Sub opttransport_Click()
-If optTransport = True Then
+If opttransport = True Then
 Label5.Visible = True
 txttranscode.Visible = True
 lbltransportername.Visible = True
@@ -3929,7 +3913,7 @@ If Not IsNull(rs.Fields(0)) Then txtrno = (rs.Fields(0))
 If Not IsNull(rs.Fields(1)) Then txtpcode = (rs.Fields(1))
 'If Not IsNull(rs.Fields(2)) Then txtserialno = (rs.Fields(2))
 If Not IsNull(rs.Fields(3)) Then txtquantity = (rs.Fields(3))
-If Not IsNull(rs.Fields(4)) Then txtamount = (rs.Fields(4))
+If Not IsNull(rs.Fields(4)) Then txtAmount = (rs.Fields(4))
 If Not IsNull(rs.Fields(3)) Then lblbalance = (rs.Fields(3))
 Call cboname
 End If
@@ -4135,7 +4119,7 @@ lblNPay = Format((CCur(lblGPay) - CCur(lblDed)), "#,##0.00")
 
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub txtStaffNo_Change()

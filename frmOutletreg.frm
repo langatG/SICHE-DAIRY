@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "Mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmOutletreg 
    Caption         =   "Outlet Registration"
    ClientHeight    =   5445
@@ -209,7 +209,7 @@ Begin VB.Form frmOutletreg
    End
    Begin VB.Label Label4 
       BackStyle       =   0  'Transparent
-      Caption         =   "Dr Stock"
+      Caption         =   "Dr Outlet"
       BeginProperty Font 
          Name            =   "Elephant"
          Size            =   9
@@ -220,7 +220,7 @@ Begin VB.Form frmOutletreg
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   120
+      Left            =   0
       TabIndex        =   12
       Top             =   3840
       Width           =   975
@@ -290,8 +290,8 @@ txttill.Locked = False
 txtPhoNo.Locked = False
 'lbldracc = False
 'lblcracc = False
-cmdnew.Enabled = False
-cmdEdit.Enabled = False
+cmdNew.Enabled = False
+cmdedit.Enabled = False
 End Sub
 
 Private Sub cmdNew_Click()
@@ -307,8 +307,8 @@ txtBCode1.Locked = False
 txtBName1.Locked = False
 txttill.Locked = False
 txtPhoNo.Locked = False
-cmdnew.Enabled = False
-cmdEdit.Enabled = False
+cmdNew.Enabled = False
+cmdedit.Enabled = False
 cmdsave.Enabled = True
 sql = ""
 sql = "select count(BCode1) from d_Outletbranch"
@@ -416,14 +416,14 @@ txtdracc = ""
 txtcracc = ""
 txtBCode1.Locked = True
 txtBName1.Locked = True
-cmdnew.Enabled = True
-cmdEdit.Enabled = False
+cmdNew.Enabled = True
+cmdedit.Enabled = False
 cmdsave.Enabled = True
 loadBranchesTypes
 MsgBox "Records successively updated."
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 End Sub
 
 Private Sub Form_Load()
@@ -431,7 +431,7 @@ txtBCode1.Locked = True
 txtBName1.Locked = True
 txttill.Locked = True
 txtPhoNo.Locked = True
-cmdDelete.Enabled = False
+cmddelete.Enabled = False
 loadBranchesTypes
 End Sub
 
@@ -453,11 +453,11 @@ txtPhoNo = rs!PhoneNo
 lbldracc = rs!dr
 lblcracc = rs!cr
 End If
-cmdDelete.Enabled = True
+cmddelete.Enabled = True
 
 End Sub
 Private Sub lvWBranch_DblClick()
-cmdEdit.Enabled = True
+cmdedit.Enabled = True
 edit lvWBranch1.SelectedItem
 End Sub
 Private Sub lblcracc_Change()
@@ -473,7 +473,7 @@ Private Sub lbldracc_Change()
     End If
 End Sub
 Private Sub lvWBranch1_DblClick()
-cmdEdit.Enabled = True
+cmdedit.Enabled = True
 edit lvWBranch1.SelectedItem
 End Sub
 

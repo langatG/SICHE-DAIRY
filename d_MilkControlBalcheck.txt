@@ -1,0 +1,23 @@
+USE [MAZIWA]
+GO
+
+/****** Object:  Table [dbo].[d_MilkControlBalcheck]    Script Date: 16/02/2023 20:34:23 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[d_MilkControlBalcheck](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Code] [nvarchar](50) NULL,
+	[Name] [nvarchar](50) NULL,
+	[Type] [nvarchar](50) NULL,
+	[AmountToPay] [money] NULL CONSTRAINT [DF_d_MilkControlBalcheck_AmountToPay]  DEFAULT ((0)),
+	[AmountPayed] [money] NULL CONSTRAINT [DF_d_MilkControlBalcheck_AmountPayed]  DEFAULT ((0)),
+	[Bal] [money] NULL CONSTRAINT [DF_d_MilkControlBalcheck_Bal]  DEFAULT ((0))
+) ON [PRIMARY]
+
+GO
+
+

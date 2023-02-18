@@ -39,7 +39,7 @@ Begin VB.Form frmplantmilksale
       _ExtentX        =   2778
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   122159105
+      Format          =   128647169
       CurrentDate     =   38814
    End
    Begin TabDlg.SSTab SSTab1 
@@ -52,7 +52,6 @@ Begin VB.Form frmplantmilksale
       _ExtentY        =   15478
       _Version        =   393216
       Tabs            =   2
-      Tab             =   1
       TabsPerRow      =   2
       TabHeight       =   520
       ForeColor       =   49152
@@ -67,102 +66,79 @@ Begin VB.Form frmplantmilksale
       EndProperty
       TabCaption(0)   =   "Customer Registration"
       TabPicture(0)   =   "frmplantmilksale.frx":0000
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Command4"
-      Tab(0).Control(1)=   "lblDrAccName"
-      Tab(0).Control(2)=   "txtDrAccNo"
-      Tab(0).Control(3)=   "cmdSearch"
-      Tab(0).Control(4)=   "Command2"
-      Tab(0).Control(5)=   "Command1"
-      Tab(0).Control(6)=   "cboName1"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Label2"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Label1"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Label3"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "Label11"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "Label12"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(5)=   "Label14"
+      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).Control(6)=   "ListView2"
+      Tab(0).Control(6).Enabled=   0   'False
       Tab(0).Control(7)=   "txtcust"
-      Tab(0).Control(8)=   "ListView2"
-      Tab(0).Control(9)=   "Label14"
-      Tab(0).Control(10)=   "Label12"
-      Tab(0).Control(11)=   "Label11"
-      Tab(0).Control(12)=   "Label3"
-      Tab(0).Control(13)=   "Label1"
-      Tab(0).Control(14)=   "Label2"
+      Tab(0).Control(7).Enabled=   0   'False
+      Tab(0).Control(8)=   "cboName1"
+      Tab(0).Control(8).Enabled=   0   'False
+      Tab(0).Control(9)=   "Command1"
+      Tab(0).Control(9).Enabled=   0   'False
+      Tab(0).Control(10)=   "Command2"
+      Tab(0).Control(10).Enabled=   0   'False
+      Tab(0).Control(11)=   "cmdSearch"
+      Tab(0).Control(11).Enabled=   0   'False
+      Tab(0).Control(12)=   "txtDrAccNo"
+      Tab(0).Control(12).Enabled=   0   'False
+      Tab(0).Control(13)=   "lblDrAccName"
+      Tab(0).Control(13).Enabled=   0   'False
+      Tab(0).Control(14)=   "Command4"
+      Tab(0).Control(14).Enabled=   0   'False
       Tab(0).ControlCount=   15
       TabCaption(1)   =   "Point Of Sales"
       TabPicture(1)   =   "frmplantmilksale.frx":001C
-      Tab(1).ControlEnabled=   -1  'True
-      Tab(1).Control(0)=   "Label8"
-      Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).Control(1)=   "Label13"
-      Tab(1).Control(1).Enabled=   0   'False
-      Tab(1).Control(2)=   "Label5"
-      Tab(1).Control(2).Enabled=   0   'False
-      Tab(1).Control(3)=   "Label6(0)"
-      Tab(1).Control(3).Enabled=   0   'False
-      Tab(1).Control(4)=   "Label7"
-      Tab(1).Control(4).Enabled=   0   'False
-      Tab(1).Control(5)=   "Label6(1)"
-      Tab(1).Control(5).Enabled=   0   'False
-      Tab(1).Control(6)=   "Label9"
-      Tab(1).Control(6).Enabled=   0   'False
-      Tab(1).Control(7)=   "Label10"
-      Tab(1).Control(7).Enabled=   0   'False
-      Tab(1).Control(8)=   "Label4"
-      Tab(1).Control(8).Enabled=   0   'False
-      Tab(1).Control(9)=   "Label6(2)"
-      Tab(1).Control(9).Enabled=   0   'False
-      Tab(1).Control(10)=   "Label6(3)"
-      Tab(1).Control(10).Enabled=   0   'False
-      Tab(1).Control(11)=   "Label6(4)"
-      Tab(1).Control(11).Enabled=   0   'False
-      Tab(1).Control(12)=   "Label15"
-      Tab(1).Control(12).Enabled=   0   'False
-      Tab(1).Control(13)=   "Label16"
-      Tab(1).Control(13).Enabled=   0   'False
-      Tab(1).Control(14)=   "Label17"
-      Tab(1).Control(14).Enabled=   0   'False
-      Tab(1).Control(15)=   "Label18"
-      Tab(1).Control(15).Enabled=   0   'False
-      Tab(1).Control(16)=   "Lvwitems"
-      Tab(1).Control(16).Enabled=   0   'False
-      Tab(1).Control(17)=   "ListView3"
-      Tab(1).Control(17).Enabled=   0   'False
-      Tab(1).Control(18)=   "fra1"
-      Tab(1).Control(18).Enabled=   0   'False
-      Tab(1).Control(19)=   "cboNamecust"
-      Tab(1).Control(19).Enabled=   0   'False
-      Tab(1).Control(20)=   "txtCustName"
-      Tab(1).Control(20).Enabled=   0   'False
-      Tab(1).Control(21)=   "txtprice"
-      Tab(1).Control(21).Enabled=   0   'False
-      Tab(1).Control(22)=   "chkBoil"
-      Tab(1).Control(22).Enabled=   0   'False
-      Tab(1).Control(23)=   "chksales"
-      Tab(1).Control(23).Enabled=   0   'False
-      Tab(1).Control(24)=   "chklocal"
-      Tab(1).Control(24).Enabled=   0   'False
-      Tab(1).Control(25)=   "txtamount"
-      Tab(1).Control(25).Enabled=   0   'False
-      Tab(1).Control(26)=   "cmdsave"
-      Tab(1).Control(26).Enabled=   0   'False
-      Tab(1).Control(27)=   "txtquantity"
-      Tab(1).Control(27).Enabled=   0   'False
-      Tab(1).Control(28)=   "Command3"
-      Tab(1).Control(28).Enabled=   0   'False
-      Tab(1).Control(29)=   "chkRepay"
-      Tab(1).Control(29).Enabled=   0   'False
-      Tab(1).Control(30)=   "cmdnextitem"
-      Tab(1).Control(30).Enabled=   0   'False
-      Tab(1).Control(31)=   "TXTTOTAL"
-      Tab(1).Control(31).Enabled=   0   'False
-      Tab(1).Control(32)=   "TXTCHANGE"
-      Tab(1).Control(32).Enabled=   0   'False
-      Tab(1).Control(33)=   "cmdremove"
-      Tab(1).Control(33).Enabled=   0   'False
-      Tab(1).Control(34)=   "cmd5"
-      Tab(1).Control(34).Enabled=   0   'False
-      Tab(1).Control(35)=   "cmddelete"
-      Tab(1).Control(35).Enabled=   0   'False
-      Tab(1).Control(36)=   "cmdmonthly"
-      Tab(1).Control(36).Enabled=   0   'False
-      Tab(1).Control(37)=   "cmdindi"
-      Tab(1).Control(37).Enabled=   0   'False
+      Tab(1).ControlEnabled=   0   'False
+      Tab(1).Control(0)=   "cmdindi"
+      Tab(1).Control(1)=   "cmdmonthly"
+      Tab(1).Control(2)=   "cmddelete"
+      Tab(1).Control(3)=   "cmd5"
+      Tab(1).Control(4)=   "cmdremove"
+      Tab(1).Control(5)=   "TXTCHANGE"
+      Tab(1).Control(6)=   "TXTTOTAL"
+      Tab(1).Control(7)=   "cmdnextitem"
+      Tab(1).Control(8)=   "chkRepay"
+      Tab(1).Control(9)=   "Command3"
+      Tab(1).Control(10)=   "txtquantity"
+      Tab(1).Control(11)=   "cmdsave"
+      Tab(1).Control(12)=   "txtamount"
+      Tab(1).Control(13)=   "chklocal"
+      Tab(1).Control(14)=   "chksales"
+      Tab(1).Control(15)=   "chkBoil"
+      Tab(1).Control(16)=   "txtprice"
+      Tab(1).Control(17)=   "txtCustName"
+      Tab(1).Control(18)=   "cboNamecust"
+      Tab(1).Control(19)=   "fra1"
+      Tab(1).Control(20)=   "ListView3"
+      Tab(1).Control(21)=   "Lvwitems"
+      Tab(1).Control(22)=   "Label18"
+      Tab(1).Control(23)=   "Label17"
+      Tab(1).Control(24)=   "Label16"
+      Tab(1).Control(25)=   "Label15"
+      Tab(1).Control(26)=   "Label6(4)"
+      Tab(1).Control(27)=   "Label6(3)"
+      Tab(1).Control(28)=   "Label6(2)"
+      Tab(1).Control(29)=   "Label4"
+      Tab(1).Control(30)=   "Label10"
+      Tab(1).Control(31)=   "Label9"
+      Tab(1).Control(32)=   "Label6(1)"
+      Tab(1).Control(33)=   "Label7"
+      Tab(1).Control(34)=   "Label6(0)"
+      Tab(1).Control(35)=   "Label5"
+      Tab(1).Control(36)=   "Label13"
+      Tab(1).Control(37)=   "Label8"
       Tab(1).ControlCount=   38
       Begin VB.CommandButton cmdindi 
          Caption         =   "Individual Report"
@@ -176,7 +152,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   495
-         Left            =   4080
+         Left            =   -70920
          TabIndex        =   57
          Top             =   6000
          Width           =   1575
@@ -193,7 +169,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   495
-         Left            =   2160
+         Left            =   -72840
          TabIndex        =   56
          Top             =   6000
          Width           =   1815
@@ -210,7 +186,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   495
-         Left            =   7440
+         Left            =   -67560
          TabIndex        =   55
          Top             =   6000
          Width           =   975
@@ -227,7 +203,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   495
-         Left            =   5880
+         Left            =   -69120
          TabIndex        =   54
          Top             =   6000
          Width           =   1455
@@ -235,14 +211,14 @@ Begin VB.Form frmplantmilksale
       Begin VB.CommandButton cmdremove 
          Caption         =   "Remove"
          Height          =   495
-         Left            =   6480
+         Left            =   -68520
          TabIndex        =   53
          Top             =   2760
          Width           =   1215
       End
       Begin VB.TextBox TXTCHANGE 
          Height          =   495
-         Left            =   9360
+         Left            =   -65640
          TabIndex        =   50
          Text            =   "0"
          Top             =   5160
@@ -251,7 +227,7 @@ Begin VB.Form frmplantmilksale
       Begin VB.TextBox TXTTOTAL 
          Enabled         =   0   'False
          Height          =   495
-         Left            =   9360
+         Left            =   -65640
          TabIndex        =   49
          Text            =   "0"
          Top             =   3840
@@ -261,7 +237,7 @@ Begin VB.Form frmplantmilksale
          Caption         =   "Next item"
          Default         =   -1  'True
          Height          =   495
-         Left            =   8400
+         Left            =   -66600
          TabIndex        =   47
          Top             =   2760
          Width           =   1455
@@ -269,7 +245,7 @@ Begin VB.Form frmplantmilksale
       Begin VB.CommandButton Command4 
          Caption         =   "Report"
          Height          =   495
-         Left            =   -70320
+         Left            =   4680
          TabIndex        =   46
          Top             =   7320
          Width           =   1335
@@ -286,7 +262,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   -71280
+         Left            =   3720
          TabIndex        =   42
          Top             =   2640
          Width           =   3225
@@ -303,7 +279,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   -72420
+         Left            =   2580
          TabIndex        =   41
          Top             =   2640
          Width           =   1080
@@ -311,7 +287,7 @@ Begin VB.Form frmplantmilksale
       Begin VB.CommandButton cmdSearch 
          Caption         =   "..."
          Height          =   285
-         Left            =   -72720
+         Left            =   2280
          TabIndex        =   40
          Top             =   2640
          Width           =   300
@@ -329,7 +305,7 @@ Begin VB.Form frmplantmilksale
          EndProperty
          ForeColor       =   &H000000FF&
          Height          =   255
-         Left            =   6840
+         Left            =   -68160
          TabIndex        =   38
          Top             =   3600
          Width           =   1695
@@ -346,7 +322,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   495
-         Left            =   480
+         Left            =   -74520
          TabIndex        =   35
          Top             =   6000
          Width           =   1575
@@ -354,7 +330,7 @@ Begin VB.Form frmplantmilksale
       Begin VB.CommandButton Command2 
          Caption         =   "Save"
          Height          =   495
-         Left            =   -72240
+         Left            =   2760
          TabIndex        =   34
          Top             =   7320
          Width           =   1095
@@ -362,14 +338,14 @@ Begin VB.Form frmplantmilksale
       Begin VB.CommandButton Command1 
          Caption         =   "New"
          Height          =   435
-         Left            =   -74160
+         Left            =   840
          TabIndex        =   33
          Top             =   7320
          Width           =   975
       End
       Begin VB.TextBox txtquantity 
          Height          =   375
-         Left            =   2160
+         Left            =   -72840
          TabIndex        =   27
          Top             =   2040
          Width           =   1335
@@ -386,14 +362,14 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   495
-         Left            =   8520
+         Left            =   -66480
          TabIndex        =   25
          Top             =   6000
          Width           =   855
       End
       Begin VB.TextBox txtamount 
          Height          =   405
-         Left            =   9360
+         Left            =   -65640
          TabIndex        =   23
          Top             =   4560
          Width           =   1215
@@ -410,7 +386,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   6480
+         Left            =   -68520
          TabIndex        =   22
          Top             =   2760
          Width           =   1695
@@ -427,7 +403,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   495
-         Left            =   4080
+         Left            =   -70920
          TabIndex        =   21
          Top             =   2640
          Width           =   1935
@@ -444,28 +420,28 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   555
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   20
          Top             =   2640
          Width           =   1575
       End
       Begin VB.TextBox txtprice 
          Height          =   405
-         Left            =   4680
+         Left            =   -70320
          TabIndex        =   19
          Top             =   2040
          Width           =   1215
       End
       Begin VB.TextBox txtCustName 
          Height          =   405
-         Left            =   2160
+         Left            =   -72840
          TabIndex        =   15
          Top             =   840
          Width           =   1575
       End
       Begin VB.ComboBox cboNamecust 
          Height          =   315
-         Left            =   2160
+         Left            =   -72840
          TabIndex        =   14
          Top             =   1560
          Width           =   5055
@@ -473,7 +449,7 @@ Begin VB.Form frmplantmilksale
       Begin VB.Frame fra1 
          BorderStyle     =   0  'None
          Height          =   1095
-         Left            =   1800
+         Left            =   -73200
          TabIndex        =   4
          Top             =   3240
          Width           =   4695
@@ -530,21 +506,21 @@ Begin VB.Form frmplantmilksale
       End
       Begin VB.ComboBox cboName1 
          Height          =   315
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   3
          Top             =   1560
          Width           =   3615
       End
       Begin VB.TextBox txtcust 
          Height          =   285
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   2
          Top             =   960
          Width           =   1215
       End
       Begin MSComctlLib.ListView ListView2 
          Height          =   3255
-         Left            =   -74160
+         Left            =   840
          TabIndex        =   13
          Top             =   3720
          Width           =   8535
@@ -595,7 +571,7 @@ Begin VB.Form frmplantmilksale
       End
       Begin MSComctlLib.ListView ListView3 
          Height          =   2055
-         Left            =   480
+         Left            =   -74520
          TabIndex        =   26
          Top             =   6600
          Width           =   10095
@@ -649,7 +625,7 @@ Begin VB.Form frmplantmilksale
       End
       Begin MSComctlLib.ListView Lvwitems 
          Height          =   1695
-         Left            =   480
+         Left            =   -74520
          TabIndex        =   48
          Top             =   4320
          Width           =   7935
@@ -711,7 +687,7 @@ Begin VB.Form frmplantmilksale
       Begin VB.Label Label18 
          BackColor       =   &H00C0FFC0&
          Height          =   375
-         Left            =   9000
+         Left            =   -66000
          TabIndex        =   61
          Top             =   1440
          Width           =   1695
@@ -719,7 +695,7 @@ Begin VB.Form frmplantmilksale
       Begin VB.Label Label17 
          BackColor       =   &H00C0FFC0&
          Height          =   375
-         Left            =   9000
+         Left            =   -66000
          TabIndex        =   60
          Top             =   960
          Width           =   1695
@@ -736,7 +712,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   8520
+         Left            =   -66480
          TabIndex        =   59
          Top             =   1440
          Width           =   375
@@ -753,7 +729,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   8520
+         Left            =   -66480
          TabIndex        =   58
          Top             =   960
          Width           =   375
@@ -771,7 +747,7 @@ Begin VB.Form frmplantmilksale
          EndProperty
          Height          =   375
          Index           =   4
-         Left            =   8640
+         Left            =   -66360
          TabIndex        =   52
          Top             =   5280
          Width           =   1095
@@ -789,7 +765,7 @@ Begin VB.Form frmplantmilksale
          EndProperty
          Height          =   375
          Index           =   3
-         Left            =   8520
+         Left            =   -66480
          TabIndex        =   51
          Top             =   3960
          Width           =   1095
@@ -806,7 +782,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -70800
+         Left            =   4200
          TabIndex        =   45
          Top             =   2400
          Width           =   1695
@@ -823,7 +799,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -72360
+         Left            =   2640
          TabIndex        =   44
          Top             =   2400
          Width           =   1695
@@ -840,7 +816,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   43
          Top             =   2640
          Width           =   1695
@@ -858,7 +834,7 @@ Begin VB.Form frmplantmilksale
          EndProperty
          Height          =   375
          Index           =   2
-         Left            =   6720
+         Left            =   -68280
          TabIndex        =   37
          Top             =   2040
          Width           =   855
@@ -866,7 +842,7 @@ Begin VB.Form frmplantmilksale
       Begin VB.Label Label4 
          BackColor       =   &H00FFFFC0&
          Height          =   375
-         Left            =   7680
+         Left            =   -67320
          TabIndex        =   36
          Top             =   2040
          Width           =   1215
@@ -883,7 +859,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   32
          Top             =   1560
          Width           =   1695
@@ -900,7 +876,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   31
          Top             =   960
          Width           =   1335
@@ -917,7 +893,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -68400
+         Left            =   6600
          TabIndex        =   30
          Top             =   1080
          Width           =   615
@@ -934,7 +910,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   6000
+         Left            =   -69000
          TabIndex        =   29
          Top             =   840
          Width           =   615
@@ -951,7 +927,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   28
          Top             =   2040
          Width           =   975
@@ -969,7 +945,7 @@ Begin VB.Form frmplantmilksale
          EndProperty
          Height          =   375
          Index           =   1
-         Left            =   8520
+         Left            =   -66480
          TabIndex        =   24
          Top             =   4560
          Width           =   1095
@@ -986,7 +962,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   3840
+         Left            =   -71160
          TabIndex        =   18
          Top             =   2040
          Width           =   1215
@@ -1004,7 +980,7 @@ Begin VB.Form frmplantmilksale
          EndProperty
          Height          =   375
          Index           =   0
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   17
          Top             =   1560
          Width           =   1575
@@ -1021,7 +997,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   16
          Top             =   840
          Width           =   1695
@@ -1038,7 +1014,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   600
+         Left            =   -74400
          TabIndex        =   12
          Top             =   3360
          Width           =   975
@@ -1055,7 +1031,7 @@ Begin VB.Form frmplantmilksale
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   600
+         Left            =   -74400
          TabIndex        =   11
          Top             =   3960
          Width           =   1335
@@ -1102,12 +1078,12 @@ If txtquantity = "" Then
 MsgBox "Please insert quantity", vbInformation
 Exit Sub
 End If
-If txtprice = "" Then
+If txtPrice = "" Then
 MsgBox "Please insert the price", vbInformation
 chkBoil = 0
 Exit Sub
 End If
-Label4 = txtquantity * txtprice
+Label4 = txtquantity * txtPrice
 Else
 End If
 a = "Boiling fee"
@@ -1115,7 +1091,6 @@ Label18 = "P012"
 'txtcracc = "DANDORA 2"
 End If
 Else
-lblcracc = ""
 txtcracc = ""
 chksales.Visible = True
 chkBoil.Visible = True
@@ -1134,11 +1109,11 @@ If txtquantity = "" Then
 MsgBox "Please insert quantity", vbInformation
 Exit Sub
 End If
-If txtprice = "" Then
+If txtPrice = "" Then
 MsgBox "Please insert the price", vbInformation
 Exit Sub
 End If
-Label4 = txtquantity * txtprice
+Label4 = txtquantity * txtPrice
 Else
 End If
 a = "Local Sales"
@@ -1190,12 +1165,12 @@ If txtquantity = "" Then
 MsgBox "Please insert quantity", vbInformation
 Exit Sub
 End If
-If txtprice = "" Then
+If txtPrice = "" Then
 MsgBox "Please insert the price", vbInformation
 chksales = 0
 Exit Sub
 End If
-Label4 = txtquantity * txtprice
+Label4 = txtquantity * txtPrice
 Else
 End If
 a = "Sales from siche"
@@ -1203,7 +1178,6 @@ Label18 = "P011"
 'txtcracc = ""
 End If
 Else
-lblcracc = ""
 txtcracc = ""
 chksales.Visible = True
 chkBoil.Visible = True
@@ -1291,9 +1265,17 @@ On Error GoTo ErrorHandler
        sql = ""
        sql = "delete from d_Outsalesb where Code ='" & txtCustName.Text & "' and Name='" & cboNamecust.Text & "' and Date='" & txtdateenterered.value & "' and Description='" & a & "'"
        cn.Execute sql
+              
        sql = ""
-       sql = "delete from gltransactions where transdate ='" & txtdateenterered.value & "' and amount=" & txtamount & " and documentno='" & cboNamecust.Text & "'and transdescript='SALES ON-- " & a & "'"
-       oSaccoMaster.ExecuteThis (sql)
+        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values"
+        sql = sql & "('" & txtdateenterered.value & "','" & txtAmount & "','" & Label18 & "','" & Label17 & "','" & cboNamecust.Text & "','" & cboNamecust.Text & "' ,'SALES ON--Remove','" & User & "','1','0')"
+        oSaccoMaster.ExecuteThis (sql)
+       
+        ''' GLS AFFECTING
+        sql = ""
+        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "','" & txtAmount & "','" & lblcracc & "','" & lbldracc & "','" & cboNamecust.Text & "','" & cboNamecust.Text & "' ,'SALES ON--Remove','" & User & "','1','0')"
+        oSaccoMaster.ExecuteThis (sql)
+       
        MsgBox "Record deleted succesfully", vbInformation
        loadoutsale
        Exit Sub
@@ -1321,7 +1303,7 @@ If txtquantity = "" Then
  MsgBox "Quantity needed", vbInformation
 Exit Sub
 End If
-If txtprice = "" Then
+If txtPrice = "" Then
  MsgBox "Price needed", vbInformation
 Exit Sub
 End If
@@ -1350,8 +1332,8 @@ j = 1
         Set li = Lvwitems.ListItems.Add(, , txtCustName)
                         li.SubItems(1) = cboNamecust & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtprice & ""
-                        li.SubItems(4) = CCur(txtprice) * CCur(txtquantity) & ""
+                        li.SubItems(3) = txtPrice & ""
+                        li.SubItems(4) = CCur(txtPrice) * CCur(txtquantity) & ""
                         li.SubItems(5) = a & ""
                         li.SubItems(6) = txtdracc & ""
                         li.SubItems(7) = Label18 & ""
@@ -1380,8 +1362,8 @@ j = 1
     Set li = Lvwitems.ListItems.Add(, , txtCustName)
                         li.SubItems(1) = cboNamecust & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtprice & ""
-                        li.SubItems(4) = CCur(txtprice) * (CCur(txtquantity)) & ""
+                        li.SubItems(3) = txtPrice & ""
+                        li.SubItems(4) = CCur(txtPrice) * (CCur(txtquantity)) & ""
                         li.SubItems(5) = a & ""
                         li.SubItems(6) = txtdracc & ""
                         li.SubItems(7) = Label18 & ""
@@ -1399,8 +1381,8 @@ j = 1
      Set li = Lvwitems.ListItems.Add(, , txtCustName)
                         li.SubItems(1) = cboNamecust & ""
                         li.SubItems(2) = txtquantity & ""
-                        li.SubItems(3) = txtprice & ""
-                        li.SubItems(4) = CCur(txtprice) * (CCur(txtquantity)) & ""
+                        li.SubItems(3) = txtPrice & ""
+                        li.SubItems(4) = CCur(txtPrice) * (CCur(txtquantity)) & ""
                         li.SubItems(5) = a & ""
                         li.SubItems(6) = txtdracc & ""
                         li.SubItems(7) = Label18 & ""
@@ -1426,7 +1408,7 @@ Loop
 chksales = 0
 chkBoil = 0
 txtquantity = ""
-txtprice = ""
+txtPrice = ""
 Exit Sub
 ErrorHandler:
 MsgBox err.Description
@@ -1447,7 +1429,7 @@ If chkRepay = 0 Then
 '   Exit Sub
 '   End If
 
-   If txtamount = "" Then
+   If txtAmount = "" Then
       MsgBox "Amount paid needed", vbInformation
    Exit Sub
    End If
@@ -1501,7 +1483,7 @@ If chkRepay = 0 Then
     End If
    '// insert into ag_products
     If TXTCHANGE < 1 Then
-          If txtamount = 0 Then
+          If txtAmount = 0 Then
             sql = ""
             sql = "set dateformat dmy insert into  d_Outsalesb(Code,Name,Date,Quantity,Price,Amount,APaid,Description,Owner)"
             sql = sql & "  values('" & Lvwitems.SelectedItem & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & txtdateenterered.value & "','" & Lvwitems.SelectedItem.SubItems(2) & "'," & Lvwitems.SelectedItem.SubItems(3) & "," & Lvwitems.SelectedItem.SubItems(4) & ",'0','" & Lvwitems.SelectedItem.SubItems(5) & "','" & Lvwitems.SelectedItem.SubItems(6) & "')"
@@ -1523,11 +1505,6 @@ If chkRepay = 0 Then
             sql = ""
             sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'" & Label17 & "','" & Lvwitems.SelectedItem.SubItems(7) & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
             oSaccoMaster.ExecuteThis (sql)
-            
-            ''' GLS AFFECTING
-            sql = ""
-            sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
-            oSaccoMaster.ExecuteThis (sql)
           End If
          
         
@@ -1542,11 +1519,6 @@ If chkRepay = 0 Then
             sql = ""
             sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) & ",'" & Label17 & "','" & Lvwitems.SelectedItem.SubItems(7) & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & Lvwitems.SelectedItem.SubItems(5) & "','" & User & "','1','0')"
             oSaccoMaster.ExecuteThis (sql)
-            
-            ''' GLS AFFECTING
-        sql = ""
-        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & Lvwitems.SelectedItem.SubItems(4) + bam & ",'" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
-        oSaccoMaster.ExecuteThis (sql)
      End If
        
     
@@ -1560,21 +1532,23 @@ Else
           Set rs = oSaccoMaster.GetRecordset(sql)
        sql = ""
        sql = "set dateformat dmy insert into  d_Outsalesb(Code,Name,Date,Quantity,Price,Amount,APaid,Description,Owner)"
-       sql = sql & "  values('" & txtCustName.Text & "','" & cboNamecust.Text & "','" & txtdateenterered.value & "','0','0','0'," & txtamount & ",'MILK PAYMENT','" & rs.Fields(8) & "')"
+       sql = sql & "  values('" & txtCustName.Text & "','" & cboNamecust.Text & "','" & txtdateenterered.value & "','0','0','0'," & txtAmount & ",'MILK PAYMENT','" & rs.Fields(8) & "')"
         cn.Execute sql
        sql = ""
-       sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & txtamount & ",'" & Label17 & "','" & Label18 & "','" & cboNamecust.Text & "','" & cboNamecust.Text & "' ,'SALES ON-- " & rs.Fields(1) & "','" & User & "','1','0')"
+       sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "'," & txtAmount & ",'" & Label17 & "','" & Label18 & "','" & cboNamecust.Text & "','" & cboNamecust.Text & "' ,'SALES ON-- " & rs.Fields(1) & "','" & User & "','1','0')"
        oSaccoMaster.ExecuteThis (sql)
        
-          ''' GLS AFFECTING
-        sql = ""
-        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "','" & txtamount & "','" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
-        oSaccoMaster.ExecuteThis (sql)
+       
      
 
 End If
 
-
+If txtAmount <> 0 Then
+    ''' GLS AFFECTING
+        sql = ""
+        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered.value & "','" & txtAmount & "','" & lbldracc & "','" & lblcracc & "','" & Lvwitems.SelectedItem.SubItems(1) & "','" & Lvwitems.SelectedItem.SubItems(1) & "' ,'SALES ON-- " & a & "','" & User & "','1','0')"
+        oSaccoMaster.ExecuteThis (sql)
+End If
 
 
 MsgBox "Records successively updated."
@@ -1587,8 +1561,8 @@ lblcracc = ""
 txtcracc = ""
 Label17 = ""
 Label18 = ""
-txtamount.Text = ""
-txtprice.Text = ""
+txtAmount.Text = ""
+txtPrice.Text = ""
 txtquantity.Text = ""
 cboNamecust.Text = ""
 TXTCHANGE.Text = ""
@@ -1811,8 +1785,8 @@ Private Sub ListView3_DblClick()
 chksales = 0
 chkBoil = 0
 txtquantity = ListView3.SelectedItem.SubItems(2)
-txtprice = ListView3.SelectedItem.SubItems(3)
-txtamount = ListView3.SelectedItem.SubItems(4)
+txtPrice = ListView3.SelectedItem.SubItems(3)
+txtAmount = ListView3.SelectedItem.SubItems(4)
 If ListView3.SelectedItem.SubItems(6) = "Boiling fee" Then
  chkBoil = 1
 Else
@@ -1890,7 +1864,7 @@ End Sub
 
 Private Sub txtAmount_Change()
 On Error Resume Next
-TXTCHANGE = txtamount - TXTTOTAL
+TXTCHANGE = txtAmount - TXTTOTAL
 End Sub
 
 Private Sub txtdateenterered_CallbackKeyDown(ByVal KeyCode As Integer, ByVal Shift As Integer, ByVal CallbackField As String, CallbackDate As Date)
@@ -1926,5 +1900,5 @@ End Sub
 
 Private Sub txttotal_Change()
 On Error Resume Next
-TXTCHANGE = txtamount - TXTTOTAL
+TXTCHANGE = txtAmount - TXTTOTAL
 End Sub

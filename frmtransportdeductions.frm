@@ -122,7 +122,7 @@ Begin VB.Form frmtransportdeductions
       _ExtentY        =   450
       _Version        =   393216
       Enabled         =   0   'False
-      Format          =   122617857
+      Format          =   121765889
       CurrentDate     =   40096
    End
    Begin MSComCtl2.DTPicker DTPStartDate 
@@ -135,7 +135,7 @@ Begin VB.Form frmtransportdeductions
       _ExtentY        =   450
       _Version        =   393216
       Enabled         =   0   'False
-      Format          =   122617857
+      Format          =   121765889
       CurrentDate     =   40096
    End
    Begin MSComCtl2.DTPicker DTPDDate 
@@ -147,7 +147,7 @@ Begin VB.Form frmtransportdeductions
       _ExtentX        =   2778
       _ExtentY        =   450
       _Version        =   393216
-      Format          =   122617857
+      Format          =   121765889
       CurrentDate     =   40096
    End
    Begin VB.Label Label8 
@@ -249,23 +249,23 @@ Unload Me
 End Sub
 
 Private Sub cmdNew_Click()
-txtamount.Locked = False
+txtAmount.Locked = False
 txtTCode.Locked = False
 
 
-txtamount = ""
+txtAmount = ""
 txtTCode = ""
 
 cboDeductionType.Locked = False
 
 cboDeductionType = ""
-cmdnew.Enabled = False
-cmdsave.Enabled = True
+cmdNew.Enabled = False
+cmdSave.Enabled = True
 End Sub
 
 Private Sub cmdsave_Click()
 On Error GoTo ErrorHandler
-Enddate = DateSerial(year(DTPDDate), month(DTPDDate) + 1, 1 - 1)
+Enddate = DateSerial(Year(DTPDDate), month(DTPDDate) + 1, 1 - 1)
 Set rs = oSaccoMaster.GetRecordset("d_sp_IsClosed '" & Enddate & "'")
 If Not rs.EOF Then
     MsgBox "The period " & Enddate & " has been closed by " & rs.Fields(0)
@@ -275,7 +275,7 @@ End If
 Set cn = New ADODB.Connection
 'sql = "d_sp_TransDeduct '" & txtTCode & "','" & DTPDDate & "','" & cboDeductionType & "'," & txtamount & ",'" & dtpstartdate & "','" & dtpenddate & "','" & year(dtpenddate) & "','" & User & "','" & txtremarks & "'"
  sql = "set dateformat dmy insert into d_Transport_Deduc (TransCode, TDate_Deduc,[Description],Amount,StartDate,enddate,yyear,AuditID,remarks)"
-    sql = sql & " values ('" & txtTCode & "','" & DTPDDate & "','" & cboDeductionType & "'," & txtamount & ",'" & dtpStartDate & "','" & DTPEndDate & "','" & year(DTPEndDate) & "','" & User & "','" & txtremarks & "')"
+    sql = sql & " values ('" & txtTCode & "','" & DTPDDate & "','" & cboDeductionType & "'," & txtAmount & ",'" & DTPStartDate & "','" & DTPEndDate & "','" & Year(DTPEndDate) & "','" & User & "','" & txtremarks & "')"
 
 oSaccoMaster.ExecuteThis (sql)
 'Form_Load
@@ -289,10 +289,12 @@ End If
 
 End If
 
+' '************insert gls***************'
+setdefaultgls.deductions DTPDDate, cboDeductionType, txtTCode, txtremarks
+' '************end***************'
 
 
-
-txtamount = ""
+txtAmount = ""
 txtTCode = ""
 txtTCode_Validate True
 txtTCode.SetFocus
@@ -300,19 +302,19 @@ txtTCode.SetFocus
 MsgBox "Records successively updated."
 Exit Sub
 ErrorHandler:
-MsgBox err.description
+MsgBox err.Description
 
 End Sub
 
 Private Sub DTPDDate_Change()
-dtpStartDate = DateSerial(year(DTPDDate), month(DTPDDate), 1)
-DTPEndDate = DateSerial(year(DTPDDate), month(DTPDDate) + 1, 1 - 1)
+DTPStartDate = DateSerial(Year(DTPDDate), month(DTPDDate), 1)
+DTPEndDate = DateSerial(Year(DTPDDate), month(DTPDDate) + 1, 1 - 1)
 End Sub
 
 Private Sub Form_Load()
 Dim myclass As cdbase
 DTPDDate = Format(Get_Server_Date, "dd/mm/yyyy")
-txtamount.Locked = True
+txtAmount.Locked = True
 txtTNames.Locked = True
 txtTCode.Locked = True
 
@@ -320,7 +322,7 @@ txtTCode.Locked = True
 'DTPDDate.MinDate = DTPDDate
 
 
-txtamount = ""
+txtAmount = ""
 txtTNames = ""
 txtTCode = ""
 
@@ -328,10 +330,10 @@ cboDeductionType.Locked = True
 
 cboDeductionType = ""
 
-cmdnew.Enabled = True
+cmdNew.Enabled = True
 cmdDelete.Enabled = False
 cmdEdit.Enabled = False
-cmdsave.Enabled = False
+cmdSave.Enabled = False
 
     
 
@@ -361,8 +363,8 @@ Set rs = CreateObject("adodb.recordset")
     
     End With
     
-    DTPEndDate = DateSerial(year(DTPDDate), month(DTPDDate) + 1, 1 - 1)
-    dtpStartDate = DateSerial(year(DTPDDate), month(DTPDDate), 1)
+    DTPEndDate = DateSerial(Year(DTPDDate), month(DTPDDate) + 1, 1 - 1)
+    DTPStartDate = DateSerial(Year(DTPDDate), month(DTPDDate), 1)
 End Sub
 
 Private Sub Picture5_Click()
