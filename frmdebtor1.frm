@@ -75,7 +75,7 @@ Begin VB.Form frmdebtor1
       _ExtentX        =   2778
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   130940929
+      Format          =   111083521
       CurrentDate     =   38814
    End
    Begin TabDlg.SSTab SSTab1 
@@ -1827,7 +1827,7 @@ cboGari = ""
 cboGari2 = ""
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 Private Sub cmdAssign_Click()
 On Error GoTo ErrorHandler
@@ -1864,7 +1864,7 @@ cboGari = ""
 cboGari2 = ""
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 Public Sub loadAssignments()
     With ListViewG
@@ -1927,7 +1927,7 @@ End Sub
 Private Sub cmdedit_Click()
 newa = 0
 txtVehicle.Locked = False
-txtEmail.Locked = False
+txtEMail.Locked = False
 txtId.Locked = False
 txtNames.Locked = False
 txtPAddress.Locked = False
@@ -1938,12 +1938,12 @@ txtTown.Locked = False
 'cboBBranch.Locked = False
 'cboBName.Locked = False
 'cbolocation.Locked = False
-cmdSave.Enabled = True
+cmdsave.Enabled = True
 End Sub
 Private Sub cmdNew_Click()
 newa = 1
 txtVehicle = ""
-txtEmail = ""
+txtEMail = ""
 txtId = ""
 txtNames = ""
 txtPAddress = ""
@@ -1955,10 +1955,10 @@ txtDrAccNo = ""
 txtCrAccNo = ""
 lblDrAccName = ""
 'cbobranch.Text = ""
-txtPrice = "0.00"
+txtprice = "0.00"
 
 txtVehicle.Locked = False
-txtEmail.Locked = False
+txtEMail.Locked = False
 txtId.Locked = False
 txtNames.Locked = False
 txtPAddress.Locked = False
@@ -1969,19 +1969,19 @@ txtTown.Locked = False
 'cboBBranch.Locked = False
 'cboBName.Locked = False
 'cbolocation.Locked = False
-cmdEdit.Enabled = False
+cmdedit.Enabled = False
 'cmdSave.Enabled = False
-cmdSave.Enabled = True
+cmdsave.Enabled = True
 End Sub
 Private Sub cmdnew3_Click()
     txtDispatch.Locked = False
     txtIntake.Locked = True
     txtDispatch = ""
     cboNames = ""
-    txtremarks = "CASH"
+    txtRemarks = "CASH"
     'cboVehicle = ""
     txtamountp = ""
-    txtamount = ""
+    txtAmount = ""
 '    lbltotal.Visible = False
 '    lbltotalkg.Visible = False
 '    Label34.Visible = False
@@ -2193,7 +2193,7 @@ End If
 cmdreport.Enabled = True
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 Private Sub vehiclepro()
 Startdate = DateSerial(Year(txtdateenterered), month(txtdateenterered), 1)
@@ -2276,21 +2276,21 @@ End If
  If newa = 1 Then
     Set cn = New ADODB.Connection
     sql = ""
-    sql = "d_sp_Debtors '" & txtTCode & "','" & txtNames & "','" & txtId & "','" & txtVehicle & "','" & txtdateenterered & "','" & txtEmail & "','" & txtPhone & "','" & txtTown & "','" & txtPAddress & "'," & CCur(txtPrice) & "," & CCur(txtsubsidy) & ",'" & txtAccno & "','" & cboBName & "'," & Active & ",'" & cboBBranch & "','" & cbobranch & "','" & User & "','" & txtDrAccNo & "','" & txtCrAccNo & "','" & txtcessrate & "','" & txtcessdebit & "','" & txtsta & "','" & cessapp & "'"
+    sql = "d_sp_Debtors '" & txtTCode & "','" & txtNames & "','" & txtId & "','" & txtVehicle & "','" & txtdateenterered & "','" & txtEMail & "','" & txtPhone & "','" & txtTown & "','" & txtPAddress & "'," & CCur(txtprice) & "," & CCur(txtsubsidy) & ",'" & txtAccno & "','" & cboBName & "'," & Active & ",'" & cboBBranch & "','" & cbobranch & "','" & User & "','" & txtDrAccNo & "','" & txtCrAccNo & "','" & txtcessrate & "','" & txtcessdebit & "','" & txtsta & "','" & cessapp & "'"
     oSaccoMaster.ExecuteThis (sql)
    Else
     Set cn = New ADODB.Connection
     sql = ""
-    sql = "SET dateformat DMY Update  d_Debtors SET DName= '" & txtNames & "',CertNo='" & txtId & "',Locations='" & txtVehicle & "',TregDate='" & txtdateenterered & "',email='" & txtEmail & "',Phoneno='" & txtPhone & "',Town='" & txtTown & "',Address='" & txtPAddress & "',price=" & CCur(txtPrice) & ",Active=" & Active & ",AccDr='" & txtDrAccNo & "',AccCr='" & txtCrAccNo & "',crcess='" & txtsta & "' where DCode='" & txtTCode & "'"
+    sql = "SET dateformat DMY Update  d_Debtors SET DName= '" & txtNames & "',CertNo='" & txtId & "',Locations='" & txtVehicle & "',TregDate='" & txtdateenterered & "',email='" & txtEMail & "',Phoneno='" & txtPhone & "',Town='" & txtTown & "',Address='" & txtPAddress & "',price=" & CCur(txtprice) & ",Active=" & Active & ",AccDr='" & txtDrAccNo & "',AccCr='" & txtCrAccNo & "',crcess='" & txtsta & "' where DCode='" & txtTCode & "'"
     oSaccoMaster.ExecuteThis (sql)
  End If
 cmdNew_Click
-cmdSave.Enabled = False
+cmdsave.Enabled = False
 MsgBox "Records successively updated."
 loadReg
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 
 End Sub
 Private Sub cmdsave3_Click()
@@ -2306,10 +2306,10 @@ If chkoutletre.value = 0 Then
   Exit Sub
   End If
 
-  If txtamount > 0 Then
-   If txtremarks = "" Then
+  If txtAmount > 0 Then
+   If txtRemarks = "" Then
      MsgBox "Please enter the Remarks if Cash or Paybill."
-     txtremarks.SetFocus
+     txtRemarks.SetFocus
     Exit Sub
    End If
   End If
@@ -2449,11 +2449,11 @@ End If
     '         sql = "d_sp_MilkControl  '" & txtdateenterered & "'," & txtDispatch & ",'0'," & txtIntake & ",'0'," & Price & ",'" & txtRefNo & "','" & Credit & "','" & Debit & "','" & User & "','" & txtdcode & "','" & cboVehicle & "','" & txtamountp & "','" & txtamount & "'"
     '         oSaccoMaster.ExecuteThis (sql)
             sql = ""
-            sql = "set dateformat dmy insert into  d_MilkControl(DispDate, DispQnty, DipQnty, InQnty, Variance, Price, RefNo, DebitAcc, CreditAcc, AuditId, Auditdatetime, DCode, vehicleno, Amount, PaidAmount,Transfer) values('" & txtdateenterered & "'," & txtDispatch & ",'0'," & txtIntake & ",'0'," & Price & ",'" & txtRefNo & "','" & Credit & "','" & Debit & "','" & User & "','" & Now & "','" & txtdcode & "','" & cboVehicle & "','" & txtamountp & "','" & txtamount & "','" & transfer & "')"
+            sql = "set dateformat dmy insert into  d_MilkControl(DispDate, DispQnty, DipQnty, InQnty, Variance, Price, RefNo, DebitAcc, CreditAcc, AuditId, Auditdatetime, DCode, vehicleno, Amount, PaidAmount,Transfer) values('" & txtdateenterered & "'," & txtDispatch & ",'0'," & txtIntake & ",'0'," & Price & ",'" & txtRefNo & "','" & Credit & "','" & Debit & "','" & User & "','" & Now & "','" & txtdcode & "','" & cboVehicle & "','" & txtamountp & "','" & txtAmount & "','" & transfer & "')"
             oSaccoMaster.ExecuteThis (sql)
            Else
              sql = ""
-             sql = "set dateformat DMY update d_MilkControl set PaidAmount=" & rs.Fields("PaidAmount") + txtamount & " where DCode ='" & txtdcode & "' and DispDate='" & txtdateenterered.value & "' "
+             sql = "set dateformat DMY update d_MilkControl set PaidAmount=" & rs.Fields("PaidAmount") + txtAmount & " where DCode ='" & txtdcode & "' and DispDate='" & txtdateenterered.value & "' "
              oSaccoMaster.ExecuteThis (sql)
            End If
          'Else
@@ -2462,23 +2462,23 @@ End If
         '''..................end of debtor...........................................................
     '******************* *********insert to gl
         'txtamount = 0
-          If txtamount > 0 Then
-                If txtremarks = "" Then
+          If txtAmount > 0 Then
+                If txtRemarks = "" Then
                   MsgBox "Please enter the Remarks if Cash or Paybill."
-                  txtremarks.SetFocus
+                  txtRemarks.SetFocus
                  Exit Sub
                 End If
              Dim E As String
-             E = txtremarks
+             E = txtRemarks
             sql = ""
             sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) values"
-            sql = sql & "('" & txtdateenterered & "'," & txtamount & ",'" & lbldracc & "','" & lblcracc & "','" & cboNames & "','' ,'" & E & "-MILK PAYMENTS','" & Now & "','" & User & "',0,0)"
+            sql = sql & "('" & txtdateenterered & "'," & txtAmount & ",'" & lbldracc & "','" & lblcracc & "','" & cboNames & "','' ,'" & E & "-MILK PAYMENTS','" & Now & "','" & User & "',0,0)"
             oSaccoMaster.ExecuteThis (sql)
           Else
            'Exit Sub
-            If txtamount < 0 Then
+            If txtAmount < 0 Then
              Dim mat As Integer
-             mat = txtamount * -1
+             mat = txtAmount * -1
              sql = ""
              sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) values"
              sql = sql & "('" & txtdateenterered & "'," & mat & ",'" & lblcracc & "','" & lbldracc & "','" & cboNames & "','' ,'Reversal-MILK PAYMENTS','" & Now & "','" & User & "',0,0)"
@@ -2497,7 +2497,7 @@ End If
         
         sql = ""
         sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,AuditTime,auditid,cash,doc_posted) values"
-        sql = sql & " ('" & txtdateenterered & "'," & txtamount & ",'" & lblcracc & "','" & lbldracc & "','" & cboNames & "','' ,'" & E & "-MILK PAYMENTS Remove','" & Now & "','" & User & "',0,0)"
+        sql = sql & " ('" & txtdateenterered & "'," & txtAmount & ",'" & lblcracc & "','" & lbldracc & "','" & cboNames & "','' ,'" & E & "-MILK PAYMENTS Remove','" & Now & "','" & User & "',0,0)"
         oSaccoMaster.ExecuteThis (sql)
        
        '''' behind the scene
@@ -2522,7 +2522,9 @@ End If
          sql = "set dateformat DMY update d_OutletVehicle set Kgs='" & rst.Fields("Kgs") - txtDispatch.Text & "' where Vehicle ='" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
          cn.Execute sql
        End If
+       
   End If
+  
   '//////end of checking if it is to delete
          Dim DName As String
           Set rs = New ADODB.Recordset
@@ -2536,110 +2538,198 @@ End If
 Else
 ''''''''' milk for outlets '''''''''''''''''''
 
-        If txtamount > 0 Then
+        If txtAmount > 0 Then
              MsgBox "Please make payment from the outlet form."
+             Exit Sub
         End If
+        
+                '/////check if it is to delete
+   If chkdelete = 0 Then
 
-  Provider = "MAZIWA"
-  Set cn = New ADODB.Connection
- cn.Open Provider, "atm", "atm"
-  Set rst = New ADODB.Recordset
-  sql = ""
-  sql = "set dateformat dmy select p_code, p_name, Date_Entered, Qin, Qout, o_bal, user_id, Wprice, Rprice, Branch from d_Outlet where p_name='" & cboNames & "' "
-  rst.Open sql, cn
-  'If Not rst.EOF Then
-  '''''''check if the record exist'''''''''''''
-      sql = ""
-      sql = "set dateformat dmy select P_CODE,qout,Qin,Rprice from d_Outlet where p_name='" & cboNames & "'and Date_Entered='" & txtdateenterered.value & "'"
-      Set rs = New ADODB.Recordset
-      rs.Open sql, cn
-     If rs.EOF Then
-    '// insert into ag_products
-        If txtSERIALNO = "" Then txtSERIALNO = 0
-         sql = ""
-         sql = "set dateformat dmy insert into  d_Outlet( p_code, p_name, Date_Entered, Qin, Qout, o_bal, user_id, Wprice, Rprice, Branch)"
-         sql = sql & "  values('" & rst.Fields(0) & "','" & cboNames.Text & "','" & txtdateenterered.value & "'," & txtDispatch.Text & "," & txtDispatch.Text & "," & txtDispatch.Text & ",'" & User & "'," & rst.Fields(7) & "," & rst.Fields(8) & ",'" & rst.Fields(9) & "')"
-         'sql = sql & "  values('" & rst.Fields(0) & "','" & cboNames.Text & "','" & txtdateenterered.value & "'," & txtDispatch.Text & "," & txtDispatch.Text + rst.Fields(4) & "," & txtDispatch.Text & ",'" & User & "'," & rst.Fields(7) & "," & rst.Fields(8) & ",'" & rst.Fields(9) & "')"
-         cn.Execute sql
-         
+
+          Provider = "MAZIWA"
+          Set cn = New ADODB.Connection
+         cn.Open Provider, "atm", "atm"
+          Set rst = New ADODB.Recordset
+          sql = ""
+          sql = "set dateformat dmy select p_code, p_name, Date_Entered, Qin, Qout, o_bal, user_id, Wprice, Rprice, Branch from d_Outlet where p_name='" & cboNames & "' "
+          rst.Open sql, cn
+          'If Not rst.EOF Then
+          '''''''check if the record exist'''''''''''''
+              sql = ""
+              sql = "set dateformat dmy select P_CODE,qout,Qin,Rprice from d_Outlet where p_name='" & cboNames & "'and Date_Entered='" & txtdateenterered.value & "'"
+              Set rs = New ADODB.Recordset
+              rs.Open sql, cn
+             If rs.EOF Then
+            '// insert into ag_products
+                If txtSERIALNO = "" Then txtSERIALNO = 0
+                 sql = ""
+                 sql = "set dateformat dmy insert into  d_Outlet( p_code, p_name, Date_Entered, Qin, Qout, o_bal, user_id, Wprice, Rprice, Branch)"
+                 sql = sql & "  values('" & rst.Fields(0) & "','" & cboNames.Text & "','" & txtdateenterered.value & "'," & txtDispatch.Text & "," & txtDispatch.Text & "," & txtDispatch.Text & ",'" & User & "'," & rst.Fields(7) & "," & rst.Fields(8) & ",'" & rst.Fields(9) & "')"
+                 'sql = sql & "  values('" & rst.Fields(0) & "','" & cboNames.Text & "','" & txtdateenterered.value & "'," & txtDispatch.Text & "," & txtDispatch.Text + rst.Fields(4) & "," & txtDispatch.Text & ",'" & User & "'," & rst.Fields(7) & "," & rst.Fields(8) & ",'" & rst.Fields(9) & "')"
+                 cn.Execute sql
+                 
+             Else
+                
+                sql = "set dateformat DMY update d_Outlet set p_name='" & cboNames.Text & "',Qin=" & rs.Fields("Qin") + txtDispatch.Text & ",Qout=" & txtDispatch.Text + rs.Fields("qout") & ",o_bal=" & rs.Fields("qout") + txtDispatch.Text & ",Date_Entered='" & txtdateenterered.value & "' where p_code='" & rst.Fields(0) & "' and branch='" & rst.Fields(9) & "'and Date_Entered='" & txtdateenterered.value & "'"
+                cn.Execute sql
+                
+             End If
+             
+                sql = "set dateformat dmy select Date_Entered, p_name, Quantity, OutletName from d_Outletstock where Date_Entered='" & txtdateenterered.value & "' and p_name='" & cboNames & "'AND OutletName ='" & rst.Fields(9) & "'"
+                Set rss = New ADODB.Recordset
+                rss.Open sql, cn
+                If rss.EOF Then
+                    sql = ""
+                    sql = "set dateformat dmy insert into  d_Outletstock(Date_Entered,p_name, Quantity, OutletName)"
+                    sql = sql & "  values('" & txtdateenterered.value & "','" & rst.Fields(1) & "'," & txtDispatch.Text & ",'" & rst.Fields(9) & "')"
+                    cn.Execute sql
+                Else
+                    sql = "set dateformat DMY update d_Outletstock set Quantity =" & rss.Fields(2) + txtDispatch.Text & " where p_name='" & cboNames & "'and Date_Entered='" & txtdateenterered.value & "' and OutletName='" & rst.Fields(9) & "'"
+                    cn.Execute sql
+                End If
+            
+                  '//XXXXXXXXXXXXXXX
+            '********** credit agent ledger sale and stock
+                Dim kgs, totalkgss As Double
+                sql = "set dateformat dmy select P_CODE,qout,Qin,Rprice from d_Outlet where p_name='" & cboNames & "'and Date_Entered='" & txtdateenterered.value & "'"
+                Set rsh = oSaccoMaster.GetRecordset(sql)
+                kgs = CCur(txtDispatch) * CCur(rsh!Rprice)
+                sql = ""
+                sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values"
+                sql = sql & "('" & txtdateenterered & "','" & kgs & "','" & lbldrstock & "','" & lblcrvehicle & "','','" & cboVehicle & "' ,'SALES ON- " & "" & cboNames & "','" & User & "',0,0)"
+                oSaccoMaster.ExecuteThis (sql)
+            'XXXXXXXXXXXXXXXXXXXXXX
+        
+                 '''' behind the scene
+                 'Dim totalkgs As Double
+                    sql = "SET dateformat dmy SELECT isnull(AVG(distinct PPU),0) AS AveragePrice FROM d_Milkintake where TransDate='" & txtdateenterered & "'"
+                    Set rsg = oSaccoMaster.GetRecordset(sql)
+                    sql = "select * from GLSetDefaultGls Where Affect='Join'"
+                    Set rst = oSaccoMaster.GetRecordset(sql)
+                    totalkgss = CCur(rsg!AveragePrice) * CCur(txtDispatch)
+        
+                    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values"
+                    sql = sql & "('" & txtdateenterered & "','" & totalkgss & "','" & rst!dr & "', '" & rst!cr & "','','" & cboVehicle & "' ,'SALES ON- " & "" & cboNames & "','" & User & "','0','0')"
+                    oSaccoMaster.ExecuteThis (sql)
+            '''''''end of code behind''''''''''''''''
+                    
+                
+                ''''* to vehicle table
+                  'If chkcustomer = 1 Then
+                   Provider = "MAZIWA"
+                   Set cn = New ADODB.Connection
+                  cn.Open Provider, "atm", "atm"
+                   'Set rs = New ADODB.Recordset
+                   sql = "set dateformat dmy select Vehicle, Date, Kgs, Customer from d_OutletVehicle where Vehicle ='" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
+                   Set rst = New ADODB.Recordset
+                   rst.Open sql, cn
+                    If rst.EOF Then
+                    sql = ""
+                    sql = "set dateformat dmy insert into  d_OutletVehicle(Vehicle, Date, Kgs, Customer)"
+                    sql = sql & "  values('" & cboVehicle & "','" & txtdateenterered.value & "'," & txtDispatch.Text & ",'null')"
+                    cn.Execute sql
+                   Else
+                    sql = ""
+                    sql = "set dateformat DMY update d_OutletVehicle set Kgs=" & txtDispatch.Text + rst.Fields(2) & " where Vehicle ='" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
+                    cn.Execute sql
+                   End If
+                '''''check if already dispatch to vehicle
+                    sql = ""
+                    sql = "select * from d_OutletDispatch where Vehicle= '" & cboVehicle & "' AND Date ='" & txtdateenterered.value & "'"
+                    Set rsinstock = oSaccoMaster.GetRecordset(sql)
+                    If rsinstock.EOF Then
+                        sql = ""
+                        sql = "set dateformat dmy insert into  d_OutletDispatch(Date, Vehicle, OutletName, Quantity)"
+                        sql = sql & "  values('" & txtdateenterered.value & "','" & cboVehicle & "','Null','" & txtDispatch.Text & "')"
+                        cn.Execute sql
+                    Else
+                        sql = ""
+                        sql = "set dateformat DMY Update d_OutletDispatch SET Vehicle= '" & cboVehicle & "', Date='" & txtdateenterered.value & "',Quantity='" & txtDispatch.Text + rsinstock.Fields(4) & "' WHERE Vehicle= '" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
+                        cn.Execute sql
+                    End If
+                '''''end
+        
      Else
-        
-        sql = "set dateformat DMY update d_Outlet set p_name='" & cboNames.Text & "',Qin=" & rs.Fields("Qin") + txtDispatch.Text & ",Qout=" & txtDispatch.Text + rs.Fields("qout") & ",o_bal=" & rs.Fields("qout") + txtDispatch.Text & ",Date_Entered='" & txtdateenterered.value & "' where p_code='" & rst.Fields(0) & "' and branch='" & rst.Fields(9) & "'and Date_Entered='" & txtdateenterered.value & "'"
-        cn.Execute sql
-        
-     End If
      
-     sql = "set dateformat dmy select Date_Entered, p_name, Quantity, OutletName from d_Outletstock where Date_Entered='" & txtdateenterered.value & "' and p_name='" & cboNames & "'AND OutletName ='" & rst.Fields(9) & "'"
-     Set rss = New ADODB.Recordset
-     rss.Open sql, cn
-    If rss.EOF Then
-        sql = ""
-        sql = "set dateformat dmy insert into  d_Outletstock(Date_Entered,p_name, Quantity, OutletName)"
-        sql = sql & "  values('" & txtdateenterered.value & "','" & rst.Fields(1) & "'," & txtDispatch.Text & ",'" & rst.Fields(9) & "')"
-        cn.Execute sql
-    Else
-        sql = "set dateformat DMY update d_Outletstock set Quantity =" & rss.Fields(2) + txtDispatch.Text & " where p_name='" & cboNames & "'and Date_Entered='" & txtdateenterered.value & "' and OutletName='" & rst.Fields(9) & "'"
-        cn.Execute sql
-    End If
-    
-          '//XXXXXXXXXXXXXXX
-    '********** credit agent ledger sale and stock
-    Dim kgs, totalkgss As Double
-    kgs = CCur(txtDispatch) * CCur(rs!Rprice)
-        sql = ""
-        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values"
-        sql = sql & "('" & txtdateenterered & "','" & kgs & "','" & lbldrstock & "','" & lblcrvehicle & "','','" & cboVehicle & "' ,'SALES ON- " & "" & cboNames & "','" & User & "',0,0)"
-        oSaccoMaster.ExecuteThis (sql)
-    'XXXXXXXXXXXXXXXXXXXXXX
-
-         '''' behind the scene
-         'Dim totalkgs As Double
-            sql = "SET dateformat dmy SELECT isnull(AVG(distinct PPU),0) AS AveragePrice FROM d_Milkintake where TransDate='" & txtdateenterered & "'"
-            Set rsg = oSaccoMaster.GetRecordset(sql)
-            sql = "select * from GLSetDefaultGls Where Affect='Join'"
-            Set rst = oSaccoMaster.GetRecordset(sql)
-            totalkgss = CCur(rsg!AveragePrice) * CCur(txtDispatch)
-
-            sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values"
-            sql = sql & "('" & txtdateenterered & "','" & totalkgss & "','" & rst!dr & "', '" & rst!cr & "','','" & cboVehicle & "' ,'SALES ON- " & "" & cboNames & "','" & User & "','0','0')"
-            oSaccoMaster.ExecuteThis (sql)
-    '''''''end of code behind''''''''''''''''
-    
-
-''''* to vehicle table
-  'If chkcustomer = 1 Then
-   Provider = "MAZIWA"
-   Set cn = New ADODB.Connection
-  cn.Open Provider, "atm", "atm"
-   'Set rs = New ADODB.Recordset
-   sql = "set dateformat dmy select Vehicle, Date, Kgs, Customer from d_OutletVehicle where Vehicle ='" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
-   Set rst = New ADODB.Recordset
-   rst.Open sql, cn
-    If rst.EOF Then
-    sql = ""
-    sql = "set dateformat dmy insert into  d_OutletVehicle(Vehicle, Date, Kgs, Customer)"
-    sql = sql & "  values('" & cboVehicle & "','" & txtdateenterered.value & "'," & txtDispatch.Text & ",'null')"
-    cn.Execute sql
-   Else
-    sql = ""
-    sql = "set dateformat DMY update d_OutletVehicle set Kgs=" & txtDispatch.Text + rst.Fields(2) & " where Vehicle ='" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
-    cn.Execute sql
-   End If
-'''''check if already dispatch to vehicle
-    sql = ""
-    sql = "select * from d_OutletDispatch where Vehicle= '" & cboVehicle & "' AND Date ='" & txtdateenterered.value & "'"
-    Set rsinstock = oSaccoMaster.GetRecordset(sql)
-    If rsinstock.EOF Then
-        sql = ""
-        sql = "set dateformat dmy insert into  d_OutletDispatch(Date, Vehicle, OutletName, Quantity)"
-        sql = sql & "  values('" & txtdateenterered.value & "','" & cboVehicle & "','Null','" & txtDispatch.Text & "')"
-        cn.Execute sql
-    Else
-        sql = ""
-        sql = "set dateformat DMY Update d_OutletDispatch SET Vehicle= '" & cboVehicle & "', Date='" & txtdateenterered.value & "',Quantity='" & txtDispatch.Text + rsinstock.Fields(4) & "' WHERE Vehicle= '" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
-        cn.Execute sql
-    End If
-'''''end
+               '''''''check if the record exist'''''''''''''
+                Set rst = New ADODB.Recordset
+                sql = ""
+                sql = "set dateformat dmy select p_code, p_name, Date_Entered, Qin, Qout, o_bal, user_id, Wprice, Rprice, Branch from d_Outlet where p_name='" & cboNames & "' "
+                rst.Open sql, cn
+                
+              sql = ""
+              sql = "set dateformat dmy select P_CODE,qout,Qin,Rprice from d_Outlet where p_name='" & cboNames & "'and Date_Entered='" & txtdateenterered.value & "'"
+              Set rs = New ADODB.Recordset
+              rs.Open sql, cn
+             If Not rs.EOF Then
+                sql = "set dateformat DMY update d_Outlet set p_name='" & cboNames.Text & "',Qin=" & rs.Fields("Qin") - txtDispatch.Text & ",Qout=" & rs.Fields("qout") - txtDispatch.Text & ",o_bal=" & rs.Fields("qout") - txtDispatch.Text & ",Date_Entered='" & txtdateenterered.value & "' where p_code='" & rst.Fields(0) & "' and branch='" & rst.Fields(9) & "'and Date_Entered='" & txtdateenterered.value & "'"
+                cn.Execute sql
+                
+             End If
+             
+                sql = "set dateformat dmy select Date_Entered, p_name, Quantity, OutletName from d_Outletstock where Date_Entered='" & txtdateenterered.value & "' and p_name='" & cboNames & "'AND OutletName ='" & rst.Fields(9) & "'"
+                Set rss = New ADODB.Recordset
+                rss.Open sql, cn
+                If Not rss.EOF Then
+                    sql = "set dateformat DMY update d_Outletstock set Quantity =" & rss.Fields(2) - txtDispatch.Text & " where p_name='" & cboNames & "'and Date_Entered='" & txtdateenterered.value & "' and OutletName='" & rst.Fields(9) & "'"
+                    cn.Execute sql
+                End If
+                
+                
+                     '//XXXXXXXXXXXXXXX
+            '********** credit agent ledger sale and stock
+                sql = "set dateformat dmy select P_CODE,qout,Qin,Rprice from d_Outlet where p_name='" & cboNames & "'and Date_Entered='" & txtdateenterered.value & "'"
+                Set rsh = oSaccoMaster.GetRecordset(sql)
+                kgs = CCur(txtDispatch) * CCur(rsh!Rprice)
+                sql = ""
+                sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values"
+                sql = sql & "('" & txtdateenterered & "','" & kgs & "','" & lblcrvehicle & "','" & lbldrstock & "','','" & cboVehicle & "' ,'SALES ON- " & "" & cboNames & "','" & User & "',0,0)"
+                oSaccoMaster.ExecuteThis (sql)
+            'XXXXXXXXXXXXXXXXXXXXXX
+        
+                 '''' behind the scene
+                 'Dim totalkgs As Double
+                    sql = "SET dateformat dmy SELECT isnull(AVG(distinct PPU),0) AS AveragePrice FROM d_Milkintake where TransDate='" & txtdateenterered & "'"
+                    Set rsg = oSaccoMaster.GetRecordset(sql)
+                    sql = "select * from GLSetDefaultGls Where Affect='Join'"
+                    Set rst = oSaccoMaster.GetRecordset(sql)
+                    totalkgss = CCur(rsg!AveragePrice) * CCur(txtDispatch)
+        
+                    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values"
+                    sql = sql & "('" & txtdateenterered & "','" & totalkgss & "','" & rst!cr & "', '" & rst!dr & "','','" & cboVehicle & "' ,'SALES ON- " & "" & cboNames & "','" & User & "','0','0')"
+                    oSaccoMaster.ExecuteThis (sql)
+            '''''''end of code behind''''''''''''''''
+            
+                     ''''* to vehicle table
+                  'If chkcustomer = 1 Then
+                   Provider = "MAZIWA"
+                   Set cn = New ADODB.Connection
+                  cn.Open Provider, "atm", "atm"
+                   'Set rs = New ADODB.Recordset
+                   sql = "set dateformat dmy select Vehicle, Date, Kgs, Customer from d_OutletVehicle where Vehicle ='" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
+                   Set rst = New ADODB.Recordset
+                   rst.Open sql, cn
+                    If Not rst.EOF Then
+                        sql = ""
+                        sql = "set dateformat DMY update d_OutletVehicle set Kgs=" & txtDispatch.Text - rst.Fields(2) & " where Vehicle ='" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
+                        cn.Execute sql
+                   End If
+                '''''check if already dispatch to vehicle
+                    sql = ""
+                    sql = "select * from d_OutletDispatch where Vehicle= '" & cboVehicle & "' AND Date ='" & txtdateenterered.value & "'"
+                    Set rsinstock = oSaccoMaster.GetRecordset(sql)
+                    If Not rsinstock.EOF Then
+                        sql = ""
+                        sql = "set dateformat DMY Update d_OutletDispatch SET Vehicle= '" & cboVehicle & "', Date='" & txtdateenterered.value & "',Quantity='" & txtDispatch.Text - rsinstock.Fields(4) & "' WHERE Vehicle= '" & cboVehicle & "' and Date='" & txtdateenterered.value & "'"
+                        cn.Execute sql
+                    End If
+                '''''end
+            
+            
+     
+     End If
+        
 End If
 '..............END OF  DAILY INTAKE INSERT FOR DEBTORS ONLY.........................
 'mysql = "set dateformat dmy Insert into Receiptno(Receiptno,Auditdate,auditid)values('" & txtRefNo & "','" & Format(Get_Server_Date, "dd/MM/yyyy") & "','" & User & "')"
@@ -2756,10 +2846,10 @@ loadBranchesTypes
 txtdcode = ""
 txtDispatch = ""
 'txtIntake = ""
-txtamount = ""
+txtAmount = ""
 txtRefNo = ""
 txtamountp = ""
-txtremarks = ""
+txtRemarks = ""
 txtdracc = ""
 txtcracc = ""
 lbldracc = ""
@@ -2777,7 +2867,7 @@ lblcracc = ""
     
  Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 
 End Sub
 
@@ -2853,7 +2943,7 @@ cboNames = ListView1.SelectedItem.SubItems(1)
 loadb
 txtDispatch = ListView1.SelectedItem.SubItems(3)
 txtamountp = ListView1.SelectedItem.SubItems(4)
-txtamount = ListView1.SelectedItem.SubItems(5)
+txtAmount = ListView1.SelectedItem.SubItems(5)
 End Sub
 'Private Sub cboNames_Validate(Cancel As Boolean)
 'Dim a As Boolean, b As Integer
@@ -2895,7 +2985,7 @@ Private Sub txtDrAccNo_Change()
     End If
     Exit Sub
 SysError:
-    MsgBox err.Description, vbInformation, Me.Caption
+    MsgBox err.description, vbInformation, Me.Caption
 
 End Sub
 Private Sub txtCrAccNo_Change()
@@ -2915,7 +3005,7 @@ Private Sub txtCrAccNo_Change()
     End If
     Exit Sub
 SysError:
-    MsgBox err.Description, vbInformation, Me.Caption
+    MsgBox err.description, vbInformation, Me.Caption
 End Sub
 
 Private Sub cmdstatement_Click()
@@ -3110,7 +3200,7 @@ txtdateenterered.MaxDate = Format(Get_Server_Date, "dd/mm/yyyy")
 'DTPcomplaintperiod = DTPMilkDate
 txtDispatch = 0
 txtsta = 0
-txtamount = 0
+txtAmount = 0
 cmdreport.Enabled = True
 lbltotal.Visible = False
 lbltotalkg.Visible = False
@@ -3215,8 +3305,8 @@ Private Sub txtPhone_Change()
 End Sub
 
 Private Sub txtprice_Change()
-If Trim(txtPrice) = "0.00" Then
-txtPrice = ""
+If Trim(txtprice) = "0.00" Then
+txtprice = ""
 End If
 'txtVehicle.SetFocus
 End Sub
@@ -3231,7 +3321,7 @@ If Not IsNull(rs.Fields(0)) Then txtNames = rs.Fields(0)
 If Not IsNull(rs.Fields(1)) Then txtId = rs.Fields(1)
 'If Not IsNull(rs.Fields(2)) Then cbolocation = rs.Fields(2)
 If Not IsNull(rs.Fields(3)) Then txtdateenterered = rs.Fields(3)
-If Not IsNull(rs.Fields(4)) Then txtEmail = rs.Fields(4)
+If Not IsNull(rs.Fields(4)) Then txtEMail = rs.Fields(4)
 If Not IsNull(rs.Fields(5)) Then txtPhone = rs.Fields(5)
 If Not IsNull(rs.Fields(6)) Then txtTown = rs.Fields(6)
 If Not IsNull(rs.Fields(7)) Then txtPAddress = rs.Fields(7)
@@ -3241,7 +3331,7 @@ If Not IsNull(rs.Fields(9)) Then txtVehicle = rs.Fields(2)
 'If Not IsNull(rs.Fields(11)) Then cboBBranch = rs.Fields(11)
 If Not IsNull(rs.Fields(12)) Then a = rs.Fields(12)
 'If Not IsNull(rs.Fields(13)) Then cboBranch = rs.Fields(13)
-If Not IsNull(rs.Fields(14)) Then txtPrice = Format(rs.Fields(14), "#0.00")
+If Not IsNull(rs.Fields(14)) Then txtprice = Format(rs.Fields(14), "#0.00")
 If Not IsNull(rs.Fields(15)) Then txtDrAccNo = rs.Fields(15)
 If Not IsNull(rs.Fields(16)) Then txtCrAccNo = rs.Fields(16)
 'If Not IsNull(rs.Fields(17)) Then txtcessrate = rs.Fields(17)
@@ -3253,8 +3343,8 @@ chkActive = vbChecked
 Else
 chkActive = vbUnchecked
 End If
-cmdEdit.Enabled = True
-cmdSave.Enabled = False
+cmdedit.Enabled = True
+cmdsave.Enabled = False
 End If
 End Sub
 
@@ -3302,8 +3392,8 @@ Private Sub Text3_Change()
 End Sub
 
 Private Sub txtAmount_Change()
-If txtamount = "" Then
- txtamount = 0
+If txtAmount = "" Then
+ txtAmount = 0
  'txtIntake.SetFocus
  Exit Sub
 End If
@@ -3354,7 +3444,7 @@ End If
 'txtdcode_Validate True
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 Private Sub txtdcode_Validate(Cancel As Boolean)
 Set rs = oSaccoMaster.GetRecordset("SELECT dname,Price,accdr,acccr,drcess,crcess,capp,crate FROM d_Debtors WHERE DCode = '" & txtdcode & "'")
@@ -3395,7 +3485,7 @@ End If
 
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub txtRefNo_Change()
@@ -3422,11 +3512,11 @@ End If
 'txtdcode_Validate True
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub txtTown_Change()
-txtPrice.SetFocus
+txtprice.SetFocus
 End Sub
 
 Private Sub txtVehicle_Click()

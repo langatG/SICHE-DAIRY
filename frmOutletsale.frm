@@ -41,7 +41,7 @@ Begin VB.Form frmOutletsale
       _ExtentX        =   2990
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   130940929
+      Format          =   111214593
       CurrentDate     =   38814
    End
    Begin VB.ComboBox cbobranch 
@@ -1881,18 +1881,34 @@ End Sub
 Private Sub cmddela_Click()
 On Error GoTo ErrorHandler
   
-  sql = ""
-  sql = "set dateformat dmy delete from d_OutletSales where PCode='" & Text1 & "' and PName='" & cboproductname1 & "' and Date='" & txtdateenterered.value & "' and Description='" & a & "'"
-  cn.Execute sql
-  '//XXXXXXXXXXXXXXX
-    '********** credit agent ledger sale and stock
-    sql = ""
-    sql = "set dateformat dmy delete from gltransactions where transdate='" & txtdateenterered.value & "' and source='" & Text2 & "' and transdescript ='SALES ON- " & "" & cbobranch & "'"
-    oSaccoMaster.ExecuteThis (sql)
+If Text2 = "" Then
+    MsgBox "Please quantity cannot be empty", vbInformation
+    Exit Sub
+End If
+
     '********** credit agent ledger and bank
-''    sql = ""
-''    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered & "'," & Lvwitems.SelectedItem.SubItems(3) & ",'" & lbldracc & "','" & Label25 & "','','" & Lvwitems.SelectedItem.SubItems(2) & "' ,'SALES ON- " & "" & cbobranch & "','" & User & "',0,0)"
-''    oSaccoMaster.ExecuteThis (sql)
+'********** credit agent ledger sale and stock
+    sql = "set dateformat dmy select P_CODE,qout,Qin,Rprice from d_Outlet where p_name='" & cboNames & "'and Date_Entered='" & txtdateenterered.value & "'"
+    Set rsh = oSaccoMaster.GetRecordset(sql)
+    'kgs = CCur(txtDispatch) * CCur(rsh!Rprice)
+    sql = ""
+    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values"
+    sql = sql & "('" & txtdateenterered & "','" & Label20 & "','" & Label26 & "','" & Label25 & "','" & Text2 & "','" & cboVehicle & "' ,'SALES ON- " & "" & cbobranch & "','" & User & "',0,0)"
+    oSaccoMaster.ExecuteThis (sql)
+'XXXXXXXXXXXXXXXXXXXXXX
+
+     '''' behind the scene
+     'Dim totalkgs As Double
+        sql = "SET dateformat dmy SELECT isnull(AVG(distinct PPU),0) AS AveragePrice FROM d_Milkintake where TransDate='" & txtdateenterered & "'"
+        Set rsg = oSaccoMaster.GetRecordset(sql)
+        sql = "select * from GLSetDefaultGls Where Affect='Join'"
+        Set rst = oSaccoMaster.GetRecordset(sql)
+        'totalkgss = CCur(rsg!AveragePrice) * CCur(txtDispatch)
+
+        sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values"
+        sql = sql & "('" & txtdateenterered & "','" & txtAmount & "','" & lblcracc & "', '" & lbldracc & "','" & Text2 & "','" & cboVehicle & "' ,'SALES ON- " & "" & cbobranch & "','" & User & "','0','0')"
+        oSaccoMaster.ExecuteThis (sql)
+'''''''end of code behind''''''''''''''''
 'XXXXXXXXXXXXXXXXXXXXXX
   
  '********************************************************************end
@@ -1901,10 +1917,16 @@ Dim rsinstock As Recordset
 sql = ""
 sql = "select p_code, p_name, Date_Entered,Qout from d_Outlet where p_code= '" & Text1 & "' and p_name= '" & cboproductname1 & "' AND  Branch='" & cbobranch & "' and Date_Entered='" & txtdateenterered & "'"
 Set rsinstock = oSaccoMaster.GetRecordset(sql)
-'Dim Qout As Integer
-'Qout = rsinstock!Qout
-sql = "set dateformat DMY Update d_Outlet SET Qout =" & rsinstock.Fields("Qout") + Text2 & " WHERE p_code= '" & Text1 & "' and Branch='" & cbobranch & "' and Date_Entered='" & txtdateenterered & "'"
-cn.Execute sql
+If Not rsinstock.EOF Then
+    sql = "set dateformat DMY Update d_Outlet SET Qout ='" & rsinstock.Fields("Qout") - Text2 & "' WHERE p_code= '" & Text1 & "' and Branch='" & cbobranch & "' and Date_Entered='" & txtdateenterered & "'"
+    cn.Execute sql
+End If
+
+  sql = ""
+  sql = "set dateformat dmy delete from d_OutletSales where PCode='" & Text1 & "' and PName='" & cboproductname1 & "' and Date='" & txtdateenterered.value & "' and Description='" & a & "'"
+  cn.Execute sql
+
+
 '*****************************************************Qout =" & rsinstock2.Fields(0) - Text2 & "
 MsgBox "Records Deleted succesfully."
 loadBranchesTypes
@@ -1931,7 +1953,7 @@ cmdnew2_Click
 
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 
 End Sub
 
@@ -1983,7 +2005,7 @@ reportname = "MILK SALES VS PURCHASES REPORT.rpt"
 Show_Sales_Crystal_Report STRFORMULA, reportname, ""
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub cmdMilkVeh_Click()
@@ -2049,7 +2071,7 @@ loaddispmilk
 
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 
 End Sub
 
@@ -2233,7 +2255,7 @@ Set rsinstock = oSaccoMaster.GetRecordset("set dateformat dmy select isnull(sum(
 
 '// check the stock if it is less than zero
 k = 0
-txtamount.Text = ""
+txtAmount.Text = ""
 
 '''''' '''convert youghart to litres
 sql = ""
@@ -2395,10 +2417,10 @@ Label18 = ""
 Label38 = ""
 chkretail.value = vbUnchecked
 chkWhole.value = vbUnchecked
-txtamount.SetFocus
+txtAmount.SetFocus
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub cmdoutsalesre_Click()
@@ -2517,7 +2539,7 @@ End If
 
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 Private Sub kamorok()
 sql = ""
@@ -2754,7 +2776,7 @@ Loop
 End If
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub cmdReportoutlet_Click()
@@ -2790,7 +2812,7 @@ On Error GoTo ErrorHandler
 'Exit Sub
 'End If
 
-If txtamount = "" Then
+If txtAmount = "" Then
 MsgBox "Amount paid needed", vbInformation
 Exit Sub
 End If
@@ -2910,10 +2932,10 @@ Next j
 
 '''''insert gl ''''''''''''
 '********** credit agent ledger and bank
-If txtamount > 0 Then
+If txtAmount > 0 Then
 
     sql = ""
-    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered & "','" & txtamount & "','" & lbldracc & "','" & Label25 & "','','" & cboproductname1 & "' ,'SALES ON- " & "" & cbobranch & "','" & User & "',0,0)"
+    sql = "set dateformat dmy insert into gltransactions(transdate,amount,draccno,craccno,documentno,source,transdescript,auditid,cash,doc_posted) values('" & txtdateenterered & "','" & txtAmount & "','" & lbldracc & "','" & Label25 & "','','" & cboproductname1 & "' ,'SALES ON- " & "" & cbobranch & "','" & User & "',0,0)"
     oSaccoMaster.ExecuteThis (sql)
 End If
 '''''end '''''''''
@@ -2944,7 +2966,7 @@ cmdnew2_Click
 
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub cmdSearch_Click()
@@ -3008,7 +3030,7 @@ Loop
 'End If
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 
 End Sub
 Private Sub Form_Load()
@@ -3037,7 +3059,7 @@ On Error GoTo ErrorHandler
     cmdsave1.Enabled = False
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub lblcracc_Change()
@@ -3181,7 +3203,7 @@ Private Sub listview1_DblClick()
 chkWhole = 0
 chkretail = 0
 k = 1
-txtamount.Text = ""
+txtAmount.Text = ""
 cbobranch = ListView1.SelectedItem.SubItems(7)
 txtdateenterered = ListView1.SelectedItem
 txtpaybill = ListView1.SelectedItem.SubItems(6)
@@ -3193,7 +3215,8 @@ If ListView1.SelectedItem.SubItems(5) = "Whole sales" Then
 Else
  chkretail = 1
 End If
-txtamount.Text = ListView1.SelectedItem.SubItems(3)
+TXTTOTAL = ListView1.SelectedItem.SubItems(3)
+txtAmount.Text = ListView1.SelectedItem.SubItems(4)
 End Sub
 
 Private Sub ListView30_DblClick()
@@ -3348,7 +3371,7 @@ loadpro
 MsgBox "Record Saved Successfully"
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 
 End Sub
 
@@ -3590,7 +3613,7 @@ chkretail.value = vbChecked
 
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub Timer1_Timer()
@@ -3624,7 +3647,7 @@ Enddate = DateSerial(Year(Startdate), month(Startdate) + 1, 1 - 1)
       sql = "set dateformat dmy SELECT Quant, Paid, Description  FROM d_OutletSales  WHERE PCode ='" & mtn!p_code & "' AND Date ='" & mtn!Date_Entered & "'"
       Set rr = oSaccoMaster.GetRecordset(sql)
       If Not rr.EOF Then
-        If rr!Description = "Retail sales" Then
+        If rr!description = "Retail sales" Then
            Price = mtn!Rprice
         Else
            Price = mtn!Wprice
@@ -3744,7 +3767,7 @@ MsgBox "Completed succesfully ", vbInformation
 Timer1.Enabled = False
     Exit Sub
 SysError:
-MsgBox err.Description, vbInformation, Me.Caption
+MsgBox err.description, vbInformation, Me.Caption
 End Sub
 
 Private Sub txtAmount_Change()
@@ -3767,10 +3790,10 @@ On Error Resume Next
 'Exit Sub
 'End If
 'End If
-TXTCHANGE = txtamount - TXTTOTAL
+TXTCHANGE = txtAmount - TXTTOTAL
     Exit Sub
 SysError:
-MsgBox err.Description, vbInformation, Me.Caption
+MsgBox err.description, vbInformation, Me.Caption
 End Sub
 
 Private Sub txtCrAccNo_Change()
@@ -3790,7 +3813,7 @@ Private Sub txtCrAccNo_Change()
     End If
     Exit Sub
 SysError:
-MsgBox err.Description, vbInformation, Me.Caption
+MsgBox err.description, vbInformation, Me.Caption
 End Sub
 
 Private Sub txtdateenterered_Change()
@@ -3842,7 +3865,7 @@ Private Sub txtDrAccNo_Change()
     End If
     Exit Sub
 SysError:
-    MsgBox err.Description, vbInformation, Me.Caption
+    MsgBox err.description, vbInformation, Me.Caption
 End Sub
 
 Private Sub txtMilkd_Change()
@@ -3889,7 +3912,7 @@ On Error GoTo ErrorHandler
 
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub txtpname_Click()
@@ -3916,7 +3939,7 @@ On Error GoTo ErrorHandler
 
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub txtquantity_Change()
@@ -3939,10 +3962,10 @@ On Error GoTo ErrorHandler
 '*******************end ************************
 Exit Sub
 ErrorHandler:
-MsgBox err.Description
+MsgBox err.description
 End Sub
 
 Private Sub txttotal_Change()
 On Error Resume Next
-TXTCHANGE = txtamount - TXTTOTAL
+TXTCHANGE = txtAmount - TXTTOTAL
 End Sub
